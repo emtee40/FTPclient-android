@@ -133,9 +133,14 @@ class FilesFragment : Fragment() {
                     connection = arguments?.getInt("connection")?.let {
                         AppDatabase.getInstance(requireContext()).connectionDao()
                             .get(it.toLong())
-                    }!!
-                    ftpClient.connect(connection.server)
-                    ftpClient.login(connection.username, connection.password)
+                    }!! // get connection from connection id, which is stored in the arguments
+                    if (!ftpClient.isConnected) {
+                        ftpClient.connect(connection.server)
+                        ftpClient.login(
+                            connection.username,
+                            connection.password
+                        ) // connect to server and login with login credentials
+                    }
                     files = if (directory == "") {
                         ftpClient.listFiles()
                     } else {
@@ -148,7 +153,7 @@ class FilesFragment : Fragment() {
                         } else {
                             binding.textviewEmptyDir.isVisible = false
                             binding.recyclerviewFiles.adapter =
-                                FilesAdapter(requireContext(), files, {
+                                FilesAdapter(requireContext(), files, { // how to handle single clicks on items
                                     if (it.isDirectory) {
                                         val options = Bundle()
                                         options.putString("directory", "$directory/${it.name}")
@@ -166,7 +171,7 @@ class FilesFragment : Fragment() {
                                             { updateUi() },
                                             { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
-                                }, {
+                                }, { // how to handle long clicks on items
                                     if (it.isDirectory) {
                                         DirectoryActionsBottomSheet(
                                             it,
@@ -190,7 +195,7 @@ class FilesFragment : Fragment() {
                     e.printStackTrace()
                     withContext(Dispatchers.Main) {
                         binding.progressIndicatorFiles.isVisible = false
-                        AlertDialog.Builder(requireContext())
+                        AlertDialog.Builder(requireContext()) // show error dialog
                             .setTitle(R.string.error_occurred)
                             .setMessage(R.string.error_descriptions)
                             .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
