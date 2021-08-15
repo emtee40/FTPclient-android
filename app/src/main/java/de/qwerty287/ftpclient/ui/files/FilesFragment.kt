@@ -42,17 +42,14 @@ class FilesFragment : Fragment() {
         ActivityResultContracts.StartActivityForResult()) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val inputStream = it.data?.data?.let { it1 ->
-                    requireContext().contentResolver.openInputStream(it1)
+                val uri = it.data?.data
+                if (uri != null) {
+                    val inputStream = requireContext().contentResolver.openInputStream(uri)
+                    // TODO show progress
+                    ftpClient.storeFile(getAbsoluteFilePath(getFilenameFromUri(uri)), inputStream)
+                    inputStream?.close()
+                    updateUi()
                 }
-                // TODO show progress
-                ftpClient.storeFile(it.data?.data?.let { it1 ->
-                    getFilenameFromUri(
-                        it1
-                    )
-                }?.let { it2 -> getAbsoluteFilePath(it2) }, inputStream)
-                inputStream?.close()
-                updateUi()
             }
         }
     }
