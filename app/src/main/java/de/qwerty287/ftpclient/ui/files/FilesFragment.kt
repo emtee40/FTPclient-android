@@ -141,13 +141,13 @@ class FilesFragment : Fragment() {
                             connection.password
                         ) // connect to server and login with login credentials
                     }
-                    files = if (directory == "") {
+                    files = if (directory == "") { // get files
                         ftpClient.listFiles()
                     } else {
                         ftpClient.listFiles(directory)
                     }
                     withContext(Dispatchers.Main) {
-                        if (files.isEmpty()) {
+                        if (files.isEmpty()) { // set up recyclerview or textview
                             binding.textviewEmptyDir.isVisible = true
                             binding.recyclerviewFiles.adapter = null
                         } else {
@@ -189,7 +189,7 @@ class FilesFragment : Fragment() {
                                     }
                                 })
                         }
-                        binding.progressIndicatorFiles.isVisible = false
+                        binding.progressIndicatorFiles.isVisible = false // hide loading indicator
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -227,7 +227,7 @@ class FilesFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                try {
+                try { // logout and disconnect
                     ftpClient.logout()
                     ftpClient.disconnect()
                 } catch (e: Exception) {
@@ -237,6 +237,10 @@ class FilesFragment : Fragment() {
         }
     }
 
+    /**
+     * Get the absolute file path of a file in the directory
+     * @param fileName the name of the file, without parent directories
+     */
     private fun getAbsoluteFilePath(fileName: String): String {
         return if (directory != "") {
             "$directory/$fileName"
@@ -245,6 +249,11 @@ class FilesFragment : Fragment() {
         }
     }
 
+    /**
+     * Get the filename of a file in the mentioned [android.net.Uri]
+     * @param uri [android.net.Uri] of the file
+     * @return the display name/file name of the file behind the URI
+     */
     private fun getFilenameFromUri(uri: Uri): String {
         val uriString = uri.toString()
         val file = File(uriString)
@@ -267,6 +276,12 @@ class FilesFragment : Fragment() {
         return displayName
     }
 
+    /**
+     * Show an information snackbar
+     * @param success if the operation was successful
+     * @param successRes the text that is shown if the operation was successful
+     * @param failedRes the text that is shown if the operation failed
+     */
     private fun showSnackbar(success: Boolean, @StringRes successRes: Int, @StringRes failedRes: Int) {
         Snackbar.make(binding.root, if (success) {
             successRes
