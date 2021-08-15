@@ -109,6 +109,9 @@ class FilesFragment : Fragment() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    binding.progressIndicatorFiles.isVisible = true
+                }
                 try {
                     connection = arguments?.getInt("connection")?.let {
                         AppDatabase.getInstance(requireContext()).connectionDao()
