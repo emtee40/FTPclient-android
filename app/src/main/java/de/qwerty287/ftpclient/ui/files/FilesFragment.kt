@@ -125,7 +125,7 @@ class FilesFragment : Fragment() {
                         ftpClient.listFiles(directory)
                     }
                     withContext(Dispatchers.Main) {
-                        binding.recyclerviewFiles.adapter = FilesAdapter(requireContext(), files) {
+                        binding.recyclerviewFiles.adapter = FilesAdapter(requireContext(), files, {
                             if (it.isDirectory) {
                                 val options = Bundle()
                                 options.putString("directory", "$directory/${it.name}")
@@ -142,7 +142,11 @@ class FilesFragment : Fragment() {
                                     directory,
                                 ) { updateUi() }
                             }
-                        }
+                        }, {
+                            if (it.isDirectory) {
+                                DirectoryActionsBottomSheet(it, requireActivity().supportFragmentManager, ftpClient, directory) { updateUi() }
+                            }
+                        })
                         binding.progressIndicatorFiles.isVisible = false
                     }
                 } catch (e: Exception) {

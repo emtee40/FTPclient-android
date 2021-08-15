@@ -36,4 +36,6 @@
     <string name="group">Gruppe</string>
     <string name="dir_name">Verzeichnisname</string>
     <string name="enter_dir_name">Verzeichnisname eingeben</string>
+    <string name="delete_dir_confirmation">Möchten Sie dieses Verzeichnis wirklich löschen?</string>
+    <string name="dir_delete_message">Das Verzeichnis muss leer sein. Wenn es nicht leer ist, wird nichts passieren.</string>
 </resources>

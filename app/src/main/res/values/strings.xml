@@ -37,4 +37,6 @@
     <string name="group">Group</string>
     <string name="dir_name">Directory name</string>
     <string name="enter_dir_name">Enter directory name</string>
+    <string name="delete_dir_confirmation">Do you really want to delete this directory?</string>
+    <string name="dir_delete_message">The directory has to be empty. If it\'s not empty, nothing will happen.</string>
 </resources>

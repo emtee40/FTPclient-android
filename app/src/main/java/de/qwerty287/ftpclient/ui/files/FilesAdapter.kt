@@ -13,7 +13,8 @@ import org.apache.commons.net.ftp.FTPFile
 internal class FilesAdapter(
     private val context: Context,
     private val files: Array<FTPFile>,
-    private val onClick: (FTPFile) -> Unit
+    private val onClick: (FTPFile) -> Unit,
+    private val onLongClick: (FTPFile) -> Unit
 ) :
     RecyclerView.Adapter<FilesAdapter.ViewHolder>() {
 
@@ -35,11 +36,19 @@ internal class FilesAdapter(
             holder.file.setOnClickListener { 
                 onClick(files[position])
             }
+            holder.file.setOnLongClickListener {
+                onLongClick(files[position])
+                true
+            }
         } else if (files[position].isDirectory) {
             holder.file.isVisible = false
             holder.directory.text = files[position].name
             holder.directory.setOnClickListener { 
                 onClick(files[position])
+            }
+            holder.directory.setOnLongClickListener {
+                onLongClick(files[position])
+                true
             }
         } else {
             holder.directory.isVisible = false
