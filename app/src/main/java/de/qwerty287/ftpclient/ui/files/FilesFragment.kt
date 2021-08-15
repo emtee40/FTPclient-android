@@ -173,6 +173,14 @@ class FilesFragment : Fragment() {
                                             requireActivity().supportFragmentManager,
                                             ftpClient,
                                             directory, { updateUi() }, {itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+                                    } else if (it.isFile) {
+                                        FileActionsBottomSheet(
+                                            it,
+                                            requireActivity().supportFragmentManager,
+                                            ftpClient,
+                                            directory,
+                                            { updateUi() },
+                                            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
                                 })
                         }
