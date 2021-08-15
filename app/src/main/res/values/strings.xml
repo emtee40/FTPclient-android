@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">FTPClient</string>
+
+    <string name="connections_fragment_label">Connections</string>
+    <string name="files_fragment_label">Files</string>
+
+    <string name="download_file">Download</string>
+    <string name="add_connection">Add connection</string>
+    <string name="title">Title</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="server">Server</string>
+    <string name="error_occurred">An error occurred</string>
+    <string name="file_properties">Properties</string>
+    <string name="filename">Filename</string>
+    <string name="size">Size</string>
+    <string name="owner">Owner</string>
+    <string name="bytes">%s Byte</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirmation">Do you really want to delete this file?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="error_descriptions">Probably, you just don\'t have an internet connection, the server is currently not reachable or your login credentials are not correct. If you think, this is a problem with the application, you can copy the error details.</string>
+    <string name="copy">Copy</string>
+    <string name="no_connections">No connections</string>
+    <string name="add_file">Add file</string>
+    <string name="select_file">Select file</string>
+    <string name="delete_connection_confirmation">Do you really want to delete this connection?</string>
+    <string name="edit">Edit</string>
+    <string name="rename">Rename</string>
+    <string name="new_filename">New filename</string>
+    <string name="enter_new_filename">Enter new filename</string>
+    <string name="group">Group</string>
+</resources>

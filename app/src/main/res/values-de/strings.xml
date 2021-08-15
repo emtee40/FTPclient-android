@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FTPClient</string>
+    <string name="connections_fragment_label">Verbindungen</string>
+    <string name="files_fragment_label">Dateien</string>
+    <string name="download_file">Herunterladen</string>
+    <string name="add_connection">Verbindung hinzufügen</string>
+    <string name="title">Name</string>
+    <string name="password">Passwort</string>
+    <string name="username">Benutzername</string>
+    <string name="server">Server</string>
+    <string name="error_occurred">Ein Fehler ist aufgetreten</string>
+    <string name="file_properties">Eigenschaften</string>
+    <string name="filename">Dateiname</string>
+    <string name="size">Größe</string>
+    <string name="owner">Besitzer</string>
+    <string name="bytes">%s Byte</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="delete">Löschen</string>
+    <string name="delete_confirmation">Möchten Sie diese Datei wirklich löschen?</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="ok">OK</string>
+    <string name="copy">Kopieren</string>
+    <string name="no_connections">Keine Verbindungen</string>
+    <string name="add_file">Datei hinzufügen</string>
+    <string name="select_file">Datei auswählen</string>
+    <string name="delete_connection_confirmation">Möchten Sie diese Verbindung wirklich löschen?</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="rename">Umbenennen</string>
+    <string name="new_filename">Neuer Dateiname</string>
+    <string name="enter_new_filename">Neuen Dateinamen eingeben</string>
+    <string name="error_descriptions">Wahrscheinlich haben Sie keine Internetverbindung, der Server ist aktuell nicht erreichbar oder die Logindaten sind nicht korrekt. Wenn Sie denken, dass dies ein Problem mit der Anwendung ist, können Sie die Fehlerdetails kopieren.</string>
+    <string name="group">Gruppe</string>
+</resources>

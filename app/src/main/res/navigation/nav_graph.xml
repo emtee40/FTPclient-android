@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/ConnectionsFragment">
+
+    <action
+        android:id="@+id/action_to_FilePropertiesFragment"
+        app:destination="@id/FilePropertiesFragment"/>
+
+    <fragment
+        android:id="@+id/ConnectionsFragment"
+        android:name="de.qwerty287.ftpclient.ui.connections.ConnectionsFragment"
+        android:label="@string/connections_fragment_label"
+        tools:layout="@layout/fragment_connections">
+
+        <action
+            android:id="@+id/action_ConnectionsFragment_to_FilesFragment"
+            app:destination="@id/FilesFragment" />
+
+        <action
+            android:id="@+id/action_ConnectionsFragment_to_AddConnectionFragment"
+            app:destination="@id/AddConnectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/FilesFragment"
+        android:name="de.qwerty287.ftpclient.ui.files.FilesFragment"
+        android:label="@string/files_fragment_label"
+        tools:layout="@layout/fragment_files">
+
+        <action
+            android:id="@+id/action_FilesFragment_to_ConnectionsFragment"
+            app:destination="@id/ConnectionsFragment" />
+
+        <action
+            android:id="@+id/action_FilesFragment_to_FilesFragment"
+            app:destination="@id/FilesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddConnectionFragment"
+        android:name="de.qwerty287.ftpclient.ui.connections.AddConnectionFragment"
+        android:label="@string/add_connection"/>
+
+    <fragment
+        android:id="@+id/FilePropertiesFragment"
+        android:name="de.qwerty287.ftpclient.ui.files.FilePropertiesFragment"
+        android:label="@string/file_properties"/>
+</navigation>

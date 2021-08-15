@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/filename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="12dp"
+        android:layout_marginStart="48dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/download_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/download_file"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:drawablePadding="24dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_download_24"/>
+
+    <TextView
+        android:id="@+id/file_properties"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/file_properties"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:drawablePadding="24dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_info_24"/>
+
+    <TextView
+        android:id="@+id/delete_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:drawablePadding="24dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_delete_24"/>
+
+    <TextView
+        android:id="@+id/rename_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rename"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:drawablePadding="24dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_edit_24"/>
+
+</LinearLayout>
