@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.qwerty287.ftpclient.R
@@ -46,6 +47,10 @@ class FilePropertiesFragment : Fragment() {
             return
         }
 
+        if (file!!.isDirectory) {
+            binding.fileSizeLayout.isVisible = false
+        }
+        
         binding.filename.text = file!!.name
         binding.fileSize.text = getFileByteString()
         binding.fileOwner.text = file!!.user
