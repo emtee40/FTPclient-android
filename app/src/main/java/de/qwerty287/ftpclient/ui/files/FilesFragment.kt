@@ -144,7 +144,9 @@ class FilesFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) {
                             binding.textviewEmptyDir.isVisible = true
+                            binding.recyclerviewFiles.adapter = null
                         } else {
+                            binding.textviewEmptyDir.isVisible = false
                             binding.recyclerviewFiles.adapter =
                                 FilesAdapter(requireContext(), files, {
                                     if (it.isDirectory) {
