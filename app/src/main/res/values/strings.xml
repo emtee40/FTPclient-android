@@ -35,4 +35,6 @@
     <string name="new_filename">New filename</string>
     <string name="enter_new_filename">Enter new filename</string>
     <string name="group">Group</string>
+    <string name="dir_name">Directory name</string>
+    <string name="enter_dir_name">Enter directory name</string>
 </resources>

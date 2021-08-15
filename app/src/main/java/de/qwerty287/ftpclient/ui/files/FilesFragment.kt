@@ -9,6 +9,7 @@ import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -74,6 +75,27 @@ class FilesFragment : Fragment() {
         binding.recyclerviewFiles.layoutManager = LinearLayoutManager(requireContext())
 
         updateUi()
+
+        binding.fabAddDir.setOnClickListener {
+            val view2 = layoutInflater.inflate(R.layout.dialog_entry, null)
+            val editText = view2.findViewById<EditText>(R.id.edittext_dialog)
+            editText.hint = getString(R.string.dir_name)
+            AlertDialog.Builder(requireContext())
+                .setTitle(R.string.enter_dir_name)
+                .setView(view2)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
+                    val dirName = editText.text.toString()
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            ftpClient.makeDirectory(getAbsoluteFilePath(dirName))
+                            updateUi()
+                        }
+                    }
+                }
+                .create()
+                .show()
+        }
 
         binding.fabAddFile.setOnClickListener {
             val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
