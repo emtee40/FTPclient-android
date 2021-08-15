@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -98,7 +99,13 @@ class FilesFragment : Fragment() {
                     val dirName = editText.text.toString()
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            ftpClient.makeDirectory(getAbsoluteFilePath(dirName))
+                            val success = try {
+                                ftpClient.makeDirectory(getAbsoluteFilePath(dirName))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                false
+                            }
+                            showSnackbar(success, R.string.dir_creation_completed, R.string.dir_creation_failed)
                             updateUi()
                         }
                     }
@@ -155,7 +162,7 @@ class FilesFragment : Fragment() {
                                             ftpClient,
                                             directory,
                                             { updateUi() },
-                                            { itBool -> showDownloadSnackbar(itBool) })
+                                            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
                                 }, {
                                     if (it.isDirectory) {
@@ -163,8 +170,7 @@ class FilesFragment : Fragment() {
                                             it,
                                             requireActivity().supportFragmentManager,
                                             ftpClient,
-                                            directory
-                                        ) { updateUi() }
+                                            directory, { updateUi() }, {itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
                                 })
                         }
@@ -246,11 +252,11 @@ class FilesFragment : Fragment() {
         return displayName
     }
 
-    private fun showDownloadSnackbar(success: Boolean) {
+    private fun showSnackbar(success: Boolean, @StringRes successRes: Int, @StringRes failedRes: Int) {
         Snackbar.make(binding.root, if (success) {
-            R.string.download_completed
+            successRes
         } else {
-            R.string.download_failed
+            failedRes
         }, Snackbar.LENGTH_SHORT).show()
     }
 }

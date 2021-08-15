@@ -24,7 +24,8 @@ class DirectoryActionsBottomSheet(
     fm: FragmentManager,
     private val client: FTPClient,
     private val currentDirectory: String,
-    private val updateParent: () -> Unit
+    private val updateParent: () -> Unit,
+    private val showSnackbar: ((Boolean, Int, Int) -> Unit)
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetDirectoryActionsBinding? = null
@@ -64,7 +65,14 @@ class DirectoryActionsBottomSheet(
                 .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            client.removeDirectory(getAbsoluteFilePath())
+                            val success = try {
+                                client.removeDirectory(getAbsoluteFilePath())
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                false
+                            }
+                            println(success)
+                            showSnackbar(success, R.string.delete_completed, R.string.deletion_failed)
                             updateParent()
                         }
                     }
@@ -86,7 +94,13 @@ class DirectoryActionsBottomSheet(
                     val newName = editText.text.toString()
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                            val success = try {
+                                client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                false
+                            }
+                            showSnackbar(success, R.string.renaming_completed, R.string.renaming_failed)
                             updateParent()
                         }
                     }

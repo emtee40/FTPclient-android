@@ -43,4 +43,10 @@
     <string name="download_completed">Download abgeschlossen</string>
     <string name="download_failed">Download fehlgeschlagen</string>
     <string name="directory_is_empty">Verzeichnis ist leer</string>
+    <string name="delete_completed">Löschen abgeschlossen</string>
+    <string name="deletion_failed">Löschen fehlgeschlagen</string>
+    <string name="renaming_completed">Umbenennen abgeschlossen</string>
+    <string name="renaming_failed">Umbenennen fehlgeschlagen</string>
+    <string name="dir_creation_completed">Verzeichniserstellung abgeschlossen</string>
+    <string name="dir_creation_failed">Verzeichniserstellung fehlgeschlagen</string>
 </resources>

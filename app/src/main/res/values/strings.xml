@@ -44,4 +44,10 @@
     <string name="download_completed">Download completed</string>
     <string name="download_failed">Download failed</string>
     <string name="directory_is_empty">Directory is empty</string>
+    <string name="delete_completed">Deletion completed</string>
+    <string name="deletion_failed">Deletion failed</string>
+    <string name="renaming_completed">Renaming completed</string>
+    <string name="renaming_failed">Renamig failed</string>
+    <string name="dir_creation_completed">Directory creation completed</string>
+    <string name="dir_creation_failed">Directory creation failed</string>
 </resources>

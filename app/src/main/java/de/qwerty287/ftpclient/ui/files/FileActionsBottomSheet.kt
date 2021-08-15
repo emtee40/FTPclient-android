@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -28,7 +29,7 @@ class FileActionsBottomSheet(
     private val client: FTPClient,
     private val directory: String,
     private val updateParent: (() -> Unit),
-    private val showDownloadSnackbar: ((Boolean) -> Unit)
+    private val showSnackbar: ((Boolean, Int, Int) -> Unit)
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetFileActionsBinding? = null
@@ -47,7 +48,7 @@ class FileActionsBottomSheet(
                         false
                     }
                     outputStream?.close()
-                    showDownloadSnackbar(success)
+                    showSnackbar(success, R.string.download_completed, R.string.download_failed)
                     println(success)
                 }
                 dismiss()
@@ -97,7 +98,13 @@ class FileActionsBottomSheet(
                 .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            client.deleteFile(getAbsoluteFilePath())
+                            val success = try {
+                                client.deleteFile(getAbsoluteFilePath())
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                false
+                            }
+                            showSnackbar(success, R.string.delete_completed, R.string.deletion_failed)
                             updateParent()
                         }
                     }
@@ -119,7 +126,13 @@ class FileActionsBottomSheet(
                     val newName = editText.text.toString()
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
-                            client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                            val success = try {
+                                client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                                false
+                            }
+                            showSnackbar(success, R.string.renaming_completed, R.string.renaming_failed)
                             updateParent()
                         }
                     }
