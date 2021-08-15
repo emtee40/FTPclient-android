@@ -42,4 +42,18 @@
         android:textSize="16sp"
         app:drawableStartCompat="@drawable/ic_baseline_edit_24"/>
 
+    <TextView
+        android:id="@+id/copy_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/copy"
+        android:layout_gravity="center_vertical"
+        android:background="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        android:drawablePadding="24dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        app:drawableStartCompat="@drawable/ic_baseline_content_copy_24"/>
+
 </LinearLayout>

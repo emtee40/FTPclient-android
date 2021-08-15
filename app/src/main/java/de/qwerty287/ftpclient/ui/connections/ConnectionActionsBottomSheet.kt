@@ -69,6 +69,14 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
             findNavController().navigate(R.id.action_ConnectionsFragment_to_AddConnectionFragment, options)
             dismiss()
         }
+
+        binding.copyConnection.setOnClickListener {
+            val newConn = Connection(connection.title, connection.server, connection.username, connection.password)
+            lifecycleScope.launch {
+                db.connectionDao().insert(newConn)
+            }
+            dismiss()
+        }
     }
 
     override fun onDestroyView() {
