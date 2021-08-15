@@ -38,4 +38,8 @@
     <string name="enter_dir_name">Verzeichnisname eingeben</string>
     <string name="delete_dir_confirmation">Möchten Sie dieses Verzeichnis wirklich löschen?</string>
     <string name="dir_delete_message">Das Verzeichnis muss leer sein. Wenn es nicht leer ist, wird nichts passieren.</string>
+    <string name="upload_completed">Upload abgeschlossen</string>
+    <string name="upload_failed">Upload fehlgeschlagen</string>
+    <string name="download_completed">Download abgeschlossen</string>
+    <string name="download_failed">Download fehlgeschlagen</string>
 </resources>

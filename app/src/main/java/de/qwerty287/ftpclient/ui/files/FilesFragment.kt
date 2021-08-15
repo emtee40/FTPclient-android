@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.R
@@ -45,9 +46,21 @@ class FilesFragment : Fragment() {
                 val uri = it.data?.data
                 if (uri != null) {
                     val inputStream = requireContext().contentResolver.openInputStream(uri)
-                    // TODO show progress
-                    ftpClient.storeFile(getAbsoluteFilePath(getFilenameFromUri(uri)), inputStream)
+                    val success: Boolean = try {
+                        ftpClient.storeFile(
+                            getAbsoluteFilePath(getFilenameFromUri(uri)),
+                            inputStream
+                        )
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        false
+                    }
                     inputStream?.close()
+                    Snackbar.make(binding.root, if (success) {
+                        R.string.upload_completed
+                    } else {
+                        R.string.upload_failed
+                           }, Snackbar.LENGTH_SHORT ).show()
                     updateUi()
                 }
             }
@@ -122,28 +135,39 @@ class FilesFragment : Fragment() {
                         ftpClient.listFiles(directory)
                     }
                     withContext(Dispatchers.Main) {
-                        binding.recyclerviewFiles.adapter = FilesAdapter(requireContext(), files, {
-                            if (it.isDirectory) {
-                                val options = Bundle()
-                                options.putString("directory", "$directory/${it.name}")
-                                options.putInt("connection", connection.id)
-                                findNavController().navigate(
-                                    R.id.action_FilesFragment_to_FilesFragment,
-                                    options
-                                )
-                            } else if (it.isFile) {
-                                FileActionsBottomSheet(
-                                    it,
-                                    requireActivity().supportFragmentManager,
-                                    ftpClient,
-                                    directory,
-                                ) { updateUi() }
-                            }
-                        }, {
-                            if (it.isDirectory) {
-                                DirectoryActionsBottomSheet(it, requireActivity().supportFragmentManager, ftpClient, directory) { updateUi() }
-                            }
-                        })
+                        if (files.isEmpty()) {
+                            binding.textviewEmptyDir.isVisible = true
+                        } else {
+                            binding.recyclerviewFiles.adapter =
+                                FilesAdapter(requireContext(), files, {
+                                    if (it.isDirectory) {
+                                        val options = Bundle()
+                                        options.putString("directory", "$directory/${it.name}")
+                                        options.putInt("connection", connection.id)
+                                        findNavController().navigate(
+                                            R.id.action_FilesFragment_to_FilesFragment,
+                                            options
+                                        )
+                                    } else if (it.isFile) {
+                                        FileActionsBottomSheet(
+                                            it,
+                                            requireActivity().supportFragmentManager,
+                                            ftpClient,
+                                            directory,
+                                            { updateUi() },
+                                            { itBool -> showDownloadSnackbar(itBool) })
+                                    }
+                                }, {
+                                    if (it.isDirectory) {
+                                        DirectoryActionsBottomSheet(
+                                            it,
+                                            requireActivity().supportFragmentManager,
+                                            ftpClient,
+                                            directory
+                                        ) { updateUi() }
+                                    }
+                                })
+                        }
                         binding.progressIndicatorFiles.isVisible = false
                     }
                 } catch (e: Exception) {
@@ -220,5 +244,13 @@ class FilesFragment : Fragment() {
             displayName = file.name
         }
         return displayName
+    }
+
+    private fun showDownloadSnackbar(success: Boolean) {
+        Snackbar.make(binding.root, if (success) {
+            R.string.download_completed
+        } else {
+            R.string.download_failed
+        }, Snackbar.LENGTH_SHORT).show()
     }
 }

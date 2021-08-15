@@ -27,7 +27,8 @@ class FileActionsBottomSheet(
     fm: FragmentManager,
     private val client: FTPClient,
     private val directory: String,
-    private val updateParent: (() -> Unit)
+    private val updateParent: (() -> Unit),
+    private val showDownloadSnackbar: ((Boolean) -> Unit)
 ) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetFileActionsBinding? = null
@@ -39,8 +40,15 @@ class FileActionsBottomSheet(
                 val uri = it.data?.data
                 if (uri != null) {
                     val outputStream = requireContext().contentResolver.openOutputStream(uri)
-                    client.retrieveFile(getAbsoluteFilePath(), outputStream)
+                    val success = try {
+                        client.retrieveFile(getAbsoluteFilePath(), outputStream)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        false
+                    }
                     outputStream?.close()
+                    showDownloadSnackbar(success)
+                    println(success)
                 }
                 dismiss()
             }

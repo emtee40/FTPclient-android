@@ -39,4 +39,9 @@
     <string name="enter_dir_name">Enter directory name</string>
     <string name="delete_dir_confirmation">Do you really want to delete this directory?</string>
     <string name="dir_delete_message">The directory has to be empty. If it\'s not empty, nothing will happen.</string>
+    <string name="upload_completed">Upload completed</string>
+    <string name="upload_failed">Upload failed</string>
+    <string name="download_completed">Download completed</string>
+    <string name="download_failed">Download failed</string>
+    <string name="directory_is_empty">Directory is empty</string>
 </resources>
