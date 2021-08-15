@@ -42,4 +42,5 @@
     <string name="upload_failed">Upload fehlgeschlagen</string>
     <string name="download_completed">Download abgeschlossen</string>
     <string name="download_failed">Download fehlgeschlagen</string>
+    <string name="directory_is_empty">Verzeichnis ist leer</string>
 </resources>
