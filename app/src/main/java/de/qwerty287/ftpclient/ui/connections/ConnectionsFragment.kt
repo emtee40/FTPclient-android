@@ -53,6 +53,7 @@ class ConnectionsFragment : Fragment() {
             .connectionDao().getAll().observe(viewLifecycleOwner, {
             if (it.isEmpty()) {
                 binding.noConnections.isVisible = true
+                binding.recyclerviewMain.adapter = null
             } else {
                 binding.recyclerviewMain.layoutManager = if (it.size == 1) {
                     LinearLayoutManager(requireContext())
