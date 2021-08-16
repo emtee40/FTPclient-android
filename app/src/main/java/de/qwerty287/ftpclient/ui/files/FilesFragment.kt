@@ -57,11 +57,7 @@ class FilesFragment : Fragment() {
                         false
                     }
                     inputStream?.close()
-                    Snackbar.make(binding.root, if (success) {
-                        R.string.upload_completed
-                    } else {
-                        R.string.upload_failed
-                           }, Snackbar.LENGTH_SHORT ).show()
+                    showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
                     updateUi()
                 }
             }
