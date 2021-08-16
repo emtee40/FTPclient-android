@@ -32,7 +32,7 @@
     <string name="rename">Umbenennen</string>
     <string name="new_filename">Neuer Dateiname</string>
     <string name="enter_new_filename">Neuen Dateinamen eingeben</string>
-    <string name="error_descriptions">Wahrscheinlich haben Sie keine Internetverbindung, der Server ist aktuell nicht erreichbar oder die Logindaten sind nicht korrekt. Wenn Sie denken, dass dies ein Problem mit der Anwendung ist, können Sie die Fehlerdetails kopieren.</string>
+    <string name="error_descriptions">Wahrscheinlich haben Sie keine Internetverbindung oder der Server ist aktuell nicht erreichbar. Wenn Sie denken, dass dies ein Problem mit der Anwendung ist, können Sie die Fehlerdetails kopieren.</string>
     <string name="group">Gruppe</string>
     <string name="dir_name">Verzeichnisname</string>
     <string name="enter_dir_name">Verzeichnisname eingeben</string>
