@@ -117,6 +117,12 @@ class FilesFragment : Fragment() {
         }
     }
 
+    /**
+     * Update the UI. This:
+     * * connects to the server and logins with the login credentials
+     * * retrieves the file list from the FTP server
+     * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows an [TextView][android.widget.TextView] if the directory contains nothing
+     */
     private fun updateUi() {
         var files: Array<FTPFile>
 
@@ -126,11 +132,11 @@ class FilesFragment : Fragment() {
                     binding.progressIndicatorFiles.isVisible = true
                 }
                 try {
-                    connection = arguments?.getInt("connection")?.let {
-                        AppDatabase.getInstance(requireContext()).connectionDao()
-                            .get(it.toLong())
-                    }!! // get connection from connection id, which is stored in the arguments
                     if (!ftpClient.isConnected) {
+                        connection = arguments?.getInt("connection")?.let {
+                            AppDatabase.getInstance(requireContext()).connectionDao()
+                                .get(it.toLong())
+                        }!! // get connection from connection id, which is stored in the arguments
                         ftpClient.connect(connection.server)
                         ftpClient.login(
                             connection.username,
