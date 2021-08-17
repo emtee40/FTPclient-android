@@ -148,6 +148,10 @@ class FileActionsBottomSheet(
         _binding = null
     }
 
+    /**
+     * Get the absolute file path of the file
+     * @param fileName The name of the file, without parent directories
+     */
     private fun getAbsoluteFilePath(fileName: String = file.name): String {
         return if (directory != "") {
             "$directory/$fileName"

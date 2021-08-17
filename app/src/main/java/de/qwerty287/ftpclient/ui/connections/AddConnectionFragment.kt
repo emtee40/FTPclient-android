@@ -73,6 +73,10 @@ class AddConnectionFragment : Fragment() {
         binding.addConnection.isClickable = false
     }
 
+    /**
+     * Load and display a connection
+     * @param id The id of the connection that will be loaded
+     */
     private fun loadConnection(id: Int) {
         lifecycleScope.launch {
             val c = AppDatabase.getInstance(requireContext()).connectionDao().get(id.toLong())

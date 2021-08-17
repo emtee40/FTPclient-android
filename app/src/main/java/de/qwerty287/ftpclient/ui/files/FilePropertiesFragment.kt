@@ -62,6 +62,10 @@ class FilePropertiesFragment : Fragment() {
         _binding = null
     }
 
+    /**
+     * Returns a [CharSequence] that contains the file size with the correct prefix and unit
+     * @return The [CharSequence]
+     */
     private fun getFileByteString(): CharSequence {
         if (file!!.size < 1024) {
             return String.format(getString(R.string.bytes), file!!.size)

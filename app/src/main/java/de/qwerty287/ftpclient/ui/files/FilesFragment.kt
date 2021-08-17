@@ -241,7 +241,7 @@ class FilesFragment : Fragment() {
 
     /**
      * Get the absolute file path of a file in the directory
-     * @param fileName the name of the file, without parent directories
+     * @param fileName The name of the file, without parent directories
      */
     private fun getAbsoluteFilePath(fileName: String): String {
         return if (directory != "") {
@@ -252,9 +252,9 @@ class FilesFragment : Fragment() {
     }
 
     /**
-     * Get the filename of a file in the mentioned [android.net.Uri]
-     * @param uri [android.net.Uri] of the file
-     * @return the display name/file name of the file behind the URI
+     * Get the filename of a file in the mentioned [Uri][android.net.Uri]
+     * @param uri [Uri][android.net.Uri] of the file
+     * @return The display name/file name of the file behind the URI
      */
     private fun getFilenameFromUri(uri: Uri): String {
         val uriString = uri.toString()
@@ -280,9 +280,9 @@ class FilesFragment : Fragment() {
 
     /**
      * Show an information snackbar
-     * @param success if the operation was successful
-     * @param successRes the text that is shown if the operation was successful
-     * @param failedRes the text that is shown if the operation failed
+     * @param success If the operation was successful
+     * @param successRes The text that is shown if the operation was successful
+     * @param failedRes The text that is shown if the operation failed
      */
     private fun showSnackbar(success: Boolean, @StringRes successRes: Int, @StringRes failedRes: Int) {
         Snackbar.make(binding.root, if (success) {

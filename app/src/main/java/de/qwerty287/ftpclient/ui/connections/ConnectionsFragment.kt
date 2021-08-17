@@ -48,6 +48,9 @@ class ConnectionsFragment : Fragment() {
         _binding = null
     }
 
+    /**
+     * Get and display the connections
+     */
     private fun showConnections() {
         AppDatabase.getInstance(requireContext())
             .connectionDao().getAll().observe(viewLifecycleOwner, {

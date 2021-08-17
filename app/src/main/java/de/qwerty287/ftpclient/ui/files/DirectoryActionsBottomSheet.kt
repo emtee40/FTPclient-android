@@ -116,6 +116,10 @@ class DirectoryActionsBottomSheet(
         _binding = null
     }
 
+    /**
+     * Get the absolute file path of the directory
+     * @param fileName The name of the directory, without parent directories, only set if it's different from the original name
+     */
     private fun getAbsoluteFilePath(fileName: String = directory.name): String {
         return if (currentDirectory != "") {
             "$currentDirectory/$fileName"
