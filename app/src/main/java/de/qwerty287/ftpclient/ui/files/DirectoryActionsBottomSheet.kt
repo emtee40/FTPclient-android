@@ -71,7 +71,6 @@ class DirectoryActionsBottomSheet(
                                 e.printStackTrace()
                                 false
                             }
-                            println(success)
                             showSnackbar(success, R.string.delete_completed, R.string.deletion_failed)
                             updateParent()
                         }

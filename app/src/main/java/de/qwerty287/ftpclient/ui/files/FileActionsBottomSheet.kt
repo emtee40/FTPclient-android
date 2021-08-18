@@ -49,7 +49,6 @@ class FileActionsBottomSheet(
                     }
                     outputStream?.close()
                     showSnackbar(success, R.string.download_completed, R.string.download_failed)
-                    println(success)
                 }
                 dismiss()
             }
