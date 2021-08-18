@@ -155,9 +155,10 @@ class FilesFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) { // set up recyclerview or textview
                             binding.textviewEmptyDir.isVisible = true
-                            binding.recyclerviewFiles.adapter = null
+                            binding.recyclerviewFiles.isVisible = false
                         } else {
                             binding.textviewEmptyDir.isVisible = false
+                            binding.recyclerviewFiles.isVisible = true
                             binding.recyclerviewFiles.adapter =
                                 FilesAdapter(requireContext(), files, { // how to handle single clicks on items
                                     if (it.isDirectory) {
