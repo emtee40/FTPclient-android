@@ -7,8 +7,8 @@ FTPClient is a very simple FTP client for Android 5.0+, using [Apache Commons Ne
 * upload files to FTP server
 * create directories
 * download files
-* view file properties
-* rename files
+* view file and directory properties
+* rename files and directories
 
 <img src="screenshots/screenshot1.png" width="300"> <img src="screenshots/screenshot2.png" width="300">
 
