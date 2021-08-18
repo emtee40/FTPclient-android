@@ -115,6 +115,10 @@ class FilesFragment : Fragment() {
             requestFileIntent.type = "*/*"
             result.launch(Intent.createChooser(requestFileIntent, getString(R.string.select_file)))
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            updateUi()
+        }
     }
 
     /**
@@ -129,7 +133,7 @@ class FilesFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 withContext(Dispatchers.Main) {
-                    binding.progressIndicatorFiles.isVisible = true
+                    binding.swipeRefresh.isRefreshing = true
                 }
                 try {
                     if (!ftpClient.isConnected) {
@@ -191,12 +195,12 @@ class FilesFragment : Fragment() {
                                     }
                                 })
                         }
-                        binding.progressIndicatorFiles.isVisible = false // hide loading indicator
+                        binding.swipeRefresh.isRefreshing = false
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
                     withContext(Dispatchers.Main) {
-                        binding.progressIndicatorFiles.isVisible = false
+                        binding.swipeRefresh.isRefreshing = false
                         AlertDialog.Builder(requireContext()) // show error dialog
                             .setTitle(R.string.error_occurred)
                             .setMessage(R.string.error_descriptions)
