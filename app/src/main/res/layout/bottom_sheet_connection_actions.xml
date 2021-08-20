@@ -15,10 +15,10 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/delete_connection"
+        android:id="@+id/copy_connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
+        android:text="@string/copy"
         android:layout_gravity="center_vertical"
         android:background="?android:attr/selectableItemBackground"
         android:focusable="true"
@@ -26,7 +26,7 @@
         android:drawablePadding="24dp"
         android:padding="12dp"
         android:textSize="16sp"
-        app:drawableStartCompat="@drawable/ic_baseline_delete_24"/>
+        app:drawableStartCompat="@drawable/ic_baseline_content_copy_24"/>
 
     <TextView
         android:id="@+id/edit_connection"
@@ -43,10 +43,10 @@
         app:drawableStartCompat="@drawable/ic_baseline_edit_24"/>
 
     <TextView
-        android:id="@+id/copy_connection"
+        android:id="@+id/delete_connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/copy"
+        android:text="@string/delete"
         android:layout_gravity="center_vertical"
         android:background="?android:attr/selectableItemBackground"
         android:focusable="true"
@@ -54,6 +54,6 @@
         android:drawablePadding="24dp"
         android:padding="12dp"
         android:textSize="16sp"
-        app:drawableStartCompat="@drawable/ic_baseline_content_copy_24"/>
+        app:drawableStartCompat="@drawable/ic_baseline_delete_24"/>
 
 </LinearLayout>
