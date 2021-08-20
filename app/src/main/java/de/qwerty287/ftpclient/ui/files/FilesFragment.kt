@@ -125,7 +125,7 @@ class FilesFragment : Fragment() {
      * Update the UI. This:
      * * connects to the server and logins with the login credentials
      * * retrieves the file list from the FTP server
-     * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows an [TextView][android.widget.TextView] if the directory contains nothing
+     * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
      */
     private fun updateUi() {
         var files: Array<FTPFile>
