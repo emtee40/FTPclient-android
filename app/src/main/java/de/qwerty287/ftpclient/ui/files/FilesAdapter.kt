@@ -1,14 +1,16 @@
 package de.qwerty287.ftpclient.ui.files
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import de.qwerty287.ftpclient.R
 import org.apache.commons.net.ftp.FTPFile
+
 
 internal class FilesAdapter(
     private val context: Context,
@@ -18,9 +20,9 @@ internal class FilesAdapter(
 ) :
     RecyclerView.Adapter<FilesAdapter.ViewHolder>() {
 
+
     internal inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val file: TextView = view.findViewById(R.id.file)
-        val directory: TextView = view.findViewById(R.id.directory)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,33 +32,31 @@ internal class FilesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (files[position].isFile) {
-            holder.directory.isVisible = false
-            holder.file.text = files[position].name
-            holder.file.setOnClickListener { 
-                onClick(files[position])
-            }
-            holder.file.setOnLongClickListener {
-                onLongClick(files[position])
-                true
-            }
-        } else if (files[position].isDirectory) {
-            holder.file.isVisible = false
-            holder.directory.text = files[position].name
-            holder.directory.setOnClickListener { 
-                onClick(files[position])
-            }
-            holder.directory.setOnLongClickListener {
-                onLongClick(files[position])
-                true
-            }
-        } else {
-            holder.directory.isVisible = false
-            holder.file.text = context.getString(R.string.error_occurred)
+        holder.file.text = files[position].name
+        holder.file.setOnClickListener {
+            onClick(files[position])
         }
+        holder.file.setOnLongClickListener {
+            onLongClick(files[position])
+            true
+        }
+        holder.file.setCompoundDrawablesRelative(getDrawableIcon(files[position]), null, null, null)
     }
 
     override fun getItemCount(): Int {
         return files.size
+    }
+
+    /**
+     * Return the [Drawable] for use with [TextView.setCompoundDrawablesRelative] or related methods, matching to the file format of a [FTPFile]
+     * @param file The [FTPFile]
+     * @return The [Drawable] icon
+     */
+    private fun getDrawableIcon(file: FTPFile): Drawable? {
+        val icon = AppCompatResources.getDrawable(context, FileExtensions.getDrawableFromFTPFile(file)) ?: return null
+        val h = icon.intrinsicHeight
+        val w = icon.intrinsicWidth
+        icon.setBounds(0, 0, w, h)
+        return icon
     }
 }
