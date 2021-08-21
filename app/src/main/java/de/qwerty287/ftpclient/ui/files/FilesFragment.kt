@@ -231,17 +231,6 @@ class FilesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                try { // logout and disconnect
-                    ftpClient.logout()
-                    ftpClient.disconnect()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
     }
 
     /**
