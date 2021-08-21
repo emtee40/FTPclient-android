@@ -131,6 +131,7 @@ class FilesFragment : Fragment() {
                 val view = layoutInflater.inflate(R.layout.dialog_entry, null)
                 val editText: EditText = view.findViewById(R.id.edittext_dialog)
                 editText.setText(directory)
+                editText.setHint(R.string.go_to)
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.go_to)
                     .setView(view)
