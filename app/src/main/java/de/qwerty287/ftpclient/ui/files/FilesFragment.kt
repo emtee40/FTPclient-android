@@ -6,9 +6,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -81,6 +79,7 @@ class FilesFragment : Fragment() {
 
         binding.recyclerviewFiles.layoutManager = LinearLayoutManager(requireContext())
 
+        setHasOptionsMenu(true)
         updateUi()
 
         binding.fabAddDir.setOnClickListener {
@@ -118,6 +117,38 @@ class FilesFragment : Fragment() {
 
         binding.swipeRefresh.setOnRefreshListener {
             updateUi()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.files_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.go_to -> {
+                val view = layoutInflater.inflate(R.layout.dialog_entry, null)
+                val editText: EditText = view.findViewById(R.id.edittext_dialog)
+                editText.setText(directory)
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.go_to)
+                    .setView(view)
+                    .setPositiveButton(R.string.ok) { _, _ ->
+                        val options = Bundle()
+                        options.putString("directory", editText.text.toString())
+                        options.putInt("connection", connection.id)
+                        findNavController().navigate(
+                            R.id.action_FilesFragment_to_FilesFragment,
+                            options
+                        )
+                    }
+                    .setNegativeButton(R.string.cancel, null)
+                    .create()
+                    .show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
