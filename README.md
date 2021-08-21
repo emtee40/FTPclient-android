@@ -10,6 +10,6 @@ FTPClient is a very simple FTP client for Android 5.0+, using [Apache Commons Ne
 * view file and directory properties
 * rename files and directories
 
-<img src="screenshots/screenshot1.png" width="300"> <img src="screenshots/screenshot2.png" width="300">
+<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/screenshots/screenshot1.png" width="300"> <img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/screenshots/screenshot2.png" width="300">
 
 [<img src="https://get-it-on.codeberg.org/get-it-on-blue-on-white.svg" width="300">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
