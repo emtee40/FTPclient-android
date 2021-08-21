@@ -24,7 +24,7 @@
     <string name="delete_confirmation">Do you really want to delete this file?</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-    <string name="error_descriptions">Probably, you just don\'t have an internet connection or the server is currently not reachable. If you think, this is a problem with the application, you can copy the error details.</string>
+    <string name="error_descriptions">Probably, you just don\'t have an internet connection, the server is currently not reachable or your login credentials are not correct. If you think, this is a problem with the application, you can copy the error details.</string>
     <string name="copy">Copy</string>
     <string name="no_connections">No connections</string>
     <string name="add_file">Add file</string>
