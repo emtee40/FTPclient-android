@@ -234,7 +234,7 @@ class FilesFragment : Fragment() {
                     e.printStackTrace()
                     withContext(Dispatchers.Main) {
                         binding.swipeRefresh.isRefreshing = false
-                        AlertDialog.Builder(requireContext()) // show error dialog
+                        val dialog = AlertDialog.Builder(requireContext()) // show error dialog
                             .setTitle(R.string.error_occurred)
                             .setMessage(R.string.error_descriptions)
                             .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
@@ -252,7 +252,8 @@ class FilesFragment : Fragment() {
                                 findNavController().navigateUp()
                             }
                             .create()
-                            .show()
+                        dialog.setCanceledOnTouchOutside(false)
+                        dialog.show()
                     }
                 }
             }
