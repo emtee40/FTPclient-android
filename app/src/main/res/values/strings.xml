@@ -51,4 +51,5 @@
     <string name="dir_creation_completed">Directory creation completed</string>
     <string name="dir_creation_failed">Directory creation failed</string>
     <string name="timestamp">Timestamp</string>
+    <string name="points_to">Points to</string>
 </resources>

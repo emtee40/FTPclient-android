@@ -51,12 +51,16 @@ class FilePropertiesFragment : Fragment() {
         if (file!!.isDirectory) {
             binding.fileSizeLayout.isVisible = false
         }
+        if (file!!.isSymbolicLink) {
+            binding.fileSymbolicLinkLayout.isVisible = true
+        }
         
         binding.filename.text = file!!.name
         binding.fileSize.text = getFileByteString()
         binding.fileOwner.text = file!!.user
         binding.fileGroup.text = file!!.group
         binding.fileTimestamp.text = SimpleDateFormat.getDateTimeInstance().format(file!!.timestamp.time)
+        binding.fileSymbolicLink.text = file!!.link
     }
 
     override fun onDestroyView() {
