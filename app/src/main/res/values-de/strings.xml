@@ -51,4 +51,5 @@
     <string name="dir_creation_failed">Verzeichniserstellung fehlgeschlagen</string>
     <string name="timestamp">Zeitstempel</string>
     <string name="points_to">Verweist auf</string>
+    <string name="port">Port</string>
 </resources>

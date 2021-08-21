@@ -71,7 +71,7 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
         }
 
         binding.copyConnection.setOnClickListener {
-            val newConn = Connection(connection.title, connection.server, connection.username, connection.password)
+            val newConn = Connection(connection.title, connection.server, connection.port, connection.username, connection.password)
             lifecycleScope.launch {
                 db.connectionDao().insert(newConn)
             }

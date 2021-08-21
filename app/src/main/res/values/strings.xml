@@ -52,4 +52,6 @@
     <string name="dir_creation_failed">Directory creation failed</string>
     <string name="timestamp">Timestamp</string>
     <string name="points_to">Points to</string>
+    <string name="port">Port</string>
+    <string name="default_port" translatable="false">21</string>
 </resources>

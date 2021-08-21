@@ -41,6 +41,7 @@ class AddConnectionFragment : Fragment() {
         fun checkInputs() {
             binding.addConnection.isClickable = !(binding.title.text.isNullOrBlank() ||
                     binding.server.text.isNullOrBlank() || // TODO check guest mode
+                    binding.port.text.isNullOrBlank() ||
                     binding.user.text.isNullOrBlank() ||
                     binding.password.text.isNullOrBlank())
         }
@@ -58,12 +59,12 @@ class AddConnectionFragment : Fragment() {
                 val db = AppDatabase.getInstance(requireContext()).connectionDao()
                 if (connectionId == null) {
                     val connection = Connection(binding.title.text.toString(),
-                    binding.server.text.toString(),
+                    binding.server.text.toString(), binding.port.text.toString().toInt(),
                     binding.user.text.toString(), binding.password.text.toString())
                     db.insert(connection)
                 } else {
                     val connection = Connection(binding.title.text.toString(),
-                    binding.server.text.toString(),
+                    binding.server.text.toString(), binding.port.text.toString().toInt(),
                     binding.user.text.toString(), binding.password.text.toString(), connectionId)
                     db.update(connection)
                 }
@@ -83,6 +84,7 @@ class AddConnectionFragment : Fragment() {
             if (c != null) {
                 binding.title.setText(c.title)
                 binding.server.setText(c.server)
+                binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
                 binding.password.setText(c.password)
             }

@@ -141,7 +141,7 @@ class FilesFragment : Fragment() {
                             AppDatabase.getInstance(requireContext()).connectionDao()
                                 .get(it.toLong())
                         }!! // get connection from connection id, which is stored in the arguments
-                        ftpClient.connect(connection.server)
+                        ftpClient.connect(connection.server, connection.port)
                         ftpClient.login(
                             connection.username,
                             connection.password
