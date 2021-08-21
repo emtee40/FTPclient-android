@@ -216,7 +216,7 @@ class FilesFragment : Fragment() {
                                             it,
                                             requireActivity().supportFragmentManager,
                                             ftpClient,
-                                            directory, { updateUi() }, {itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+                                            directory, { updateUi() }, { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     } else if (it.isFile) {
                                         FileActionsBottomSheet(
                                             it,
