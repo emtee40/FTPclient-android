@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.FragmentFilePropertiesBinding
 import org.apache.commons.net.ftp.FTPFile
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 
 class FilePropertiesFragment : Fragment() {
@@ -57,7 +56,7 @@ class FilePropertiesFragment : Fragment() {
         binding.fileSize.text = getFileByteString()
         binding.fileOwner.text = file!!.user
         binding.fileGroup.text = file!!.group
-        binding.fileTimestamp.text = SimpleDateFormat().format(file!!.timestamp.time)
+        binding.fileTimestamp.text = SimpleDateFormat.getDateTimeInstance().format(file!!.timestamp.time)
     }
 
     override fun onDestroyView() {
