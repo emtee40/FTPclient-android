@@ -50,4 +50,5 @@
     <string name="renaming_failed">Renamig failed</string>
     <string name="dir_creation_completed">Directory creation completed</string>
     <string name="dir_creation_failed">Directory creation failed</string>
+    <string name="timestamp">Timestamp</string>
 </resources>
