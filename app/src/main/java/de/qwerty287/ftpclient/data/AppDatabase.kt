@@ -29,7 +29,6 @@ abstract class AppDatabase : RoomDatabase() {
                             }
                         }
                     )
-                    .allowMainThreadQueries()
                     .build().also { instance = it }
             }
         }
