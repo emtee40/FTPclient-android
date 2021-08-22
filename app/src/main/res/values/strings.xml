@@ -55,4 +55,5 @@
     <string name="port">Port</string>
     <string name="default_port" translatable="false">21</string>
     <string name="go_to">Go to</string>
+    <string name="update">Update</string>
 </resources>

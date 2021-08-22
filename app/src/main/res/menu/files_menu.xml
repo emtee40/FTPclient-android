@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/update_ui"
+        android:title="@string/update"/>
+
+    <item
         android:id="@+id/go_to"
         android:title="@string/go_to"/>
 

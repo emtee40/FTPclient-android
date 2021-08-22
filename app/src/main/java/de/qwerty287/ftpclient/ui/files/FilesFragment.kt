@@ -149,6 +149,10 @@ class FilesFragment : Fragment() {
                     .show()
                 true
             }
+            R.id.update_ui -> {
+                updateUi()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
