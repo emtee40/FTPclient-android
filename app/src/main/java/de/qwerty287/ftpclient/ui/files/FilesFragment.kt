@@ -215,13 +215,7 @@ class FilesFragment : Fragment() {
                                             { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
                                 }, { // how to handle long clicks on items
-                                    if (it.isDirectory) {
-                                        DirectoryActionsBottomSheet(
-                                            it,
-                                            requireActivity().supportFragmentManager,
-                                            ftpClient,
-                                            directory, { updateUi() }, { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
-                                    } else if (it.isFile) {
+                                    if (it.isFile || it.isDirectory) {
                                         FileActionsBottomSheet(
                                             it,
                                             requireActivity().supportFragmentManager,

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -73,8 +74,11 @@ class FileActionsBottomSheet(
 
         binding.filename.text = file.name
 
-        binding.downloadFile.setOnClickListener {
+        if (file.isDirectory) {
+            binding.downloadFile.isVisible = false
+        }
 
+        binding.downloadFile.setOnClickListener {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "*/*"
@@ -90,14 +94,25 @@ class FileActionsBottomSheet(
         }
 
         binding.deleteFile.setOnClickListener {
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.delete_confirmation)
-                .setNegativeButton(R.string.cancel, null)
-                .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
+            AlertDialog.Builder(requireContext()).apply {
+                setTitle(if (file.isFile) {
+                    R.string.delete_confirmation
+                } else {
+                    R.string.delete_dir_confirmation
+                })
+                if (file.isDirectory) {
+                    setMessage(R.string.dir_delete_message)
+                }
+                setNegativeButton(R.string.cancel, null)
+                setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
-                                client.deleteFile(getAbsoluteFilePath())
+                                if (file.isFile) {
+                                    client.deleteFile(getAbsoluteFilePath())
+                                } else {
+                                    client.removeDirectory(getAbsoluteFilePath())
+                                }
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -107,8 +122,8 @@ class FileActionsBottomSheet(
                         }
                     }
                 }
-                .create()
-                .show()
+                create().show()
+            }
             dismiss()
         }
 
