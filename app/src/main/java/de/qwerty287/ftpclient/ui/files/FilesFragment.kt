@@ -205,7 +205,7 @@ class FilesFragment : Fragment() {
                                             R.id.action_FilesFragment_to_FilesFragment,
                                             options
                                         )
-                                    } else if (it.isFile) {
+                                    } else if (!it.isUnknown) {
                                         FileActionsBottomSheet(
                                             it,
                                             requireActivity().supportFragmentManager,
@@ -215,7 +215,7 @@ class FilesFragment : Fragment() {
                                             { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
                                     }
                                 }, { // how to handle long clicks on items
-                                    if (it.isFile || it.isDirectory) {
+                                    if (!it.isUnknown) {
                                         FileActionsBottomSheet(
                                             it,
                                             requireActivity().supportFragmentManager,
