@@ -4,10 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/ConnectionsFragment">
 
-    <action
-        android:id="@+id/action_to_FilePropertiesFragment"
-        app:destination="@id/FilePropertiesFragment"/>
-
     <fragment
         android:id="@+id/ConnectionsFragment"
         android:name="de.qwerty287.ftpclient.ui.connections.ConnectionsFragment"

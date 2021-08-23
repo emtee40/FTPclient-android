@@ -91,7 +91,7 @@ class FileActionsBottomSheet(
         binding.fileProperties.setOnClickListener {
             val options = Bundle()
             options.putSerializable("file", file)
-            findNavController().navigate(R.id.action_to_FilePropertiesFragment, options)
+            findNavController().navigate(R.id.action_FilesFragment_to_FilePropertiesFragment, options)
             dismiss()
         }
 
