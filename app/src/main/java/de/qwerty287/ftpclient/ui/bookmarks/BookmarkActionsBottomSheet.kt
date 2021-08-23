@@ -1,4 +1,4 @@
-package de.qwerty287.ftpclient.ui.connections
+package de.qwerty287.ftpclient.ui.bookmarks
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -11,21 +11,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import de.qwerty287.ftpclient.data.AppDatabase
-import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.R
-import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
+import de.qwerty287.ftpclient.data.Bookmark
+import de.qwerty287.ftpclient.databinding.BottomSheetBookmarkActionsBinding
 import kotlinx.coroutines.launch
 
-class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentManager) : BottomSheetDialogFragment() {
+class BookmarkActionsBottomSheet(private val bookmarkId: Int, fm: FragmentManager) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomSheetConnectionActionsBinding? = null
+    private var _binding: BottomSheetBookmarkActionsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var connection: Connection
+    private lateinit var bookmark: Bookmark
     private lateinit var db: AppDatabase
 
     init {
-        show(fm, "ConnectionActionsBottomSheet")
+        show(fm, "BookmarkActionsBottomSheet")
     }
 
     override fun onCreateView(
@@ -33,7 +33,7 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = BottomSheetConnectionActionsBinding.inflate(inflater, container, false)
+        _binding = BottomSheetBookmarkActionsBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -43,22 +43,18 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
 
         db = AppDatabase.getInstance(requireContext())
         lifecycleScope.launch {
-            connection = db.connectionDao().get(connectionId.toLong())!!
-            binding.connectionName.text = connection.title
+            bookmark = db.bookmarkDao().get(bookmarkId.toLong())!!
+            binding.bookmarkName.text = bookmark.title
         }
 
-        binding.deleteConnection.setOnClickListener {
+        binding.deleteBookmark.setOnClickListener {
             lifecycleScope.launch {
                 AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.delete_connection_confirmation)
-                    .setMessage(R.string.delete_connection_message)
+                    .setTitle(R.string.delete_bookmark_confirmation)
                     .setNegativeButton(R.string.cancel, null)
                     .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                         lifecycleScope.launch {
-                            db.bookmarkDao().getAllByConnection(connection.id.toLong()).forEach {
-                                db.bookmarkDao().delete(it)
-                            }
-                            db.connectionDao().delete(connection)
+                            db.bookmarkDao().delete(bookmark)
                         }
                     }
                     .create()
@@ -67,17 +63,17 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
             }
         }
 
-        binding.editConnection.setOnClickListener {
+        binding.editBookmark.setOnClickListener {
             val options = Bundle()
-            options.putInt("connection", connectionId)
-            findNavController().navigate(R.id.action_ConnectionsFragment_to_AddConnectionFragment, options)
+            options.putInt("bookmarkId", bookmarkId)
+            findNavController().navigate(R.id.action_BookmarksFragment_to_AddBookmarkFragment, options)
             dismiss()
         }
 
-        binding.copyConnection.setOnClickListener {
-            val newConn = Connection(connection.title, connection.server, connection.port, connection.username, connection.password)
+        binding.copyBookmark.setOnClickListener {
+            val newBookmark = Bookmark(bookmark.title, bookmark.directory, bookmark.connection)
             lifecycleScope.launch {
-                db.connectionDao().insert(newConn)
+                db.bookmarkDao().insert(newBookmark)
             }
             dismiss()
         }

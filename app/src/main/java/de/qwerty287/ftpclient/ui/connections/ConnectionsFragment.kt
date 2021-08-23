@@ -1,9 +1,7 @@
 package de.qwerty287.ftpclient.ui.connections
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,8 +30,25 @@ class ConnectionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         binding.fabAddConnection.setOnClickListener {
             findNavController().navigate(R.id.action_ConnectionsFragment_to_AddConnectionFragment)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.connection_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.bookmarks_menu -> {
+                findNavController().navigate(R.id.action_ConnectionsFragment_to_BookmarksFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

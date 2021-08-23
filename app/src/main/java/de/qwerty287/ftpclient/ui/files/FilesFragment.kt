@@ -19,9 +19,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
-import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -153,6 +153,13 @@ class FilesFragment : Fragment() {
             }
             R.id.update_ui -> {
                 updateUi()
+                true
+            }
+            R.id.bookmark -> {
+                val options = Bundle()
+                options.putString("directory", directory)
+                options.putInt("connectionId", connection.id)
+                findNavController().navigate(R.id.action_FilesFragment_to_AddBookmarkFragment, options)
                 true
             }
             else -> super.onOptionsItemSelected(item)

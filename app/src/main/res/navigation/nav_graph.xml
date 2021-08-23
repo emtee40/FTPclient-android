@@ -21,6 +21,10 @@
         <action
             android:id="@+id/action_ConnectionsFragment_to_AddConnectionFragment"
             app:destination="@id/AddConnectionFragment" />
+
+        <action
+            android:id="@+id/action_ConnectionsFragment_to_BookmarksFragment"
+            app:destination="@id/BookmarksFragment"/>
     </fragment>
     <fragment
         android:id="@+id/FilesFragment"
@@ -35,6 +39,10 @@
         <action
             android:id="@+id/action_FilesFragment_to_FilesFragment"
             app:destination="@id/FilesFragment" />
+
+        <action
+            android:id="@+id/action_FilesFragment_to_AddBookmarkFragment"
+            app:destination="@id/AddBookmarkFragment"/>
     </fragment>
 
     <fragment
@@ -46,4 +54,24 @@
         android:id="@+id/FilePropertiesFragment"
         android:name="de.qwerty287.ftpclient.ui.files.FilePropertiesFragment"
         android:label="@string/file_properties"/>
+
+    <fragment
+        android:id="@+id/AddBookmarkFragment"
+        android:name="de.qwerty287.ftpclient.ui.bookmarks.AddBookmarkFragment"
+        android:label="@string/add_bookmark"/>
+
+    <fragment
+        android:id="@+id/BookmarksFragment"
+        android:name="de.qwerty287.ftpclient.ui.bookmarks.BookmarksFragment"
+        android:label="@string/bookmarks"
+        tools:layout="@layout/fragment_bookmarks">
+
+        <action
+            android:id="@+id/action_BookmarksFragment_to_FilesFragment"
+            app:destination="@id/FilesFragment" />
+
+        <action
+            android:id="@+id/action_BookmarksFragment_to_AddBookmarkFragment"
+            app:destination="@id/AddBookmarkFragment" />
+    </fragment>
 </navigation>

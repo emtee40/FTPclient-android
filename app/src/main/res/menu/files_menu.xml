@@ -9,4 +9,8 @@
         android:id="@+id/go_to"
         android:title="@string/go_to"/>
 
+    <item
+        android:id="@+id/bookmark"
+        android:title="@string/add_bookmark"/>
+
 </menu>
