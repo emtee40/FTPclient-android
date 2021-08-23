@@ -48,17 +48,20 @@
     <fragment
         android:id="@+id/AddConnectionFragment"
         android:name="de.qwerty287.ftpclient.ui.connections.AddConnectionFragment"
-        android:label="@string/add_connection"/>
+        android:label="@string/add_connection"
+        tools:layout="@layout/fragment_add_connection"/>
 
     <fragment
         android:id="@+id/FilePropertiesFragment"
         android:name="de.qwerty287.ftpclient.ui.files.FilePropertiesFragment"
-        android:label="@string/file_properties"/>
+        android:label="@string/file_properties"
+        tools:layout="@layout/fragment_file_properties"/>
 
     <fragment
         android:id="@+id/AddBookmarkFragment"
         android:name="de.qwerty287.ftpclient.ui.bookmarks.AddBookmarkFragment"
-        android:label="@string/add_bookmark"/>
+        android:label="@string/add_bookmark"
+        tools:layout="@layout/fragment_add_bookmark"/>
 
     <fragment
         android:id="@+id/BookmarksFragment"
