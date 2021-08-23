@@ -43,6 +43,10 @@
         <action
             android:id="@+id/action_FilesFragment_to_AddBookmarkFragment"
             app:destination="@id/AddBookmarkFragment"/>
+
+        <action
+            android:id="@+id/action_FilesFragment_to_FilePropertiesFragment"
+            app:destination="@id/FilePropertiesFragment"/>
     </fragment>
 
     <fragment
