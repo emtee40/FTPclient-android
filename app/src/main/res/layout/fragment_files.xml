@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        android:contentDescription="@string/add_file"
+        android:contentDescription="@string/add_directory"
         app:layout_constraintBottom_toTopOf="@id/fab_add_file"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_folder_24" />

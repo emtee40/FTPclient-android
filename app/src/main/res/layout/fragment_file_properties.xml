@@ -132,7 +132,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/owner"
+            android:contentDescription="@string/group"
             app:srcCompat="@drawable/ic_baseline_group_24" />
 
         <LinearLayout
@@ -170,7 +170,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/owner"
+            android:contentDescription="@string/timestamp"
             app:srcCompat="@drawable/ic_baseline_access_time_24" />
 
         <LinearLayout
@@ -210,7 +210,7 @@
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/owner"
+            android:contentDescription="@string/points_to"
             app:srcCompat="@drawable/ic_baseline_link_24" />
 
         <LinearLayout

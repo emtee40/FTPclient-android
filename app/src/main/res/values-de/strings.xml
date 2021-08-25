@@ -60,4 +60,5 @@
     <string name="no_bookmarks">Keine Lesezeichen</string>
     <string name="delete_bookmark_confirmation">Möchten Sie dieses Lesezeichen wirklich löschen?</string>
     <string name="delete_connection_message">Das wird alle Lesezeichen dieser Verbindung löschen.</string>
+    <string name="add_directory">Verzechnis hinzufügen</string>
 </resources>
