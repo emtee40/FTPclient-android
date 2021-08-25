@@ -85,6 +85,8 @@ object FileExtensions {
             R.drawable.ic_baseline_slideshow_24
         } else if (file.isFile) {
             R.drawable.ic_baseline_insert_drive_file_24
+        } else if (file.isSymbolicLink) {
+            R.drawable.ic_baseline_link_24
         } else {
             R.drawable.ic_baseline_error_24
         }
