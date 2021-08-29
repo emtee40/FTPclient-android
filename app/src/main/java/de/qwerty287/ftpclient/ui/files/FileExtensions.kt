@@ -99,7 +99,7 @@ object FileExtensions {
      */
     private fun getFileFormat(file: FTPFile): String {
         val list = file.name.split(".")
-        return if (list.isEmpty()) {
+        return if (list.size < 2) {
             ""
         } else {
             list.last().lowercase()
