@@ -24,7 +24,7 @@ internal class BookmarkAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_main_list, parent, false)
+            .inflate(R.layout.item_bookmarks_list, parent, false)
         return ViewHolder(itemView)
     }
 
