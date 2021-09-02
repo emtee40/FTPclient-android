@@ -29,10 +29,6 @@
         tools:layout="@layout/fragment_files">
 
         <action
-            android:id="@+id/action_FilesFragment_to_ConnectionsFragment"
-            app:destination="@id/ConnectionsFragment" />
-
-        <action
             android:id="@+id/action_FilesFragment_to_FilesFragment"
             app:destination="@id/FilesFragment" />
 
