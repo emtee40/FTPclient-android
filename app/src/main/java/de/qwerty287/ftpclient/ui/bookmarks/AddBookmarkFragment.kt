@@ -40,9 +40,7 @@ class AddBookmarkFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        println(connectionId)
         if (connectionId != null) {
-            println(arguments?.getString("directory"))
             binding.directory.setText(arguments?.getString("directory"))
         } else {
             loadBookmark()
