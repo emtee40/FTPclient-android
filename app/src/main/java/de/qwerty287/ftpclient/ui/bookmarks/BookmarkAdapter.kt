@@ -34,7 +34,11 @@ internal class BookmarkAdapter(
             val options = Bundle()
             options.putInt("connection", bookmarks[position].connection)
             options.putString("directory", bookmarks[position].directory)
-            navController.navigate(R.id.action_BookmarksFragment_to_FilesFragment, options)
+            try {
+                navController.navigate(R.id.action_BookmarksFragment_to_FilesFragment, options)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
         holder.title.setOnLongClickListener {
             BookmarkActionsBottomSheet(bookmarks[position].id, fm)

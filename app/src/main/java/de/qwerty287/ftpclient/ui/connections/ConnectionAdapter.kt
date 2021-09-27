@@ -33,7 +33,11 @@ internal class ConnectionAdapter(
         holder.title.setOnClickListener {
             val options = Bundle()
             options.putInt("connection", connections[position].id)
-            navController.navigate(R.id.action_ConnectionsFragment_to_FilesFragment, options)
+            try {
+                navController.navigate(R.id.action_ConnectionsFragment_to_FilesFragment, options)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
         holder.title.setOnLongClickListener {
             ConnectionActionsBottomSheet(connections[position].id, fm)
