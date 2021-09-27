@@ -12,15 +12,27 @@
 
         <action
             android:id="@+id/action_ConnectionsFragment_to_FilesFragment"
-            app:destination="@id/FilesFragment" />
+            app:destination="@id/FilesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_ConnectionsFragment_to_AddConnectionFragment"
-            app:destination="@id/AddConnectionFragment" />
+            app:destination="@id/AddConnectionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_ConnectionsFragment_to_BookmarksFragment"
-            app:destination="@id/BookmarksFragment"/>
+            app:destination="@id/BookmarksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/FilesFragment"
@@ -30,15 +42,27 @@
 
         <action
             android:id="@+id/action_FilesFragment_to_FilesFragment"
-            app:destination="@id/FilesFragment" />
+            app:destination="@id/FilesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_FilesFragment_to_AddBookmarkFragment"
-            app:destination="@id/AddBookmarkFragment"/>
+            app:destination="@id/AddBookmarkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_FilesFragment_to_FilePropertiesFragment"
-            app:destination="@id/FilePropertiesFragment"/>
+            app:destination="@id/FilePropertiesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -51,7 +75,11 @@
         android:id="@+id/FilePropertiesFragment"
         android:name="de.qwerty287.ftpclient.ui.files.FilePropertiesFragment"
         android:label="@string/file_properties"
-        tools:layout="@layout/fragment_file_properties"/>
+        tools:layout="@layout/fragment_file_properties"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"/>
 
     <fragment
         android:id="@+id/AddBookmarkFragment"
@@ -67,10 +95,18 @@
 
         <action
             android:id="@+id/action_BookmarksFragment_to_FilesFragment"
-            app:destination="@id/FilesFragment" />
+            app:destination="@id/FilesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_BookmarksFragment_to_AddBookmarkFragment"
-            app:destination="@id/AddBookmarkFragment" />
+            app:destination="@id/AddBookmarkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>
