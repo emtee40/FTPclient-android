@@ -47,6 +47,9 @@ class FilesFragment : Fragment() {
                 val uri = it.data?.data
                 val clipData = it.data?.clipData
                 if (uri != null) {
+                    withContext(Dispatchers.Main) {
+                        binding.swipeRefresh.isRefreshing = true
+                    }
                     val inputStream = requireContext().contentResolver.openInputStream(uri)
                     val success: Boolean = try {
                         ftpClient.storeFile(
@@ -61,6 +64,9 @@ class FilesFragment : Fragment() {
                     showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
                     updateUi()
                 } else if (clipData != null) {
+                    withContext(Dispatchers.Main) {
+                        binding.swipeRefresh.isRefreshing = true
+                    }
                     var succeeded = 0
                     var failed = 0
                     for (i in 0 until clipData.itemCount) {
