@@ -45,6 +45,7 @@ class FilesFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val uri = it.data?.data
+                val clipData = it.data?.clipData
                 if (uri != null) {
                     val inputStream = requireContext().contentResolver.openInputStream(uri)
                     val success: Boolean = try {
@@ -58,6 +59,34 @@ class FilesFragment : Fragment() {
                     }
                     inputStream?.close()
                     showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
+                    updateUi()
+                } else if (clipData != null) {
+                    var succeeded = 0
+                    var failed = 0
+                    for (i in 0 until clipData.itemCount) {
+                        val clipUri = clipData.getItemAt(i).uri
+                        val inputStream = requireContext().contentResolver.openInputStream(clipUri)
+                        val success: Boolean = try {
+                            ftpClient.storeFile(
+                                getAbsoluteFilePath(getFilenameFromUri(clipUri)),
+                                inputStream
+                            )
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            false
+                        }
+                        if (success) {
+                            succeeded += 1
+                        } else {
+                            failed += 1
+                        }
+                        inputStream?.close()
+                        showSnackbar(success,
+                            String.format(requireContext().getString(R.string.upload_completed_partially, i + 1, clipData.itemCount)),
+                            String.format(requireContext().getString(R.string.upload_failed_partially, i + 1, clipData.itemCount)))
+                    }
+                    Snackbar.make(binding.root,
+                        String.format(requireContext().getString(R.string.upload_summary), succeeded, failed), Snackbar.LENGTH_SHORT).show()
                     updateUi()
                 }
             }
@@ -114,6 +143,7 @@ class FilesFragment : Fragment() {
         binding.fabAddFile.setOnClickListener {
             val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
             requestFileIntent.type = "*/*"
+            requestFileIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             result.launch(Intent.createChooser(requestFileIntent, getString(R.string.select_file)))
         }
 
@@ -323,6 +353,20 @@ class FilesFragment : Fragment() {
             successRes
         } else {
             failedRes
+        }, Snackbar.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Show an information snackbar
+     * @param success If the operation was successful
+     * @param successString The text that is shown if the operation was successful
+     * @param failedString The text that is shown if the operation failed
+     */
+    private fun showSnackbar(success: Boolean, successString: String, failedString: String) {
+        Snackbar.make(binding.root, if (success) {
+            successString
+        } else {
+            failedString
         }, Snackbar.LENGTH_SHORT).show()
     }
 }

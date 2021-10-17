@@ -63,4 +63,7 @@
     <string name="delete_bookmark_confirmation">Do you really want to delete this bookmark?</string>
     <string name="delete_connection_message">This will delete all bookmarks from this connection.</string>
     <string name="add_directory">Add directory</string>
+    <string name="upload_completed_partially">Upload %d of %d completed</string>
+    <string name="upload_failed_partially">Upload %d of %d failed</string>
+    <string name="upload_summary">Upload finished: %d succeeded, %d failed</string>
 </resources>
