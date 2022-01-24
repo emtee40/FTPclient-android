@@ -1,0 +1,6 @@
+- Use a SwipeToRefreshLayout to allow refreshing the files list
+- View file timestamp and symbolic links in file properties
+- Use different icons for different file types
+- Allow configuring the port that is used
+- Add a "Go to" option
+- Bug fixes and minor improvements 

@@ -1,0 +1,4 @@
+- Bookmark locations to access them faster
+- improve usability on small screens and in Android's splitscreen and freeform modes
+- fix a crash when clicking on multiple list items at the same time
+- other improvements
