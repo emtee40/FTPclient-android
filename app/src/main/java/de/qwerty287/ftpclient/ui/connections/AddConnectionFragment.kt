@@ -12,6 +12,8 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
 import kotlinx.coroutines.launch
+import org.apache.commons.net.ftp.FTPClient
+import org.apache.commons.net.ftp.FTPSClient
 
 class AddConnectionFragment : Fragment() {
 
@@ -54,18 +56,26 @@ class AddConnectionFragment : Fragment() {
             }
         }
 
+        binding.secure.setOnCheckedChangeListener { _, isChecked ->
+            if (binding.port.text.toString().toInt() == FTPClient.DEFAULT_PORT && isChecked) {
+                binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
+            } else if (binding.port.text.toString().toInt() == FTPSClient.DEFAULT_FTPS_PORT && !isChecked) {
+                binding.port.setText(FTPClient.DEFAULT_PORT.toString())
+            }
+        }
+
         binding.addConnection.setOnClickListener {
             lifecycleScope.launch {
                 val db = AppDatabase.getInstance(requireContext()).connectionDao()
                 if (connectionId == null) {
                     val connection = Connection(binding.title.text.toString(),
                     binding.server.text.toString(), binding.port.text.toString().toInt(),
-                    binding.user.text.toString(), binding.password.text.toString())
+                    binding.user.text.toString(), binding.password.text.toString(), binding.secure.isChecked)
                     db.insert(connection)
                 } else {
                     val connection = Connection(binding.title.text.toString(),
                     binding.server.text.toString(), binding.port.text.toString().toInt(),
-                    binding.user.text.toString(), binding.password.text.toString(), connectionId)
+                    binding.user.text.toString(), binding.password.text.toString(), binding.secure.isChecked, connectionId)
                     db.update(connection)
                 }
             }
@@ -87,6 +97,7 @@ class AddConnectionFragment : Fragment() {
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
                 binding.password.setText(c.password)
+                binding.secure.isChecked = c.secure
             }
 
         }

@@ -66,4 +66,5 @@
     <string name="upload_completed_partially">Upload %d of %d completed</string>
     <string name="upload_failed_partially">Upload %d of %d failed</string>
     <string name="upload_summary">Upload finished: %d succeeded, %d failed</string>
+    <string name="secure_connection">Secure connection (FTPS)</string>
 </resources>

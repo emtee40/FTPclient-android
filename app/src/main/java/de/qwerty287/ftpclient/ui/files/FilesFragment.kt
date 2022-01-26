@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
+import org.apache.commons.net.ftp.FTPSClient
 import java.io.File
 
 
@@ -37,7 +38,7 @@ class FilesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var directory: String
 
-    private val ftpClient = FTPClient()
+    private var ftpClient = FTPClient()
     private lateinit var connection: Connection
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -222,6 +223,12 @@ class FilesFragment : Fragment() {
                             AppDatabase.getInstance(requireContext()).connectionDao()
                                 .get(it.toLong())
                         }!! // get connection from connection id, which is stored in the arguments
+
+                        if (connection.secure) {
+                            // replace FTPClient with FTPSClient
+                            ftpClient = FTPSClient()
+                        }
+
                         ftpClient.connect(connection.server, connection.port)
                         ftpClient.login(
                             connection.username,

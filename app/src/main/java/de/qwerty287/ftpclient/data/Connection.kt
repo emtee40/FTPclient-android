@@ -11,5 +11,6 @@ data class Connection(
     @ColumnInfo(name = "port") val port: Int,
     @ColumnInfo(name = "username") val username: String,
     @ColumnInfo(name = "password") val password: String,
+    @ColumnInfo(name = "secure") val secure: Boolean,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 )
