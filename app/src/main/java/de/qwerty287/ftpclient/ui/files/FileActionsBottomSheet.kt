@@ -2,7 +2,6 @@
 
 package de.qwerty287.ftpclient.ui.files
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -17,6 +16,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
 import de.qwerty287.ftpclient.ui.files.providers.Client
@@ -24,7 +24,6 @@ import de.qwerty287.ftpclient.ui.files.providers.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.apache.commons.net.ftp.FTPClient
 
 class FileActionsBottomSheet(
     private val file: File,
@@ -100,7 +99,7 @@ class FileActionsBottomSheet(
         }
 
         binding.deleteFile.setOnClickListener {
-            AlertDialog.Builder(requireContext()).apply {
+            MaterialAlertDialogBuilder(requireContext()).apply {
                 setTitle(if (file.isFile) {
                     R.string.delete_confirmation
                 } else {
@@ -138,7 +137,7 @@ class FileActionsBottomSheet(
             val view2 = layoutInflater.inflate(R.layout.dialog_entry, null)
             val editText = view2.findViewById<EditText>(R.id.edittext_dialog)
             editText.setText(file.name)
-            AlertDialog.Builder(requireContext())
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.enter_new_filename)
                 .setView(view2)
                 .setNegativeButton(R.string.cancel, null)

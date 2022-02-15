@@ -1,6 +1,5 @@
 package de.qwerty287.ftpclient.ui.connections
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +9,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
-import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
 import kotlinx.coroutines.launch
 
@@ -49,7 +49,7 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
 
         binding.deleteConnection.setOnClickListener {
             lifecycleScope.launch {
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.delete_connection_confirmation)
                     .setMessage(R.string.delete_connection_message)
                     .setNegativeButton(R.string.cancel, null)

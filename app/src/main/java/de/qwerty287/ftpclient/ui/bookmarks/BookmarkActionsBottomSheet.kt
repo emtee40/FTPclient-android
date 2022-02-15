@@ -1,6 +1,5 @@
 package de.qwerty287.ftpclient.ui.bookmarks
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +9,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import de.qwerty287.ftpclient.data.AppDatabase
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
+import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Bookmark
 import de.qwerty287.ftpclient.databinding.BottomSheetBookmarkActionsBinding
 import kotlinx.coroutines.launch
@@ -49,7 +49,7 @@ class BookmarkActionsBottomSheet(private val bookmarkId: Int, fm: FragmentManage
 
         binding.deleteBookmark.setOnClickListener {
             lifecycleScope.launch {
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.delete_bookmark_confirmation)
                     .setNegativeButton(R.string.cancel, null)
                     .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->

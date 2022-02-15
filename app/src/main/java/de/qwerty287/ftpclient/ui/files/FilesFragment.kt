@@ -2,7 +2,6 @@
 
 package de.qwerty287.ftpclient.ui.files
 
-import android.app.AlertDialog
 import android.content.*
 import android.database.Cursor
 import android.net.Uri
@@ -18,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
@@ -28,7 +28,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.lang.NullPointerException
 
 
 class FilesFragment : Fragment() {
@@ -129,7 +128,7 @@ class FilesFragment : Fragment() {
             val view2 = layoutInflater.inflate(R.layout.dialog_entry, null)
             val editText = view2.findViewById<EditText>(R.id.edittext_dialog)
             editText.hint = getString(R.string.dir_name)
-            AlertDialog.Builder(requireContext())
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.enter_dir_name)
                 .setView(view2)
                 .setNegativeButton(R.string.cancel, null)
@@ -177,7 +176,7 @@ class FilesFragment : Fragment() {
                 val editText: EditText = view.findViewById(R.id.edittext_dialog)
                 editText.setText(directory)
                 editText.setHint(R.string.go_to)
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.go_to)
                     .setView(view)
                     .setPositiveButton(R.string.ok) { _, _ ->
@@ -294,7 +293,7 @@ class FilesFragment : Fragment() {
                     e.printStackTrace()
                     withContext(Dispatchers.Main) {
                         binding.swipeRefresh.isRefreshing = false
-                        val dialog = AlertDialog.Builder(requireContext()) // show error dialog
+                        val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
                             .setTitle(R.string.error_occurred)
                             .setMessage(R.string.error_descriptions)
                             .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
