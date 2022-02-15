@@ -45,21 +45,21 @@ class BookmarksFragment : Fragment() {
     private fun showBookmarks() {
         AppDatabase.getInstance(requireContext())
             .bookmarkDao().getAll().observe(viewLifecycleOwner, {
-            if (it.isEmpty()) {
-                binding.noConnections.isVisible = true
-                binding.recyclerviewBookmarks.adapter = null
-            } else {
-                binding.recyclerviewBookmarks.layoutManager = if (it.size == 1) {
-                    LinearLayoutManager(requireContext())
+                if (it.isEmpty()) {
+                    binding.noConnections.isVisible = true
+                    binding.recyclerviewBookmarks.adapter = null
                 } else {
-                    GridLayoutManager(requireContext(), 2)
+                    binding.recyclerviewBookmarks.layoutManager = if (it.size == 1) {
+                        LinearLayoutManager(requireContext())
+                    } else {
+                        GridLayoutManager(requireContext(), 2)
+                    }
+                    binding.recyclerviewBookmarks.adapter = BookmarkAdapter(
+                        it,
+                        findNavController(),
+                        requireActivity().supportFragmentManager
+                    )
                 }
-                binding.recyclerviewBookmarks.adapter = BookmarkAdapter(
-                    it,
-                    findNavController(),
-                    requireActivity().supportFragmentManager
-                )
-            }
-        })
+            })
     }
 }

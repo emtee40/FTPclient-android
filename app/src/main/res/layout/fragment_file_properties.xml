@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,11 +19,11 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/filename"
-                app:srcCompat="@drawable/ic_baseline_insert_drive_file_24" />
+                app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,14 +36,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/filename"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/filename"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -57,11 +58,11 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/size"
-                app:srcCompat="@drawable/ic_baseline_photo_size_select_small_24" />
+                app:srcCompat="@drawable/ic_baseline_photo_size_select_small_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,14 +75,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/size"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/file_size"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -95,11 +96,11 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/owner"
-                app:srcCompat="@drawable/ic_baseline_person_24" />
+                app:srcCompat="@drawable/ic_baseline_person_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,14 +113,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/owner"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/file_owner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -133,11 +134,11 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/group"
-                app:srcCompat="@drawable/ic_baseline_group_24" />
+                app:srcCompat="@drawable/ic_baseline_group_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -150,14 +151,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/group"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/file_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -171,11 +172,11 @@
             android:paddingRight="15dp">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/timestamp"
-                app:srcCompat="@drawable/ic_baseline_access_time_24" />
+                app:srcCompat="@drawable/ic_baseline_access_time_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -188,34 +189,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/timestamp"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/file_timestamp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/file_symbolic_link_layout"
-            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            android:visibility="invisible">
 
             <ImageView
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:contentDescription="@string/points_to"
-                app:srcCompat="@drawable/ic_baseline_link_24" />
+                app:srcCompat="@drawable/ic_baseline_link_24"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,14 +229,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/points_to"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/file_symbolic_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.9"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
         </LinearLayout>

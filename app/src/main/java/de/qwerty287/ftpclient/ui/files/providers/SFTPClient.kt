@@ -2,21 +2,20 @@ package de.qwerty287.ftpclient.ui.files.providers
 
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.sftp.SFTPClient
-import net.schmizz.sshj.transport.verification.HostKeyVerifier
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
-import net.schmizz.sshj.xfer.*
+import net.schmizz.sshj.xfer.InMemoryDestFile
+import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
 import java.io.OutputStream
-import java.security.PublicKey
-import kotlin.collections.ArrayList
 
 class SFTPClient : Client {
 
     private val client = SSHClient()
     private var sftpClient: SFTPClient? = null
-    private val sftp: SFTPClient get() = sftpClient ?: client.newSFTPClient().also {
-        sftpClient = it
-    }
+    private val sftp: SFTPClient
+        get() = sftpClient ?: client.newSFTPClient().also {
+            sftpClient = it
+        }
 
     override fun login(user: String, password: String) {
         client.authPassword(user, password)

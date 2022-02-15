@@ -12,9 +12,9 @@ class FTPSClient : Client {
     }
 
     override var implicit: Boolean = false
-    set(value) {
-        client = FTPSClient(value)
-    }
+        set(value) {
+            client = FTPSClient(value)
+        }
 
     override fun login(user: String, password: String) {
         client.login(user, password)

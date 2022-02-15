@@ -54,7 +54,7 @@ class FilePropertiesFragment : Fragment() {
         if (file!!.isSymbolicLink) {
             binding.fileSymbolicLinkLayout.isVisible = true
         }
-        
+
         binding.filename.text = file!!.name
         binding.fileSize.text = getFileByteString()
         binding.fileOwner.text = file!!.user

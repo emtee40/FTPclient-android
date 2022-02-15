@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,36 +21,36 @@
                 android:id="@+id/type_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 app:checkedButton="@id/type_ftp"
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/type_ftp"
-                    android:layout_weight="1"
-                    android:text="@string/connection_type_ftp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:layout_weight="1"
+                    android:text="@string/connection_type_ftp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/type_ftps"
-                    android:layout_weight="1"
-                    android:text="@string/connection_type_ftps"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:layout_weight="1"
+                    android:text="@string/connection_type_ftps"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/type_sftp"
-                    android:layout_weight="1"
-                    android:text="@string/connection_type_sftp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:layout_weight="1"
+                    android:text="@string/connection_type_sftp"/>
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -71,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,21 +115,21 @@
                     android:id="@+id/port"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/default_port"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:text="@string/default_port"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <CheckBox
                 android:id="@+id/implicit"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/implicit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/implicit"
                 android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:singleLine="true" />
+                    android:singleLine="true"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,10 +186,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_check_24"
         android:clickable="false"
+        android:contentDescription="@string/add_connection"
+        android:src="@drawable/ic_baseline_check_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/add_connection" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

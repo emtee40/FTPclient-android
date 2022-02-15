@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.R
+import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.databinding.FragmentConnectionsBinding
 
 
@@ -69,21 +69,21 @@ class ConnectionsFragment : Fragment() {
     private fun showConnections() {
         AppDatabase.getInstance(requireContext())
             .connectionDao().getAll().observe(viewLifecycleOwner, {
-            if (it.isEmpty()) {
-                binding.noConnections.isVisible = true
-                binding.recyclerviewMain.adapter = null
-            } else {
-                binding.recyclerviewMain.layoutManager = if (it.size == 1) {
-                    LinearLayoutManager(requireContext())
+                if (it.isEmpty()) {
+                    binding.noConnections.isVisible = true
+                    binding.recyclerviewMain.adapter = null
                 } else {
-                    GridLayoutManager(requireContext(), 2)
+                    binding.recyclerviewMain.layoutManager = if (it.size == 1) {
+                        LinearLayoutManager(requireContext())
+                    } else {
+                        GridLayoutManager(requireContext(), 2)
+                    }
+                    binding.recyclerviewMain.adapter = ConnectionAdapter(
+                        it,
+                        findNavController(),
+                        requireActivity().supportFragmentManager
+                    )
                 }
-                binding.recyclerviewMain.adapter = ConnectionAdapter(
-                    it,
-                    findNavController(),
-                    requireActivity().supportFragmentManager
-                )
-            }
-        })
+            })
     }
 }

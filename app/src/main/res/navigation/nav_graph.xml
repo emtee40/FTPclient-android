@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/ConnectionsFragment">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            app:startDestination="@id/ConnectionsFragment">
 
     <fragment
         android:id="@+id/ConnectionsFragment"
@@ -24,7 +24,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"/>
 
         <action
             android:id="@+id/action_ConnectionsFragment_to_BookmarksFragment"
@@ -75,11 +75,11 @@
         android:id="@+id/FilePropertiesFragment"
         android:name="de.qwerty287.ftpclient.ui.files.FilePropertiesFragment"
         android:label="@string/file_properties"
-        tools:layout="@layout/fragment_file_properties"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"/>
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/fragment_file_properties"/>
 
     <fragment
         android:id="@+id/AddBookmarkFragment"

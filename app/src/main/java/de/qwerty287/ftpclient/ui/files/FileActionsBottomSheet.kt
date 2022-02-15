@@ -37,28 +37,29 @@ class FileActionsBottomSheet(
     private var _binding: BottomSheetFileActionsBinding? = null
     private val binding get() = _binding!!
 
-    private val result: ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val uri = it.data?.data
-                if (uri != null) {
-                    val outputStream = requireContext().contentResolver.openOutputStream(uri)
-                    val success = try {
-                        client.download(getAbsoluteFilePath(), outputStream!!) // TODO return?
-                        true
-                    } catch (e: NullPointerException) {
-                        false
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        false
+    private val result: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val uri = it.data?.data
+                    if (uri != null) {
+                        val outputStream = requireContext().contentResolver.openOutputStream(uri)
+                        val success = try {
+                            client.download(getAbsoluteFilePath(), outputStream!!) // TODO return?
+                            true
+                        } catch (e: NullPointerException) {
+                            false
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            false
+                        }
+                        outputStream?.close()
+                        showSnackbar(success, R.string.download_completed, R.string.download_failed)
                     }
-                    outputStream?.close()
-                    showSnackbar(success, R.string.download_completed, R.string.download_failed)
+                    dismiss()
                 }
-                dismiss()
             }
         }
-    }
 
     init {
         show(fm, "FileActionsBottomSheet")
@@ -100,11 +101,13 @@ class FileActionsBottomSheet(
 
         binding.deleteFile.setOnClickListener {
             MaterialAlertDialogBuilder(requireContext()).apply {
-                setTitle(if (file.isFile) {
-                    R.string.delete_confirmation
-                } else {
-                    R.string.delete_dir_confirmation
-                })
+                setTitle(
+                    if (file.isFile) {
+                        R.string.delete_confirmation
+                    } else {
+                        R.string.delete_dir_confirmation
+                    }
+                )
                 if (file.isDirectory) {
                     setMessage(R.string.dir_delete_message)
                 }

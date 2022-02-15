@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
-import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.R
+import de.qwerty287.ftpclient.data.Connection
 
 internal class ConnectionAdapter(
     private val connections: List<Connection>,

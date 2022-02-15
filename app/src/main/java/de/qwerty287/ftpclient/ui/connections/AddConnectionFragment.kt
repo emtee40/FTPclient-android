@@ -149,11 +149,13 @@ class AddConnectionFragment : Fragment() {
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
                 binding.password.setText(c.password)
-                binding.typeGroup.check(when (c.type) {
-                    Provider.FTP -> R.id.type_ftp
-                    Provider.FTPS -> R.id.type_ftps
-                    Provider.SFTP -> R.id.type_sftp
-                })
+                binding.typeGroup.check(
+                    when (c.type) {
+                        Provider.FTP -> R.id.type_ftp
+                        Provider.FTPS -> R.id.type_ftps
+                        Provider.SFTP -> R.id.type_sftp
+                    }
+                )
                 binding.implicit.isChecked = c.implicit
                 binding.implicit.isVisible = c.type == Provider.FTPS
             }

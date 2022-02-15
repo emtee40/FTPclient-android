@@ -19,7 +19,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.FTPClient.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FTPClient.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="Theme.FTPClient.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.FTPClient.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 </resources>

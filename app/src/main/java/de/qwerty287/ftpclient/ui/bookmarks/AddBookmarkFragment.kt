@@ -58,18 +58,22 @@ class AddBookmarkFragment : Fragment() {
             lifecycleScope.launch {
                 val dao = AppDatabase.getInstance(requireContext()).bookmarkDao()
                 if (connectionId != null) {
-                    dao.insert(Bookmark(
-                        binding.title.text.toString(),
-                        binding.directory.text.toString(),
-                        connectionId!!
-                    ))
+                    dao.insert(
+                        Bookmark(
+                            binding.title.text.toString(),
+                            binding.directory.text.toString(),
+                            connectionId!!
+                        )
+                    )
                 } else if (bookmark != null) {
-                    dao.update(Bookmark(
-                        binding.title.text.toString(),
-                        binding.directory.text.toString(),
-                        bookmark!!.connection,
-                        bookmark!!.id
-                    ))
+                    dao.update(
+                        Bookmark(
+                            binding.title.text.toString(),
+                            binding.directory.text.toString(),
+                            bookmark!!.connection,
+                            bookmark!!.id
+                        )
+                    )
                 }
                 findNavController().navigateUp()
             }

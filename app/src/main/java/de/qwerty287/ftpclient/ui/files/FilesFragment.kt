@@ -40,7 +40,8 @@ class FilesFragment : Fragment() {
     private lateinit var connection: Connection
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) {
+        ActivityResultContracts.StartActivityForResult()
+    ) {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val uri = it.data?.data
@@ -92,12 +93,29 @@ class FilesFragment : Fragment() {
                             failed += 1
                         }
                         inputStream?.close()
-                        showSnackbar(success,
-                            String.format(requireContext().getString(R.string.upload_completed_partially, i + 1, clipData.itemCount)),
-                            String.format(requireContext().getString(R.string.upload_failed_partially, i + 1, clipData.itemCount)))
+                        showSnackbar(
+                            success,
+                            String.format(
+                                requireContext().getString(
+                                    R.string.upload_completed_partially,
+                                    i + 1,
+                                    clipData.itemCount
+                                )
+                            ),
+                            String.format(
+                                requireContext().getString(
+                                    R.string.upload_failed_partially,
+                                    i + 1,
+                                    clipData.itemCount
+                                )
+                            )
+                        )
                     }
-                    Snackbar.make(binding.root,
-                        String.format(requireContext().getString(R.string.upload_summary), succeeded, failed), Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(
+                        binding.root,
+                        String.format(requireContext().getString(R.string.upload_summary), succeeded, failed),
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                     updateUi()
                 }
             }
@@ -170,7 +188,7 @@ class FilesFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.go_to -> {
                 val view = layoutInflater.inflate(R.layout.dialog_entry, null)
                 val editText: EditText = view.findViewById(R.id.edittext_dialog)
@@ -372,11 +390,13 @@ class FilesFragment : Fragment() {
      * @param failedRes The text that is shown if the operation failed
      */
     private fun showSnackbar(success: Boolean, @StringRes successRes: Int, @StringRes failedRes: Int) {
-        Snackbar.make(binding.root, if (success) {
-            successRes
-        } else {
-            failedRes
-        }, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            binding.root, if (success) {
+                successRes
+            } else {
+                failedRes
+            }, Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     /**
@@ -386,10 +406,12 @@ class FilesFragment : Fragment() {
      * @param failedString The text that is shown if the operation failed
      */
     private fun showSnackbar(success: Boolean, successString: String, failedString: String) {
-        Snackbar.make(binding.root, if (success) {
-            successString
-        } else {
-            failedString
-        }, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            binding.root, if (success) {
+                successString
+            } else {
+                failedString
+            }, Snackbar.LENGTH_SHORT
+        ).show()
     }
 }
