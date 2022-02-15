@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Bookmark
 import de.qwerty287.ftpclient.databinding.FragmentAddBookmarkBinding
@@ -43,6 +45,7 @@ class AddBookmarkFragment : Fragment() {
         if (connectionId != null) {
             binding.directory.setText(arguments?.getString("directory"))
         } else {
+            (requireActivity() as AppCompatActivity).supportActionBar?.setTitle(R.string.edit_bookmark)
             loadBookmark()
         }
 

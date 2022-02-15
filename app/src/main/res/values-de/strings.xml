@@ -5,6 +5,7 @@
     <string name="files_fragment_label">Dateien</string>
     <string name="download_file">Herunterladen</string>
     <string name="add_connection">Verbindung hinzufügen</string>
+    <string name="edit_connection">Verbindung bearbeiten</string>
     <string name="title">Name</string>
     <string name="password">Passwort</string>
     <string name="username">Benutzername</string>
@@ -55,6 +56,7 @@
     <string name="go_to">Gehe zu</string>
     <string name="update">Aktualisieren</string>
     <string name="add_bookmark">Lesezeichen hinzufügen</string>
+    <string name="edit_bookmark">Lesezeichen bearbeiten</string>
     <string name="directory">Verzeichnis - leer lassen für Root-Verzeichnis</string>
     <string name="bookmarks">Lesezeichen</string>
     <string name="no_bookmarks">Keine Lesezeichen</string>

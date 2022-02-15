@@ -6,6 +6,7 @@
 
     <string name="download_file">Download</string>
     <string name="add_connection">Add connection</string>
+    <string name="edit_connection">Edit connection</string>
     <string name="title">Title</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
@@ -57,6 +58,7 @@
     <string name="go_to">Go to</string>
     <string name="update">Update</string>
     <string name="add_bookmark">Add bookmark</string>
+    <string name="edit_bookmark">Edit bookmark</string>
     <string name="directory">Directory - leave empty for root directory</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="no_bookmarks">No bookmarks</string>

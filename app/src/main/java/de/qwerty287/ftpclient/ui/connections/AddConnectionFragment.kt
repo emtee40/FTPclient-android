@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -40,6 +41,7 @@ class AddConnectionFragment : Fragment() {
 
         val connectionId = arguments?.getInt("connection")
         if (connectionId != null) {
+            (requireActivity() as AppCompatActivity).supportActionBar?.setTitle(R.string.edit_connection)
             loadConnection(connectionId)
             this.connectionId = connectionId
         }
