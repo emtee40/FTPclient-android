@@ -7,6 +7,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import de.qwerty287.ftpclient.databinding.ActivityMainBinding
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +17,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // replace BountyCastle provider (see https://github.com/hierynomus/sshj/issues/540#issuecomment-596017926)
+        Security.removeProvider("BC")
+        Security.insertProviderAt(BouncyCastleProvider(), 0)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

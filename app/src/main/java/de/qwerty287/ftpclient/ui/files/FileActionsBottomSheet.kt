@@ -19,16 +19,17 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
+import de.qwerty287.ftpclient.ui.files.providers.Client
+import de.qwerty287.ftpclient.ui.files.providers.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.apache.commons.net.ftp.FTPClient
-import org.apache.commons.net.ftp.FTPFile
 
 class FileActionsBottomSheet(
-    private val file: FTPFile,
+    private val file: File,
     fm: FragmentManager,
-    private val client: FTPClient,
+    private val client: Client,
     private val directory: String,
     private val updateParent: (() -> Unit),
     private val showSnackbar: ((Boolean, Int, Int) -> Unit)
@@ -44,7 +45,10 @@ class FileActionsBottomSheet(
                 if (uri != null) {
                     val outputStream = requireContext().contentResolver.openOutputStream(uri)
                     val success = try {
-                        client.retrieveFile(getAbsoluteFilePath(), outputStream)
+                        client.download(getAbsoluteFilePath(), outputStream!!) // TODO return?
+                        true
+                    } catch (e: NullPointerException) {
+                        false
                     } catch (e: Exception) {
                         e.printStackTrace()
                         false
@@ -111,10 +115,11 @@ class FileActionsBottomSheet(
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 if (file.isFile) {
-                                    client.deleteFile(getAbsoluteFilePath())
+                                    client.rm(getAbsoluteFilePath())
                                 } else {
-                                    client.removeDirectory(getAbsoluteFilePath())
+                                    client.rmDir(getAbsoluteFilePath())
                                 }
+                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -143,6 +148,7 @@ class FileActionsBottomSheet(
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false

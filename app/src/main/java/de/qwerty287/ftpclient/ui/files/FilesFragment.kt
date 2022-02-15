@@ -23,13 +23,12 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
+import de.qwerty287.ftpclient.ui.files.providers.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.apache.commons.net.ftp.FTPClient
-import org.apache.commons.net.ftp.FTPFile
-import org.apache.commons.net.ftp.FTPSClient
 import java.io.File
+import java.lang.NullPointerException
 
 
 class FilesFragment : Fragment() {
@@ -38,7 +37,7 @@ class FilesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var directory: String
 
-    private var ftpClient = FTPClient()
+    private var client: Client? = null
     private lateinit var connection: Connection
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -53,10 +52,13 @@ class FilesFragment : Fragment() {
                     }
                     val inputStream = requireContext().contentResolver.openInputStream(uri)
                     val success: Boolean = try {
-                        ftpClient.storeFile(
+                        client!!.upload(
                             getAbsoluteFilePath(getFilenameFromUri(uri)),
-                            inputStream
+                            inputStream!!
                         )
+                        true
+                    } catch (e: NullPointerException) {
+                        false
                     } catch (e: Exception) {
                         e.printStackTrace()
                         false
@@ -74,10 +76,13 @@ class FilesFragment : Fragment() {
                         val clipUri = clipData.getItemAt(i).uri
                         val inputStream = requireContext().contentResolver.openInputStream(clipUri)
                         val success: Boolean = try {
-                            ftpClient.storeFile(
+                            client!!.upload(
                                 getAbsoluteFilePath(getFilenameFromUri(clipUri)),
-                                inputStream
+                                inputStream!!
                             )
+                            true
+                        } catch (e: NullPointerException) {
+                            false
                         } catch (e: Exception) {
                             e.printStackTrace()
                             false
@@ -133,7 +138,8 @@ class FilesFragment : Fragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
-                                ftpClient.makeDirectory(getAbsoluteFilePath(dirName))
+                                client!!.mkdir(getAbsoluteFilePath(dirName))
+                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -210,7 +216,7 @@ class FilesFragment : Fragment() {
      * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
      */
     private fun updateUi() {
-        var files: Array<FTPFile>
+        var files: List<de.qwerty287.ftpclient.ui.files.providers.File>
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
@@ -218,27 +224,25 @@ class FilesFragment : Fragment() {
                     binding.swipeRefresh.isRefreshing = true
                 }
                 try {
-                    if (!ftpClient.isConnected) {
+                    if (client?.isConnected != true) {
                         connection = arguments?.getInt("connection")?.let {
                             AppDatabase.getInstance(requireContext()).connectionDao()
                                 .get(it.toLong())
                         }!! // get connection from connection id, which is stored in the arguments
 
-                        if (connection.secure) {
-                            // replace FTPClient with FTPSClient
-                            ftpClient = FTPSClient()
-                        }
+                        client = connection.type.get()
 
-                        ftpClient.connect(connection.server, connection.port)
-                        ftpClient.login(
+                        client!!.implicit = connection.implicit
+                        client!!.connect(connection.server, connection.port)
+                        client!!.login(
                             connection.username,
                             connection.password
                         ) // connect to server and login with login credentials
                     }
                     files = if (directory == "") { // get files
-                        ftpClient.listFiles()
+                        client!!.list()
                     } else {
-                        ftpClient.listFiles(directory)
+                        client!!.list(directory)
                     }
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) { // set up recyclerview or textview
@@ -261,22 +265,28 @@ class FilesFragment : Fragment() {
                                         FileActionsBottomSheet(
                                             it,
                                             requireActivity().supportFragmentManager,
-                                            ftpClient,
+                                            client!!,
                                             directory,
-                                            { updateUi() },
-                                            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+                                            { updateUi() }
+                                        ) { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }
                                     }
-                                }, { // how to handle long clicks on items
+                                }) { // how to handle long clicks on items
                                     if (!it.isUnknown) {
                                         FileActionsBottomSheet(
                                             it,
                                             requireActivity().supportFragmentManager,
-                                            ftpClient,
+                                            client!!,
                                             directory,
-                                            { updateUi() },
-                                            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+                                            { updateUi() }
+                                        ) { itBool, suc, fail ->
+                                            showSnackbar(
+                                                itBool,
+                                                suc,
+                                                fail
+                                            )
+                                        }
                                     }
-                                })
+                                }
                         }
                         binding.swipeRefresh.isRefreshing = false
                     }
@@ -343,8 +353,9 @@ class FilesFragment : Fragment() {
             try {
                 cursor = requireActivity().contentResolver.query(uri, null, null, null, null)
                 if (cursor != null && cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
                     displayName =
-                        cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                        cursor.getString(index)
                 }
             } finally {
                 cursor?.close()

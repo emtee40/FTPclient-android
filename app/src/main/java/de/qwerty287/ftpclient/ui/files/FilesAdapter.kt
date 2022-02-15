@@ -9,14 +9,15 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import de.qwerty287.ftpclient.R
+import de.qwerty287.ftpclient.ui.files.providers.File
 import org.apache.commons.net.ftp.FTPFile
 
 
 internal class FilesAdapter(
     private val context: Context,
-    private val files: Array<FTPFile>,
-    private val onClick: (FTPFile) -> Unit,
-    private val onLongClick: (FTPFile) -> Unit
+    private val files: List<File>,
+    private val onClick: (File) -> Unit,
+    private val onLongClick: (File) -> Unit
 ) :
     RecyclerView.Adapter<FilesAdapter.ViewHolder>() {
 
@@ -52,7 +53,7 @@ internal class FilesAdapter(
      * @param file The [FTPFile]
      * @return The [Drawable] icon
      */
-    private fun getDrawableIcon(file: FTPFile): Drawable? {
+    private fun getDrawableIcon(file: File): Drawable? {
         val icon = AppCompatResources.getDrawable(context, FileExtensions.getDrawableFromFTPFile(file)) ?: return null
         val h = icon.intrinsicHeight
         val w = icon.intrinsicWidth

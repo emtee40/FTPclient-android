@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Connection::class, Bookmark::class], version = 4, exportSchema = false)
+@Database(entities = [Connection::class, Bookmark::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun connectionDao(): ConnectionDao
     abstract fun bookmarkDao(): BookmarkDao
@@ -37,6 +37,24 @@ abstract class AppDatabase : RoomDatabase() {
                         object : Migration(3, 4) {
                             override fun migrate(database: SupportSQLiteDatabase) {
                                 database.execSQL("ALTER TABLE 'connections' ADD COLUMN 'secure' INTEGER NOT NULL DEFAULT 0")
+                            }
+                        },
+                        object : Migration(4, 5) {
+                            override fun migrate(database: SupportSQLiteDatabase) {
+                                database.execSQL("CREATE TABLE IF NOT EXISTS 'connections_tmp' ('_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'title' TEXT NOT NULL, 'server' TEXT NOT NULL, 'port' INTEGER NOT NULL, 'username' TEXT NOT NULL, 'password' TEXT NOT NULL, 'type' TEXT NOT NULL DEFAULT 'FTP')")
+                                database.execSQL("INSERT INTO 'connections_tmp' ('title', 'server', 'port', 'username', 'password', '_id') SELECT title, server, port, username, password, _id FROM 'connections'")
+                                database.execSQL("DROP TABLE 'connections'")
+                                database.execSQL("ALTER TABLE 'connections_tmp' RENAME TO 'connections'")
+                            }
+                        },
+                        object : Migration(3, 5) {
+                            override fun migrate(database: SupportSQLiteDatabase) {
+                                database.execSQL("ALTER TABLE 'connections' ADD COLUMN 'type' TEXT NOT NULL DEFAULT 'FTP'")
+                            }
+                        },
+                        object : Migration(5, 6) {
+                            override fun migrate(database: SupportSQLiteDatabase) {
+                                database.execSQL("ALTER TABLE 'connections' ADD COLUMN 'implicit' INTEGER NOT NULL DEFAULT 0")
                             }
                         }
                     )

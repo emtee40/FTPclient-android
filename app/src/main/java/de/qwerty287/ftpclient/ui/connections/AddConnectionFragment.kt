@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
+import de.qwerty287.ftpclient.ui.files.providers.Provider
 import kotlinx.coroutines.launch
+import net.schmizz.sshj.SSHClient
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPSClient
 
@@ -40,6 +44,8 @@ class AddConnectionFragment : Fragment() {
             this.connectionId = connectionId
         }
 
+        var portChanged = connectionId != null
+
         fun checkInputs() {
             binding.addConnection.isClickable = !(binding.title.text.isNullOrBlank() ||
                     binding.server.text.isNullOrBlank() || // TODO check guest mode
@@ -56,11 +62,34 @@ class AddConnectionFragment : Fragment() {
             }
         }
 
-        binding.secure.setOnCheckedChangeListener { _, isChecked ->
-            if (binding.port.text.toString().toInt() == FTPClient.DEFAULT_PORT && isChecked) {
-                binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
-            } else if (binding.port.text.toString().toInt() == FTPSClient.DEFAULT_FTPS_PORT && !isChecked) {
+        binding.port.doOnTextChanged { _, _, _, _ ->
+            portChanged = true
+        }
+
+        binding.typeFtp.setOnClickListener {
+            if (!portChanged) {
                 binding.port.setText(FTPClient.DEFAULT_PORT.toString())
+                // undo because doOnTextChanged is called
+                portChanged = false
+                binding.implicit.isVisible = false
+            }
+        }
+
+        binding.typeFtps.setOnClickListener {
+            if (!portChanged) {
+                binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
+                // undo because doOnTextChanged is called
+                portChanged = false
+                binding.implicit.isVisible = true
+            }
+        }
+
+        binding.typeSftp.setOnClickListener {
+            if (!portChanged) {
+                binding.port.setText(SSHClient.DEFAULT_PORT.toString())
+                // undo because doOnTextChanged is called
+                portChanged = false
+                binding.implicit.isVisible = false
             }
         }
 
@@ -68,14 +97,37 @@ class AddConnectionFragment : Fragment() {
             lifecycleScope.launch {
                 val db = AppDatabase.getInstance(requireContext()).connectionDao()
                 if (connectionId == null) {
-                    val connection = Connection(binding.title.text.toString(),
-                    binding.server.text.toString(), binding.port.text.toString().toInt(),
-                    binding.user.text.toString(), binding.password.text.toString(), binding.secure.isChecked)
+                    val connection = Connection(
+                        binding.title.text.toString(),
+                        binding.server.text.toString(),
+                        binding.port.text.toString().toInt(),
+                        binding.user.text.toString(),
+                        binding.password.text.toString(),
+                        when (binding.typeGroup.checkedButtonId) {
+                            R.id.type_ftp -> Provider.FTP
+                            R.id.type_ftps -> Provider.FTPS
+                            R.id.type_sftp -> Provider.SFTP
+                            else -> Provider.FTP
+                        },
+                        binding.implicit.isChecked
+                    )
                     db.insert(connection)
                 } else {
-                    val connection = Connection(binding.title.text.toString(),
-                    binding.server.text.toString(), binding.port.text.toString().toInt(),
-                    binding.user.text.toString(), binding.password.text.toString(), binding.secure.isChecked, connectionId)
+                    val connection = Connection(
+                        binding.title.text.toString(),
+                        binding.server.text.toString(),
+                        binding.port.text.toString().toInt(),
+                        binding.user.text.toString(),
+                        binding.password.text.toString(),
+                        when (binding.typeGroup.checkedButtonId) {
+                            R.id.type_ftp -> Provider.FTP
+                            R.id.type_ftps -> Provider.FTPS
+                            R.id.type_sftp -> Provider.SFTP
+                            else -> Provider.FTP
+                        },
+                        binding.implicit.isChecked,
+                        connectionId
+                    )
                     db.update(connection)
                 }
             }
@@ -97,7 +149,13 @@ class AddConnectionFragment : Fragment() {
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
                 binding.password.setText(c.password)
-                binding.secure.isChecked = c.secure
+                binding.typeGroup.check(when (c.type) {
+                    Provider.FTP -> R.id.type_ftp
+                    Provider.FTPS -> R.id.type_ftps
+                    Provider.SFTP -> R.id.type_sftp
+                })
+                binding.implicit.isChecked = c.implicit
+                binding.implicit.isVisible = c.type == Provider.FTPS
             }
 
         }

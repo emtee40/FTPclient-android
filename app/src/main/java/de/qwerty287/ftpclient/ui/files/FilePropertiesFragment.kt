@@ -9,20 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.FragmentFilePropertiesBinding
-import org.apache.commons.net.ftp.FTPFile
+import de.qwerty287.ftpclient.ui.files.providers.File
 import java.text.SimpleDateFormat
 
 class FilePropertiesFragment : Fragment() {
 
     private var _binding: FragmentFilePropertiesBinding? = null
     private val binding get() = _binding!!
-    private var file: FTPFile? = null
+    private var file: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         try {
-            file = arguments?.getSerializable("file") as FTPFile?
+            file = arguments?.getSerializable("file") as File?
         } catch (e: Exception) {
             e.printStackTrace()
             findNavController().navigateUp()

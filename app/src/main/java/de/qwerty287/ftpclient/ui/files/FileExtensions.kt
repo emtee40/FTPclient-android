@@ -1,8 +1,7 @@
 package de.qwerty287.ftpclient.ui.files
 
-import android.graphics.drawable.Drawable
 import de.qwerty287.ftpclient.R
-import org.apache.commons.net.ftp.FTPFile
+import de.qwerty287.ftpclient.ui.files.providers.File
 
 object FileExtensions {
     // Lists of file extensions. Extracted from a Linux system using the Python scripts in <project root>/scripts.
@@ -57,12 +56,7 @@ object FileExtensions {
         "sldx", "kpr", "kpt", "ppsx", "otp", "otp", "potx", "potx", "sldm", "potm", "potm", "key", "ppam", "odp", "odp", "sdd", "sdp", "fodp", "fodp", "sxi", "sxi", "ppz", "ppt", "pps", "pot", "ppt", "pptx", "pptx", "pptm",
         "pptm", "ppsm", "sti", "sti", "mgp")
 
-    /**
-     * Returns the [Drawable] resource for the specific file
-     * @param file The [FTPFile]
-     * @return The [Drawable] resource
-     */
-    fun getDrawableFromFTPFile(file: FTPFile): Int {
+    fun getDrawableFromFTPFile(file: File): Int {
         return if (file.isDirectory) {
             R.drawable.ic_baseline_folder_24
         } else if (file.isFile && getFileFormat(file) in audioFormats) {
@@ -92,12 +86,7 @@ object FileExtensions {
         }
     }
 
-    /**
-     * Returns the file format of an [FTPFile]
-     * @param file The [FTPFile]
-     * @return The [String] with the end of the file name
-     */
-    private fun getFileFormat(file: FTPFile): String {
+    private fun getFileFormat(file: File): String {
         val list = file.name.split(".")
         return if (list.size < 2) {
             ""

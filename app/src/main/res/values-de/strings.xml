@@ -64,4 +64,8 @@
     <string name="upload_completed_partially">Upload %d von %d abgeschlossen</string>
     <string name="upload_failed_partially">Upload %d von %d fehlgeschlagen</string>
     <string name="upload_summary">Upload beendet: %d erfolgreich, %d fehlgeschlagen</string>
+    <string name="connection_type_ftp">FTP</string>
+    <string name="connection_type_ftps">FTPS</string>
+    <string name="connection_type_sftp">SFTP</string>
+    <string name="implicit">Implizite Verbindung</string>
 </resources>
