@@ -279,19 +279,18 @@ class FilesFragment : Fragment() {
                                             options
                                         )
                                     } else if (!it.isUnknown) {
-                                        FileActionsBottomSheet(
+                                        FileActionsBottomSheet.newInstance(
                                             it,
-                                            requireActivity().supportFragmentManager,
                                             client!!,
                                             directory,
                                             { updateUi() }
                                         ) { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }
+                                            .show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
                                     }
                                 }) { // how to handle long clicks on items
                                     if (!it.isUnknown) {
-                                        FileActionsBottomSheet(
+                                        FileActionsBottomSheet.newInstance(
                                             it,
-                                            requireActivity().supportFragmentManager,
                                             client!!,
                                             directory,
                                             { updateUi() }
@@ -301,7 +300,7 @@ class FilesFragment : Fragment() {
                                                 suc,
                                                 fail
                                             )
-                                        }
+                                        }.show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
                                     }
                                 }
                         }

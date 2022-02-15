@@ -22,20 +22,34 @@ import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
 import de.qwerty287.ftpclient.ui.files.providers.Client
 import de.qwerty287.ftpclient.ui.files.providers.File
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class FileActionsBottomSheet(
-    private val file: File,
-    fm: FragmentManager,
-    private val client: Client,
-    private val directory: String,
-    private val updateParent: (() -> Unit),
-    private val showSnackbar: ((Boolean, Int, Int) -> Unit)
-) : BottomSheetDialogFragment() {
+class FileActionsBottomSheet : BottomSheetDialogFragment() {
+
+    companion object {
+        fun newInstance(file: File, client: Client, directory: String, updateParent: () -> Unit, showSnackbar: (Boolean, Int, Int) -> Unit): FileActionsBottomSheet {
+            val args = Bundle()
+            args.putSerializable("file", file)
+            args.putString("directory", directory)
+            val fragment = FileActionsBottomSheet()
+            fragment.arguments = args
+            fragment.client = client
+            fragment.updateParent = updateParent
+            fragment.showSnackbar = showSnackbar
+            return fragment
+        }
+    }
 
     private var _binding: BottomSheetFileActionsBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var file: File
+    private lateinit var client: Client
+    private lateinit var directory: String
+    private lateinit var updateParent: (() -> Unit)
+    private lateinit var showSnackbar: ((Boolean, Int, Int) -> Unit)
 
     private val result: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -45,7 +59,7 @@ class FileActionsBottomSheet(
                     if (uri != null) {
                         val outputStream = requireContext().contentResolver.openOutputStream(uri)
                         val success = try {
-                            client.download(getAbsoluteFilePath(), outputStream!!) // TODO return?
+                            client.download(getAbsoluteFilePath(), outputStream!!)
                             true
                         } catch (e: NullPointerException) {
                             false
@@ -61,8 +75,11 @@ class FileActionsBottomSheet(
             }
         }
 
-    init {
-        show(fm, "FileActionsBottomSheet")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        file = requireArguments().getSerializable("file") as File
+        directory = requireArguments().getString("directory")!!
     }
 
     override fun onCreateView(

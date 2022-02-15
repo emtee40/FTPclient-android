@@ -40,7 +40,7 @@ internal class ConnectionAdapter(
             }
         }
         holder.title.setOnLongClickListener {
-            ConnectionActionsBottomSheet(connections[position].id, fm)
+            ConnectionActionsBottomSheet.newInstance(connections[position].id).show(fm, "ConnectionActionsBottomSheet")
             true
         }
     }

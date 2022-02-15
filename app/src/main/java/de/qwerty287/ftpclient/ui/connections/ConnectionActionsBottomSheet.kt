@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,17 +15,23 @@ import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
 import kotlinx.coroutines.launch
 
-class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentManager) : BottomSheetDialogFragment() {
+class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
+
+    companion object {
+        fun newInstance(connectionId: Int): ConnectionActionsBottomSheet {
+            val args = Bundle()
+            args.putInt("connectionId", connectionId)
+            val fragment = ConnectionActionsBottomSheet()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private var _binding: BottomSheetConnectionActionsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var connection: Connection
     private lateinit var db: AppDatabase
-
-    init {
-        show(fm, "ConnectionActionsBottomSheet")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +48,7 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
 
         db = AppDatabase.getInstance(requireContext())
         lifecycleScope.launch {
-            connection = db.connectionDao().get(connectionId.toLong())!!
+            connection = db.connectionDao().get(requireArguments().getInt("connectionId").toLong())!!
             binding.connectionName.text = connection.title
         }
 
@@ -69,7 +74,7 @@ class ConnectionActionsBottomSheet(private val connectionId: Int, fm: FragmentMa
 
         binding.editConnection.setOnClickListener {
             val options = Bundle()
-            options.putInt("connection", connectionId)
+            options.putInt("connection", connection.id)
             findNavController().navigate(R.id.action_ConnectionsFragment_to_AddConnectionFragment, options)
             dismiss()
         }

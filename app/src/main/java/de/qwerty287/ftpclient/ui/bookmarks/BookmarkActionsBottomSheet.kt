@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,17 +15,23 @@ import de.qwerty287.ftpclient.data.Bookmark
 import de.qwerty287.ftpclient.databinding.BottomSheetBookmarkActionsBinding
 import kotlinx.coroutines.launch
 
-class BookmarkActionsBottomSheet(private val bookmarkId: Int, fm: FragmentManager) : BottomSheetDialogFragment() {
+class BookmarkActionsBottomSheet : BottomSheetDialogFragment() {
+
+    companion object {
+        fun newInstance(bookmarkId: Int): BookmarkActionsBottomSheet {
+            val args = Bundle()
+            args.putInt("bookmarkId", bookmarkId)
+            val fragment = BookmarkActionsBottomSheet()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     private var _binding: BottomSheetBookmarkActionsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var bookmark: Bookmark
     private lateinit var db: AppDatabase
-
-    init {
-        show(fm, "BookmarkActionsBottomSheet")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +48,7 @@ class BookmarkActionsBottomSheet(private val bookmarkId: Int, fm: FragmentManage
 
         db = AppDatabase.getInstance(requireContext())
         lifecycleScope.launch {
-            bookmark = db.bookmarkDao().get(bookmarkId.toLong())!!
+            bookmark = db.bookmarkDao().get(requireArguments().getInt("bookmarkId").toLong())!!
             binding.bookmarkName.text = bookmark.title
         }
 
@@ -65,7 +70,7 @@ class BookmarkActionsBottomSheet(private val bookmarkId: Int, fm: FragmentManage
 
         binding.editBookmark.setOnClickListener {
             val options = Bundle()
-            options.putInt("bookmarkId", bookmarkId)
+            options.putInt("bookmarkId", bookmark.id)
             findNavController().navigate(R.id.action_BookmarksFragment_to_AddBookmarkFragment, options)
             dismiss()
         }

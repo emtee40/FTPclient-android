@@ -41,7 +41,7 @@ internal class BookmarkAdapter(
             }
         }
         holder.title.setOnLongClickListener {
-            BookmarkActionsBottomSheet(bookmarks[position].id, fm)
+            BookmarkActionsBottomSheet.newInstance(bookmarks[position].id).show(fm, "BookmarkActionsBottomSheet")
             true
         }
     }
