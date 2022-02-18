@@ -26,5 +26,5 @@ class SFTPFile(private val file: RemoteResourceInfo) : File {
     override val isUnknown: Boolean
         get() = !(isDirectory || isFile || isSymbolicLink)
     override val link: String?
-        get() = TODO("Not yet implemented")
+        get() = null
 }
