@@ -22,7 +22,7 @@ class FTPFile(private val file: FTPFile) : File {
         get() = file.isSymbolicLink
     override val isUnknown: Boolean
         get() = file.isUnknown
-    override val link: String
+    override val link: String?
         get() = file.link
 
 }

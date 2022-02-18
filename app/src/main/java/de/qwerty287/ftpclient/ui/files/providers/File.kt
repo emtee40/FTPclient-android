@@ -13,5 +13,5 @@ interface File : Serializable {
     val isFile: Boolean
     val isSymbolicLink: Boolean
     val isUnknown: Boolean
-    val link: String
+    val link: String?
 }
