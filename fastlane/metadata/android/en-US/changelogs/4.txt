@@ -1,0 +1,7 @@
+Note: this release contains some major refactors and new features. They might not work, and especially SFTP support is
+very experimental, so please report any issues you encounter.
+
+- support for uploading multiple files at once
+- upgrade to Material3
+- add FTPS and SFTP support
+- other improvements

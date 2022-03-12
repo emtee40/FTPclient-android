@@ -1,1 +1,1 @@
-A simple FTP client for Android
+A simple FTP, FTPS and SFTP client for Android
