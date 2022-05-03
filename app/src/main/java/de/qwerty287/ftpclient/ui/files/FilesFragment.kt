@@ -316,6 +316,7 @@ class FilesFragment : Fragment() {
                             .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                                 findNavController().navigateUp()
                             }
+                            .setOnCancelListener { findNavController().navigateUp() }
                             .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
                                 val clipboardManager =
                                     requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
