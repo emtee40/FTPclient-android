@@ -70,9 +70,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                         outputStream?.close()
                         showSnackbar(success, R.string.download_completed, R.string.download_failed)
                     }
-                    dismiss()
                 }
             }
+            if (it.data?.data != null) dismiss()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
