@@ -235,6 +235,11 @@ class FilesFragment : Fragment() {
     private fun updateUi() {
         var files: List<de.qwerty287.ftpclient.ui.files.providers.File>
 
+        if (_binding == null) {
+            // seems that this isn't ready yet
+            return
+        }
+
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 withContext(Dispatchers.Main) {
