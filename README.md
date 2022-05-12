@@ -8,8 +8,8 @@ and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
      alt="Get it on F-Droid"
      height="90">](https://f-droid.org/packages/de.qwerty287.ftpclient/)
 [<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/get-it-on-blue-on-white.png"
-    alt="Get it on F-Droid"
-    height="80">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
+     alt="Get it on Codeberg"
+     height="80">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
 
 ## Features
 
