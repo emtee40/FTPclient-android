@@ -8,13 +8,13 @@ interface Client {
     var implicit: Boolean
     fun login(user: String, password: String)
     val isConnected: Boolean
-    fun upload(name: String, stream: InputStream)
-    fun download(name: String, stream: OutputStream)
-    fun mkdir(path: String)
-    fun rm(path: String)
-    fun rmDir(path: String)
-    fun rename(old: String, new: String)
+    fun upload(name: String, stream: InputStream): Boolean
+    fun download(name: String, stream: OutputStream): Boolean
+    fun mkdir(path: String): Boolean
+    fun rm(path: String): Boolean
+    fun rmDir(path: String): Boolean
+    fun rename(old: String, new: String): Boolean
     fun list(): List<File>
     fun list(path: String?): List<File>
-    fun exit()
+    fun exit(): Boolean
 }

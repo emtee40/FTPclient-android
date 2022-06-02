@@ -23,28 +23,28 @@ class FTPClient : Client {
     override val isConnected: Boolean
         get() = client.isConnected
 
-    override fun upload(name: String, stream: InputStream) {
-        client.storeFile(name, stream) // TODO return val
+    override fun upload(name: String, stream: InputStream): Boolean {
+        return client.storeFile(name, stream)
     }
 
-    override fun download(name: String, stream: OutputStream) {
-        client.retrieveFile(name, stream) // TODO return val
+    override fun download(name: String, stream: OutputStream): Boolean {
+        return client.retrieveFile(name, stream)
     }
 
-    override fun mkdir(path: String) {
-        client.makeDirectory(path) // TODO return val
+    override fun mkdir(path: String): Boolean {
+        return client.makeDirectory(path)
     }
 
-    override fun rm(path: String) {
-        client.deleteFile(path) // TODO return val
+    override fun rm(path: String): Boolean {
+        return client.deleteFile(path)
     }
 
-    override fun rmDir(path: String) {
-        client.removeDirectory(path) // TODO return val
+    override fun rmDir(path: String): Boolean {
+        return client.removeDirectory(path)
     }
 
-    override fun rename(old: String, new: String) {
-        client.rename(old, new) // TODO return val
+    override fun rename(old: String, new: String): Boolean {
+        return client.rename(old, new)
     }
 
     override fun list(): List<File> {
@@ -55,9 +55,10 @@ class FTPClient : Client {
         return convertFiles(client.listFiles(path))
     }
 
-    override fun exit() {
-        client.logout() // TODO return val
+    override fun exit(): Boolean {
+        val s = client.logout()
         client.disconnect()
+        return s
     }
 
     companion object {

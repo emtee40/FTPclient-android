@@ -12,7 +12,6 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -22,7 +21,6 @@ import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
 import de.qwerty287.ftpclient.ui.files.providers.Client
 import de.qwerty287.ftpclient.ui.files.providers.File
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -60,7 +58,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                         val outputStream = requireContext().contentResolver.openOutputStream(uri)
                         val success = try {
                             client.download(getAbsoluteFilePath(), outputStream!!)
-                            true
                         } catch (e: NullPointerException) {
                             false
                         } catch (e: Exception) {
@@ -138,7 +135,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                                 } else {
                                     client.rmDir(getAbsoluteFilePath())
                                 }
-                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -167,7 +163,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
-                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false

@@ -31,8 +31,9 @@ class SFTPClient : Client {
 
     override var implicit: Boolean = false
 
-    override fun rename(old: String, new: String) {
+    override fun rename(old: String, new: String): Boolean {
         sftp.rename(old, new)
+        return true
     }
 
     override fun list(): List<File> {
@@ -47,32 +48,37 @@ class SFTPClient : Client {
         return result
     }
 
-    override fun exit() {
+    override fun exit(): Boolean {
         sftp.close()
         client.disconnect()
+        return true
     }
 
-    override fun download(name: String, stream: OutputStream) {
+    override fun download(name: String, stream: OutputStream): Boolean {
         sftp.fileTransfer.download(name, object : InMemoryDestFile() {
             override fun getOutputStream(): OutputStream {
                 return stream
             }
         })
+        return true
     }
 
-    override fun mkdir(path: String) {
+    override fun mkdir(path: String): Boolean {
         sftp.mkdir(path)
+        return true
     }
 
-    override fun rm(path: String) {
+    override fun rm(path: String): Boolean {
         sftp.rm(path)
+        return true
     }
 
-    override fun rmDir(path: String) {
+    override fun rmDir(path: String): Boolean {
         sftp.rmdir(path)
+        return true
     }
 
-    override fun upload(name: String, stream: InputStream) {
+    override fun upload(name: String, stream: InputStream): Boolean {
         sftp.fileTransfer.upload(object : InMemorySourceFile() {
             override fun getName(): String {
                 return name
@@ -86,6 +92,7 @@ class SFTPClient : Client {
                 return stream
             }
         }, name)
+        return true
     }
 
 }

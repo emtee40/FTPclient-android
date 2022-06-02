@@ -56,7 +56,6 @@ class FilesFragment : Fragment() {
                             getAbsoluteFilePath(getFilenameFromUri(uri)),
                             inputStream!!
                         )
-                        true
                     } catch (e: NullPointerException) {
                         false
                     } catch (e: Exception) {
@@ -80,7 +79,6 @@ class FilesFragment : Fragment() {
                                 getAbsoluteFilePath(getFilenameFromUri(clipUri)),
                                 inputStream!!
                             )
-                            true
                         } catch (e: NullPointerException) {
                             false
                         } catch (e: Exception) {
@@ -156,7 +154,6 @@ class FilesFragment : Fragment() {
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 client!!.mkdir(getAbsoluteFilePath(dirName))
-                                true
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
