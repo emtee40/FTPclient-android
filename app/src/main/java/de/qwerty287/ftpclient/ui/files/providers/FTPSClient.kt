@@ -5,7 +5,9 @@ import java.io.InputStream
 import java.io.OutputStream
 
 class FTPSClient : Client {
-    private var client: FTPSClient = FTPSClient()
+    private var client: FTPSClient = FTPSClient().apply {
+        autodetectUTF8 = true
+    }
 
     override fun connect(host: String, port: Int) {
         client.connect(host, port)
