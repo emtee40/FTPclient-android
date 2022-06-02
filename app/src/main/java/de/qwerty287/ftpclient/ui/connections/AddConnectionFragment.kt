@@ -50,10 +50,8 @@ class AddConnectionFragment : Fragment() {
 
         fun checkInputs() {
             binding.addConnection.isClickable = !(binding.title.text.isNullOrBlank() ||
-                    binding.server.text.isNullOrBlank() || // TODO check guest mode
-                    binding.port.text.isNullOrBlank() ||
-                    binding.user.text.isNullOrBlank() ||
-                    binding.password.text.isNullOrBlank())
+                    binding.server.text.isNullOrBlank() ||
+                    binding.port.text.isNullOrBlank())
         }
 
         binding.apply {
