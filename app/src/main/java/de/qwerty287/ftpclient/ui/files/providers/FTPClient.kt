@@ -61,9 +61,11 @@ class FTPClient : Client {
     }
 
     override fun exit(): Boolean {
-        val s = client.logout()
+        if (!client.logout()) {
+            return false
+        }
         client.disconnect()
-        return s
+        return true
     }
 
     companion object {
