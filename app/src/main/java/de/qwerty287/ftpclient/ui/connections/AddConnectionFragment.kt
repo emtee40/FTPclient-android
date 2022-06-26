@@ -67,32 +67,32 @@ class AddConnectionFragment : Fragment() {
         }
 
         binding.typeFtp.setOnClickListener {
+            binding.implicit.isVisible = false
+            binding.utf8.isVisible = true
             if (!portChanged) {
                 binding.port.setText(FTPClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
                 portChanged = false
-                binding.implicit.isVisible = false
-                binding.utf8.isVisible = true
             }
         }
 
         binding.typeFtps.setOnClickListener {
+            binding.implicit.isVisible = true
+            binding.utf8.isVisible = true
             if (!portChanged) {
                 binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
                 // undo because doOnTextChanged is called
                 portChanged = false
-                binding.implicit.isVisible = true
-                binding.utf8.isVisible = true
             }
         }
 
         binding.typeSftp.setOnClickListener {
+            binding.implicit.isVisible = false
+            binding.utf8.isVisible = false
             if (!portChanged) {
                 binding.port.setText(SSHClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
                 portChanged = false
-                binding.implicit.isVisible = false
-                binding.utf8.isVisible = false
             }
         }
 
