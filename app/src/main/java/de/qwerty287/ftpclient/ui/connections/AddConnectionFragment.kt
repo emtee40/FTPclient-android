@@ -72,6 +72,7 @@ class AddConnectionFragment : Fragment() {
                 // undo because doOnTextChanged is called
                 portChanged = false
                 binding.implicit.isVisible = false
+                binding.utf8.isVisible = true
             }
         }
 
@@ -81,6 +82,7 @@ class AddConnectionFragment : Fragment() {
                 // undo because doOnTextChanged is called
                 portChanged = false
                 binding.implicit.isVisible = true
+                binding.utf8.isVisible = true
             }
         }
 
@@ -90,6 +92,7 @@ class AddConnectionFragment : Fragment() {
                 // undo because doOnTextChanged is called
                 portChanged = false
                 binding.implicit.isVisible = false
+                binding.utf8.isVisible = false
             }
         }
 
@@ -109,7 +112,8 @@ class AddConnectionFragment : Fragment() {
                             R.id.type_sftp -> Provider.SFTP
                             else -> Provider.FTP
                         },
-                        binding.implicit.isChecked
+                        binding.implicit.isChecked,
+                        binding.utf8.isChecked
                     )
                     db.insert(connection)
                 } else {
@@ -126,6 +130,7 @@ class AddConnectionFragment : Fragment() {
                             else -> Provider.FTP
                         },
                         binding.implicit.isChecked,
+                        binding.utf8.isChecked,
                         connectionId
                     )
                     db.update(connection)
@@ -158,6 +163,8 @@ class AddConnectionFragment : Fragment() {
                 )
                 binding.implicit.isChecked = c.implicit
                 binding.implicit.isVisible = c.type == Provider.FTPS
+                binding.utf8.isChecked = c.utf8
+                binding.utf8.isVisible = c.type != Provider.SFTP
             }
 
         }

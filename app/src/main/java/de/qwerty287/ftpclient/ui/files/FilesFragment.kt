@@ -252,6 +252,7 @@ class FilesFragment : Fragment() {
                         client = connection.type.get()
 
                         client!!.implicit = connection.implicit
+                        client!!.utf8 = connection.utf8
                         client!!.connect(connection.server, connection.port)
                         client!!.login(
                             connection.username,

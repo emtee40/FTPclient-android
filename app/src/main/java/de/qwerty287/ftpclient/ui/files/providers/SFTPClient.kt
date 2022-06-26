@@ -30,6 +30,7 @@ class SFTPClient : Client {
     }
 
     override var implicit: Boolean = false
+    override var utf8: Boolean = false
 
     override fun rename(old: String, new: String): Boolean {
         sftp.rename(old, new)

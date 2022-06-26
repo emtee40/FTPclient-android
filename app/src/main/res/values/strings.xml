@@ -72,4 +72,5 @@
     <string name="connection_type_ftps">FTPS</string>
     <string name="connection_type_sftp">SFTP</string>
     <string name="implicit">Implicit connection</string>
+    <string name="utf8">Use UTF-8</string>
 </resources>

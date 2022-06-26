@@ -14,5 +14,6 @@ data class Connection(
     @ColumnInfo(name = "password") val password: String,
     @ColumnInfo(name = "type") val type: Provider,
     @ColumnInfo(name = "implicit") val implicit: Boolean,
+    @ColumnInfo(name = "utf8") val utf8: Boolean,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 )

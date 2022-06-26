@@ -15,7 +15,14 @@ class FTPSClient : Client {
 
     override var implicit: Boolean = false
         set(value) {
-            client = FTPSClient(value)
+            client = FTPSClient(value).apply {
+                autodetectUTF8 = true
+            }
+        }
+    override var utf8: Boolean = false
+        set(value) {
+            if (value) client.controlEncoding = "UTF-8"
+            field = value
         }
 
     override fun login(user: String, password: String) {

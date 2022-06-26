@@ -6,6 +6,7 @@ import java.io.OutputStream
 interface Client {
     fun connect(host: String, port: Int)
     var implicit: Boolean
+    var utf8: Boolean
     fun login(user: String, password: String)
     val isConnected: Boolean
     fun upload(name: String, stream: InputStream): Boolean
