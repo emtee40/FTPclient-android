@@ -1,3 +1,1 @@
-- allow empty username and password
-- allow to enable UTF-8 encoding
-- UI fixes and improvements
+- fix an SFTP crash

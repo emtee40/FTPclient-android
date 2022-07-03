@@ -1,0 +1,2 @@
+- hide bottom sheet after download starts
+- fix crashes
