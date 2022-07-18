@@ -288,6 +288,7 @@ class FilesFragment : Fragment() {
                                         FileActionsBottomSheet.newInstance(
                                             it,
                                             client!!,
+                                            connection.id,
                                             directory,
                                             { updateUi() }
                                         ) { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }
@@ -298,6 +299,7 @@ class FilesFragment : Fragment() {
                                         FileActionsBottomSheet.newInstance(
                                             it,
                                             client!!,
+                                            connection.id,
                                             directory,
                                             { updateUi() }
                                         ) { itBool, suc, fail ->

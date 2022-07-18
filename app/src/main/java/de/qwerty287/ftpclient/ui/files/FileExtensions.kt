@@ -787,11 +787,23 @@ object FileExtensions {
     }
 
     private fun getFileFormat(file: File): String {
-        val list = file.name.split(".")
+        return getFileFormat(file.name)
+    }
+
+    private fun getFileFormat(filename: String): String {
+        val list = filename.split(".")
         return if (list.size < 2) {
             ""
         } else {
             list.last().lowercase()
         }
+    }
+
+    fun isImage(filename: String): Boolean {
+        return getFileFormat(filename) in imageFormats
+    }
+
+    fun previewable(filename: String): Boolean {
+        return isImage(filename) || getFileFormat(filename) in textFormats
     }
 }

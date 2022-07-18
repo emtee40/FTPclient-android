@@ -27,10 +27,11 @@ import kotlinx.coroutines.withContext
 class FileActionsBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(file: File, client: Client, directory: String, updateParent: () -> Unit, showSnackbar: (Boolean, Int, Int) -> Unit): FileActionsBottomSheet {
+        fun newInstance(file: File, client: Client, connId: Int, directory: String, updateParent: () -> Unit, showSnackbar: (Boolean, Int, Int) -> Unit): FileActionsBottomSheet {
             val args = Bundle()
             args.putSerializable("file", file)
             args.putString("directory", directory)
+            args.putInt("connection", connId)
             val fragment = FileActionsBottomSheet()
             fragment.arguments = args
             fragment.client = client
@@ -96,6 +97,17 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
 
         if (file.isDirectory) {
             binding.downloadFile.isVisible = false
+        }
+        if (!FileExtensions.previewable(file.name)) {
+            binding.previewFile.isVisible = false
+        }
+
+        binding.previewFile.setOnClickListener {
+            val options = Bundle()
+            options.putInt("connection", requireArguments().getInt("connection"))
+            options.putString("file", getAbsoluteFilePath())
+            findNavController().navigate(R.id.action_FilesFragment_to_FileViewFragment, options)
+            dismiss()
         }
 
         binding.downloadFile.setOnClickListener {

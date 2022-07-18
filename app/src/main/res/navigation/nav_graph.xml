@@ -63,6 +63,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_FilesFragment_to_FileViewFragment"
+            app:destination="@id/FileViewFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -128,4 +136,10 @@
     <action
         android:id="@+id/action_to_UploadFileIntentFragment"
         app:destination="@id/UploadFileIntentFragment"/>
+
+    <fragment
+        android:id="@+id/FileViewFragment"
+        android:name="de.qwerty287.ftpclient.ui.files.view.FileViewFragment"
+        android:label="@string/preview"/>
+
 </navigation>
