@@ -15,6 +15,9 @@ interface BookmarkDao {
     @Query("SELECT * FROM bookmarks WHERE connection = :connectionId")
     suspend fun getAllByConnection(connectionId: Long): List<Bookmark>
 
+    @Query("SELECT * FROM bookmarks")
+    suspend fun getListOfAll(): List<Bookmark>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(bookmark: Bookmark): Long
 

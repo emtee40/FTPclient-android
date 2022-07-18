@@ -12,6 +12,9 @@ interface ConnectionDao {
     @Query("SELECT * FROM connections WHERE _id = :id LIMIT 1")
     suspend fun get(id: Long): Connection?
 
+    @Query("SELECT * FROM connections")
+    suspend fun getListOfAll(): List<Connection>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(connection: Connection): Long
 

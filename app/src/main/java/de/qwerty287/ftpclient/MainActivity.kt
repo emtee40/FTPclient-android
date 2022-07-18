@@ -1,5 +1,7 @@
 package de.qwerty287.ftpclient
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -30,6 +32,18 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        if (intent.action == Intent.ACTION_SEND) {
+            val options = Bundle()
+            if (intent.hasExtra(Intent.EXTRA_STREAM)) {
+                options.putString("uri", intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM).toString())
+            } else if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+                options.putString("text", intent.getCharSequenceExtra(Intent.EXTRA_TEXT).toString())
+            } else {
+                finish()
+            }
+            navController.navigate(R.id.action_to_UploadFileIntentFragment, options)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -28,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.io.InputStream
 
 
 class FilesFragment : Fragment() {
@@ -258,6 +259,8 @@ class FilesFragment : Fragment() {
                             connection.username,
                             connection.password
                         ) // connect to server and login with login credentials
+
+                        checkForUploadUri()
                     }
                     files = if (directory == "") { // get files
                         client!!.list()
@@ -272,7 +275,7 @@ class FilesFragment : Fragment() {
                             binding.textviewEmptyDir.isVisible = false
                             binding.recyclerviewFiles.isVisible = true
                             binding.recyclerviewFiles.adapter =
-                                FilesAdapter(requireContext(), files, { // how to handle single clicks on items
+                                FilesAdapter(files, { // how to handle single clicks on items
                                     if (it.isDirectory) {
                                         val options = Bundle()
                                         options.putString("directory", "$directory/${it.name}")
@@ -416,5 +419,50 @@ class FilesFragment : Fragment() {
                 failedString
             }, Snackbar.LENGTH_SHORT
         ).show()
+    }
+
+    private fun checkForUploadUri() {
+        if (arguments?.getString("uri") == null && arguments?.getString("text") == null) return
+        val isText = arguments?.getString("text") != null
+        val uri = if (isText) null else Uri.parse(arguments?.getString("uri"))
+        val text = if (isText) arguments?.getString("text") else null
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                binding.swipeRefresh.isRefreshing = true
+            }
+            withContext(Dispatchers.IO) {
+                val inputStream = if (isText) {
+                    object : InputStream() {
+                        var index = 0
+                        val chars = text!!.toCharArray()
+                        override fun read(): Int {
+                            val i = if (chars.size > index) chars[index].code else -1
+                            index++
+                            return i
+                        }
+                    }
+                } else {
+                    requireContext().contentResolver.openInputStream(uri!!)
+                }
+                val success: Boolean = try {
+                    client!!.upload(
+                        getAbsoluteFilePath(if (isText) {
+                            text!!.split(" ", limit = 2)[0]
+                        } else {
+                            getFilenameFromUri(uri!!)
+                        }),
+                        inputStream!!
+                    )
+                } catch (e: NullPointerException) {
+                    false
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    false
+                }
+                inputStream?.close()
+                showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
+                updateUi()
+            }
+        }
     }
 }

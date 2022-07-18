@@ -10,11 +10,9 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.ui.files.providers.File
-import org.apache.commons.net.ftp.FTPFile
 
 
 internal class FilesAdapter(
-    private val context: Context,
     private val files: List<File>,
     private val onClick: (File) -> Unit,
     private val onLongClick: (File) -> Unit
@@ -41,7 +39,7 @@ internal class FilesAdapter(
             onLongClick(files[position])
             true
         }
-        holder.file.setCompoundDrawablesRelative(getDrawableIcon(files[position]), null, null, null)
+        holder.file.setCompoundDrawablesRelative(getDrawableIcon(files[position], holder.file.context), null, null, null)
     }
 
     override fun getItemCount(): Int {
@@ -49,11 +47,11 @@ internal class FilesAdapter(
     }
 
     /**
-     * Return the [Drawable] for use with [TextView.setCompoundDrawablesRelative] or related methods, matching to the file format of a [FTPFile]
-     * @param file The [FTPFile]
+     * Return the [Drawable] for use with [TextView.setCompoundDrawablesRelative] or related methods, matching to the file format of a [File]
+     * @param file The [File]
      * @return The [Drawable] icon
      */
-    private fun getDrawableIcon(file: File): Drawable? {
+    private fun getDrawableIcon(file: File, context: Context): Drawable? {
         val icon = AppCompatResources.getDrawable(context, FileExtensions.getDrawableFromFTPFile(file)) ?: return null
         val h = icon.intrinsicHeight
         val w = icon.intrinsicWidth

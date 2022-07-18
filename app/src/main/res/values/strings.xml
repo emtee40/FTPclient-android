@@ -73,4 +73,5 @@
     <string name="connection_type_sftp">SFTP</string>
     <string name="implicit">Implicit connection</string>
     <string name="utf8">Use UTF-8</string>
+    <string name="upload_file">Upload file</string>
 </resources>
