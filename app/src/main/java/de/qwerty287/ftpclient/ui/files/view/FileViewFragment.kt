@@ -57,15 +57,7 @@ class FileViewFragment : Fragment() {
                                 .get(it.toLong())
                         }!! // get connection from connection id, which is stored in the arguments
 
-                        client = connection.type.get()
-
-                        client!!.implicit = connection.implicit
-                        client!!.utf8 = connection.utf8
-                        client!!.connect(connection.server, connection.port)
-                        client!!.login(
-                            connection.username,
-                            connection.password
-                        ) // connect to server and login with login credentials
+                        client = connection.client()
                     }
 
                     val byteList = ArrayList<Int>()
