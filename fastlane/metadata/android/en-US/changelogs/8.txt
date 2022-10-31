@@ -1,0 +1,4 @@
+- add simple text / image preview
+- allow to share files to upload them
+- Portugese translation
+- Compile for SDK 33
