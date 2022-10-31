@@ -2,6 +2,7 @@ package de.qwerty287.ftpclient
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -36,7 +37,11 @@ class MainActivity : AppCompatActivity() {
         if (intent.action == Intent.ACTION_SEND) {
             val options = Bundle()
             if (intent.hasExtra(Intent.EXTRA_STREAM)) {
-                options.putString("uri", intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM).toString())
+                if (Build.VERSION.SDK_INT >= 33) {
+                    options.putString("uri", intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java).toString())
+                } else {
+                    options.putString("uri", intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM).toString())
+                }
             } else if (intent.hasExtra(Intent.EXTRA_TEXT)) {
                 options.putString("text", intent.getCharSequenceExtra(Intent.EXTRA_TEXT).toString())
             } else {

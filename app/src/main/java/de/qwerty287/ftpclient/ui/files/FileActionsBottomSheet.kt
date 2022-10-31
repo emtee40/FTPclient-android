@@ -4,6 +4,7 @@ package de.qwerty287.ftpclient.ui.files
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,11 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        file = requireArguments().getSerializable("file") as File
+        file = if (Build.VERSION.SDK_INT >= 33) {
+            requireArguments().getSerializable("file", File::class.java) as File
+        } else {
+            requireArguments().getSerializable("file") as File
+        }
         directory = requireArguments().getString("directory")!!
     }
 

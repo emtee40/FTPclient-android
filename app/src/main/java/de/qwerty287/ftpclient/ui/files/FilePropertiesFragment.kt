@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.ui.files
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,11 @@ class FilePropertiesFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         try {
-            file = arguments?.getSerializable("file") as File?
+            file = if (Build.VERSION.SDK_INT >= 33) {
+                arguments?.getSerializable("file", File::class.java)
+            } else {
+                arguments?.getSerializable("file") as File?
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             findNavController().navigateUp()

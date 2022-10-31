@@ -37,11 +37,13 @@ class ConnectionsFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.connection_menu, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.bookmarks_menu -> {
@@ -68,7 +70,7 @@ class ConnectionsFragment : Fragment() {
      */
     private fun showConnections() {
         AppDatabase.getInstance(requireContext())
-            .connectionDao().getAll().observe(viewLifecycleOwner, {
+            .connectionDao().getAll().observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     binding.noConnections.isVisible = true
                     binding.recyclerviewMain.adapter = null
@@ -84,6 +86,6 @@ class ConnectionsFragment : Fragment() {
                         requireActivity().supportFragmentManager
                     )
                 }
-            })
+            }
     }
 }
