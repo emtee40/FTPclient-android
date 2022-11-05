@@ -29,10 +29,12 @@ class FTPClient : Client {
         get() = client.isConnected
 
     override fun upload(name: String, stream: InputStream): Boolean {
+        client.setFileType(FTP.BINARY_FILE_TYPE)
         return client.storeFile(name, stream)
     }
 
     override fun download(name: String, stream: OutputStream): Boolean {
+        client.setFileType(FTP.BINARY_FILE_TYPE)
         return client.retrieveFile(name, stream)
     }
 
