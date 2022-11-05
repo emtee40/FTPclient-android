@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.ui.files.providers
 
+import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
 import java.io.InputStream
