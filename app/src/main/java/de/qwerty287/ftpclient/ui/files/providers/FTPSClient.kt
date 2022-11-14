@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.ui.files.providers
 
+import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream
 import java.io.OutputStream
@@ -11,6 +12,7 @@ class FTPSClient : Client {
 
     override fun connect(host: String, port: Int) {
         client.connect(host, port)
+        client.setFileType(FTP.BINARY_FILE_TYPE)
     }
 
     override var implicit: Boolean = false
