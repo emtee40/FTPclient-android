@@ -643,7 +643,8 @@ object FileExtensions {
         "kcfgc",
         "notifyrc",
         "kcfg",
-        "rc"
+        "rc",
+        "txt"
     )
     private val packageFormats = listOf(
         // extensions below this comment are extracted from application mime types
