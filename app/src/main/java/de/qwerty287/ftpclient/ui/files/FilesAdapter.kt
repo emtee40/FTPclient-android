@@ -39,7 +39,12 @@ internal class FilesAdapter(
             onLongClick(files[position])
             true
         }
-        holder.file.setCompoundDrawablesRelative(getDrawableIcon(files[position], holder.file.context), null, null, null)
+        holder.file.setCompoundDrawablesRelative(
+            getDrawableIcon(files[position], holder.file.context),
+            null,
+            null,
+            null
+        )
     }
 
     override fun getItemCount(): Int {

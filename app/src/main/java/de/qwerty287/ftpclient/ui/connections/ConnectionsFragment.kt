@@ -50,6 +50,7 @@ class ConnectionsFragment : Fragment() {
                 findNavController().navigate(R.id.action_ConnectionsFragment_to_BookmarksFragment)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

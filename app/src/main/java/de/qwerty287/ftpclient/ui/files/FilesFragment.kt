@@ -209,10 +209,12 @@ class FilesFragment : Fragment() {
                     .show()
                 true
             }
+
             R.id.update_ui -> {
                 updateUi()
                 true
             }
+
             R.id.bookmark -> {
                 val options = Bundle()
                 options.putString("directory", directory)
@@ -220,6 +222,7 @@ class FilesFragment : Fragment() {
                 findNavController().navigate(R.id.action_FilesFragment_to_AddBookmarkFragment, options)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -440,11 +443,13 @@ class FilesFragment : Fragment() {
                 }
                 val success: Boolean = try {
                     client!!.upload(
-                        getAbsoluteFilePath(if (isText) {
-                            text!!.split(" ", limit = 2)[0]
-                        } else {
-                            getFilenameFromUri(uri!!)
-                        }),
+                        getAbsoluteFilePath(
+                            if (isText) {
+                                text!!.split(" ", limit = 2)[0]
+                            } else {
+                                getFilenameFromUri(uri!!)
+                            }
+                        ),
                         inputStream!!
                     )
                 } catch (e: NullPointerException) {

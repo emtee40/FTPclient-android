@@ -10,8 +10,8 @@ class SFTPFile(file: RemoteResourceInfo) : File {
     override val user: String = file.attributes.uid.toString()
     override val group: String = file.attributes.gid.toString() // TODO get real name
     override val timestamp: Calendar = Calendar.getInstance().apply {
-            time = Date(file.attributes.mtime)
-        }
+        time = Date(file.attributes.mtime)
+    }
     override val isDirectory: Boolean = file.isDirectory
     override val isFile: Boolean = file.isRegularFile
     override val isSymbolicLink: Boolean = file.attributes.type == FileMode.Type.SYMLINK

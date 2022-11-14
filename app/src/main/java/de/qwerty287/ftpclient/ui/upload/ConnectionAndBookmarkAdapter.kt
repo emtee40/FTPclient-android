@@ -61,7 +61,8 @@ internal class ConnectionAndBookmarkAdapter(
                     e.printStackTrace()
                 }
             }
-            val icon = AppCompatResources.getDrawable(holder.title.context, R.drawable.ic_baseline_bookmark_24) ?: return
+            val icon =
+                AppCompatResources.getDrawable(holder.title.context, R.drawable.ic_baseline_bookmark_24) ?: return
             val h = icon.intrinsicHeight
             val w = icon.intrinsicWidth
             icon.setBounds(0, 0, w, h)

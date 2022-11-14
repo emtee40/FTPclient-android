@@ -28,7 +28,14 @@ import kotlinx.coroutines.withContext
 class FileActionsBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
-        fun newInstance(file: File, client: Client, connId: Int, directory: String, updateParent: () -> Unit, showSnackbar: (Boolean, Int, Int) -> Unit): FileActionsBottomSheet {
+        fun newInstance(
+            file: File,
+            client: Client,
+            connId: Int,
+            directory: String,
+            updateParent: () -> Unit,
+            showSnackbar: (Boolean, Int, Int) -> Unit
+        ): FileActionsBottomSheet {
             val args = Bundle()
             args.putSerializable("file", file)
             args.putString("directory", directory)
