@@ -273,11 +273,13 @@ class FilesFragment : Fragment() {
 
                         checkForUploadUri()
                     }
+
                     files = if (directory == "") { // get files
                         client!!.list()
                     } else {
                         client!!.list(directory)
-                    }
+                    }.sortedBy { item -> item.name }
+
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) { // set up recyclerview or textview
                             binding.textviewEmptyDir.isVisible = true
