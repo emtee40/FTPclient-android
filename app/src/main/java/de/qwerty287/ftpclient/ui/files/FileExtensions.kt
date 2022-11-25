@@ -4,7 +4,6 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.ui.files.providers.File
 
 object FileExtensions {
-    // Lists of file extensions. Extracted from a Linux system using the Python scripts in <project root>/scripts.
     private val audioFormats = listOf(
         "aac",
         "adts",
