@@ -88,7 +88,8 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.password,
                 connection.type,
                 connection.implicit,
-                connection.utf8
+                connection.utf8,
+                connection.passive
             )
             lifecycleScope.launch {
                 db.connectionDao().insert(newConn)

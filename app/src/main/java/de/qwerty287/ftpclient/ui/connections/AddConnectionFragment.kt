@@ -69,6 +69,7 @@ class AddConnectionFragment : Fragment() {
         binding.typeFtp.setOnClickListener {
             binding.implicit.isVisible = false
             binding.utf8.isVisible = true
+            binding.passive.isVisible = true
             if (!portChanged) {
                 binding.port.setText(FTPClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -79,6 +80,7 @@ class AddConnectionFragment : Fragment() {
         binding.typeFtps.setOnClickListener {
             binding.implicit.isVisible = true
             binding.utf8.isVisible = true
+            binding.passive.isVisible = true
             if (!portChanged) {
                 binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -89,6 +91,7 @@ class AddConnectionFragment : Fragment() {
         binding.typeSftp.setOnClickListener {
             binding.implicit.isVisible = false
             binding.utf8.isVisible = false
+            binding.passive.isVisible = false
             if (!portChanged) {
                 binding.port.setText(SSHClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -113,7 +116,8 @@ class AddConnectionFragment : Fragment() {
                             else -> Provider.FTP
                         },
                         binding.implicit.isChecked,
-                        binding.utf8.isChecked
+                        binding.utf8.isChecked,
+                        binding.passive.isChecked
                     )
                     db.insert(connection)
                 } else {
@@ -131,6 +135,7 @@ class AddConnectionFragment : Fragment() {
                         },
                         binding.implicit.isChecked,
                         binding.utf8.isChecked,
+                        binding.passive.isChecked,
                         connectionId
                     )
                     db.update(connection)
@@ -165,6 +170,8 @@ class AddConnectionFragment : Fragment() {
                 binding.implicit.isVisible = c.type == Provider.FTPS
                 binding.utf8.isChecked = c.utf8
                 binding.utf8.isVisible = c.type != Provider.SFTP
+                binding.passive.isChecked = c.passive
+                binding.passive.isVisible = c.type != Provider.SFTP
             }
 
         }

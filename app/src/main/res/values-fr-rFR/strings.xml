@@ -71,6 +71,7 @@
     <string name="connection_type_sftp">SFTP</string>
     <string name="implicit">Connexion implicite</string>
     <string name="utf8">Utiliser UTF-8</string>
+    <string name="passive">Use passive mode</string>
     <string name="upload_file">Téléverser un fichier</string>
     <string name="bad_file">Mauvais contenu de fichier</string>
     <string name="preview">Aperçu</string>

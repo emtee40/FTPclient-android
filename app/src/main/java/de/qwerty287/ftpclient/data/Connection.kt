@@ -16,6 +16,7 @@ data class Connection(
     @ColumnInfo(name = "type") val type: Provider,
     @ColumnInfo(name = "implicit") val implicit: Boolean,
     @ColumnInfo(name = "utf8") val utf8: Boolean,
+    @ColumnInfo(name = "passive") val passive: Boolean,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 ) {
     fun client(): Client {
@@ -23,6 +24,7 @@ data class Connection(
 
         client.implicit = implicit
         client.utf8 = utf8
+        client.passive = passive
         client.connect(server, port)
         client.login(username, password) // connect to server and login with login credentials
 

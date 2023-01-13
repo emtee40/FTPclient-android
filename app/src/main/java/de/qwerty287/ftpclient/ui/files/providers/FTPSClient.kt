@@ -13,7 +13,9 @@ class FTPSClient : Client {
     override fun connect(host: String, port: Int) {
         client.connect(host, port)
         client.setFileType(FTP.BINARY_FILE_TYPE)
-        client.enterLocalPassiveMode()
+
+        if (passive) client.enterLocalPassiveMode()
+        else client.enterLocalActiveMode()
     }
 
     override var implicit: Boolean = false
@@ -27,6 +29,7 @@ class FTPSClient : Client {
             if (value) client.controlEncoding = "UTF-8"
             field = value
         }
+    override var passive: Boolean = false
 
     override fun login(user: String, password: String) {
         client.login(user, password)
