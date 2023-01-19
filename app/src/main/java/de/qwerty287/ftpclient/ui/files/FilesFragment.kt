@@ -103,7 +103,7 @@ class FilesFragment : Fragment() {
         val uploadingText = getString(R.string.uploading)
         val percentText = getString(R.string.percent)
         val sb =
-            Snackbar.make(binding.root, String.format(uploadingText, "not started yet"), Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(binding.root, String.format(uploadingText, getString(R.string.not_started)), Snackbar.LENGTH_INDEFINITE)
         sb.show()
         var lastUpdate = 0.0
         val inputStream = requireContext().contentResolver.openInputStream(uri)?.let {
@@ -302,7 +302,7 @@ class FilesFragment : Fragment() {
                                         val percentText = getString(R.string.percent)
                                         val sb = Snackbar.make(
                                             binding.root,
-                                            String.format(uploadingText, "not started yet"),
+                                            String.format(uploadingText, getString(R.string.not_started)),
                                             Snackbar.LENGTH_INDEFINITE
                                         )
                                         var lastUpdate = 0.0
@@ -338,7 +338,7 @@ class FilesFragment : Fragment() {
                                         val percentText = getString(R.string.percent)
                                         val sb = Snackbar.make(
                                             binding.root,
-                                            String.format(uploadingText, "not started yet"),
+                                            String.format(uploadingText, getString(R.string.not_started)),
                                             Snackbar.LENGTH_INDEFINITE
                                         )
                                         var lastUpdate = 0.0
@@ -495,7 +495,7 @@ class FilesFragment : Fragment() {
         val uploadingText = getString(R.string.uploading)
         val percentText = getString(R.string.percent)
         val sb =
-            Snackbar.make(binding.root, String.format(uploadingText, "not started yet"), Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(binding.root, String.format(uploadingText, getString(R.string.not_started)), Snackbar.LENGTH_INDEFINITE)
         sb.show()
         var lastUpdate = 0.0
         lifecycleScope.launch {
