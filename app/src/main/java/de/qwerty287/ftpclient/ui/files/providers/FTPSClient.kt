@@ -26,6 +26,12 @@ class FTPSClient : Client {
             if (value) client.controlEncoding = "UTF-8"
             field = value
         }
+    override var passive: Boolean = false
+        set(value) {
+            if (value) client.enterLocalPassiveMode()
+            else client.enterLocalActiveMode()
+            field = value
+        }
 
     override fun login(user: String, password: String) {
         client.login(user, password)

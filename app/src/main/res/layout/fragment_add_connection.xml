@@ -140,6 +140,14 @@
                 android:layout_marginEnd="8dp"
                 android:text="@string/utf8"/>
 
+            <CheckBox
+                android:id="@+id/passive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/passive"/>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/user_layout"
                 android:layout_width="match_parent"
