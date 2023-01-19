@@ -24,8 +24,8 @@ data class Connection(
 
         client.implicit = implicit
         client.utf8 = utf8
-        client.passive = passive
         client.connect(server, port)
+        client.passive = passive
         client.login(username, password) // connect to server and login with login credentials
 
         return client
