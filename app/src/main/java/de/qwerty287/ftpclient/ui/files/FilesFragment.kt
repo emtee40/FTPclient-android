@@ -70,23 +70,6 @@ class FilesFragment : Fragment() {
                         } else {
                             failed += 1
                         }
-                        showSnackbar(
-                            success,
-                            String.format(
-                                requireContext().getString(
-                                    R.string.upload_completed_partially,
-                                    i + 1,
-                                    clipData.itemCount
-                                )
-                            ),
-                            String.format(
-                                requireContext().getString(
-                                    R.string.upload_failed_partially,
-                                    i + 1,
-                                    clipData.itemCount
-                                )
-                            )
-                        )
                     }
                     Snackbar.make(
                         binding.root,
@@ -100,8 +83,7 @@ class FilesFragment : Fragment() {
     }
 
     private fun uploadFile(uri: Uri, text: String): Boolean {
-        val sb =
-            CounterSnackbar(binding.root, text, requireActivity())
+        val sb = CounterSnackbar(binding.root, text, requireActivity())
         val inputStream = requireContext().contentResolver.openInputStream(uri)?.let {
             CountingInputStream(it) { read ->
                 sb.update(read, read + it.available())
