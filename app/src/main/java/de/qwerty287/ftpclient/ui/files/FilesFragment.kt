@@ -53,7 +53,7 @@ class FilesFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         binding.swipeRefresh.isRefreshing = true
                     }
-                    val success = uploadFile(uri)
+                    val success = uploadFile(uri, getString(R.string.uploading))
                     showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
                     updateUi()
                 } else if (clipData != null) {
@@ -64,7 +64,7 @@ class FilesFragment : Fragment() {
                     var failed = 0
                     for (i in 0 until clipData.itemCount) {
                         val clipUri = clipData.getItemAt(i).uri
-                        val success = uploadFile(clipUri)
+                        val success = uploadFile(clipUri, getString(R.string.uploading_multi, succeeded + failed + 1, clipData.itemCount))
                         if (success) {
                             succeeded += 1
                         } else {
@@ -99,10 +99,9 @@ class FilesFragment : Fragment() {
         }
     }
 
-    private fun uploadFile(uri: Uri): Boolean {
-        // TODO files counter
+    private fun uploadFile(uri: Uri, text: String): Boolean {
         val sb =
-            CounterSnackbar(binding.root, getString(R.string.uploading), requireActivity())
+            CounterSnackbar(binding.root, text, requireActivity())
         val inputStream = requireContext().contentResolver.openInputStream(uri)?.let {
             CountingInputStream(it) { read ->
                 sb.update(read, read + it.available())

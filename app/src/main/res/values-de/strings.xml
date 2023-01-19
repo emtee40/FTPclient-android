@@ -75,6 +75,7 @@
     <string name="bad_file">Dateiinhalt konnte nicht angezeigt werden</string>
     <string name="preview">Vorschau</string>
     <string name="uploading">Hochladen: %s</string>
+    <string name="uploading_multi">Hochladen: %%s (Datei %d/%d)</string>
     <string name="downloading">Herunterladen: %s</string>
     <string name="not_started">noch nicht gestartet</string>
     <string name="percent">%d%%</string>
