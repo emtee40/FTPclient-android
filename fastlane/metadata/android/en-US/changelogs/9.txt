@@ -1,0 +1,5 @@
+- fix corrupt images
+- progress snackbars on download/upload
+- sort entries
+- support passive mode
+- French translation

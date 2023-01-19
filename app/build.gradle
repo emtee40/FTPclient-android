@@ -11,8 +11,8 @@ android {
         applicationId "de.qwerty287.ftpclient"
         minSdk 21
         targetSdk 33
-        versionCode 8
-        versionName "2.2.0"
+        versionCode 9
+        versionName "2.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
