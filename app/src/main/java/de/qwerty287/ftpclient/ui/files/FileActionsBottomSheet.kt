@@ -21,6 +21,7 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
 import de.qwerty287.ftpclient.ui.files.providers.Client
 import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingOutputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,9 +35,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
             client: Client,
             connId: Int,
             directory: String,
+            updateProgressSnackbar: CounterSnackbar,
             updateParent: () -> Unit,
-            showSnackbar: (Boolean, Int, Int) -> Unit,
-            updateProgressSnackbar: (Int) -> Unit
+            showSnackbar: (Boolean, Int, Int) -> Unit
         ): FileActionsBottomSheet {
             val args = Bundle()
             args.putSerializable("file", file)
@@ -60,7 +61,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
     private lateinit var directory: String
     private lateinit var updateParent: (() -> Unit)
     private lateinit var showSnackbar: ((Boolean, Int, Int) -> Unit)
-    private lateinit var updateProgressSnackbar: ((Int) -> Unit)
+    private lateinit var updateProgressSnackbar: CounterSnackbar
 
     private val result: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -69,7 +70,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                     val uri = it.data?.data
                     if (uri != null) {
                         val outputStream = requireContext().contentResolver.openOutputStream(uri)
-                            ?.let { it1 -> CountingOutputStream(it1) { written -> updateProgressSnackbar(written) } }
+                            ?.let { it1 -> CountingOutputStream(it1) { written -> updateProgressSnackbar.update(written, file.size.toInt()) } }
                         val success = try {
                             client.download(getAbsoluteFilePath(), outputStream!!)
                         } catch (e: NullPointerException) {

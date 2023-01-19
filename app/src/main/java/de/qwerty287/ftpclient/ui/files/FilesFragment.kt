@@ -24,11 +24,12 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
 import de.qwerty287.ftpclient.ui.files.providers.Client
+import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.io.InputStream
 
 
@@ -52,7 +53,7 @@ class FilesFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         binding.swipeRefresh.isRefreshing = true
                     }
-                    val success = uploadFile(uri)
+                    val success = uploadFile(uri, getString(R.string.uploading))
                     showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
                     updateUi()
                 } else if (clipData != null) {
@@ -63,29 +64,12 @@ class FilesFragment : Fragment() {
                     var failed = 0
                     for (i in 0 until clipData.itemCount) {
                         val clipUri = clipData.getItemAt(i).uri
-                        val success = uploadFile(clipUri)
+                        val success = uploadFile(clipUri, getString(R.string.uploading_multi, succeeded + failed + 1, clipData.itemCount))
                         if (success) {
                             succeeded += 1
                         } else {
                             failed += 1
                         }
-                        showSnackbar(
-                            success,
-                            String.format(
-                                requireContext().getString(
-                                    R.string.upload_completed_partially,
-                                    i + 1,
-                                    clipData.itemCount
-                                )
-                            ),
-                            String.format(
-                                requireContext().getString(
-                                    R.string.upload_failed_partially,
-                                    i + 1,
-                                    clipData.itemCount
-                                )
-                            )
-                        )
                     }
                     Snackbar.make(
                         binding.root,
@@ -98,27 +82,11 @@ class FilesFragment : Fragment() {
         }
     }
 
-    private fun uploadFile(uri: Uri): Boolean {
-        // TODO files counter
-        val uploadingText = getString(R.string.uploading)
-        val percentText = getString(R.string.percent)
-        val sb =
-            Snackbar.make(binding.root, String.format(uploadingText, "not started yet"), Snackbar.LENGTH_INDEFINITE)
-        sb.show()
-        var lastUpdate = 0.0
+    private fun uploadFile(uri: Uri, text: String): Boolean {
+        val sb = CounterSnackbar(binding.root, text, requireActivity())
         val inputStream = requireContext().contentResolver.openInputStream(uri)?.let {
             CountingInputStream(it) { read ->
-                if (read.toDouble() / (read + it.available()) > lastUpdate + 0.05) {
-                    requireActivity().runOnUiThread {
-                        sb.setText(
-                            String.format(
-                                uploadingText,
-                                String.format(percentText, (100 * read.toDouble() / (read + it.available())).toInt())
-                            )
-                        )
-                    }
-                    lastUpdate = (read.toDouble() / (read + it.available()))
-                }
+                sb.update(read, read + it.available())
             }
         }
         val success: Boolean = try {
@@ -146,7 +114,6 @@ class FilesFragment : Fragment() {
 
         _binding = FragmentFilesBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -250,7 +217,7 @@ class FilesFragment : Fragment() {
      * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
      */
     private fun updateUi() {
-        var files: List<de.qwerty287.ftpclient.ui.files.providers.File>
+        var files: List<File>
 
         if (_binding == null) {
             // seems that this isn't ready yet
@@ -298,80 +265,11 @@ class FilesFragment : Fragment() {
                                             options
                                         )
                                     } else if (!it.isUnknown) {
-                                        val uploadingText = getString(R.string.downloading)
-                                        val percentText = getString(R.string.percent)
-                                        val sb = Snackbar.make(
-                                            binding.root,
-                                            String.format(uploadingText, "not started yet"),
-                                            Snackbar.LENGTH_INDEFINITE
-                                        )
-                                        var lastUpdate = 0.0
-
-                                        FileActionsBottomSheet.newInstance(
-                                            it,
-                                            client!!,
-                                            connection.id,
-                                            directory,
-                                            { updateUi() },
-                                            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }) { written ->
-                                            if (!sb.isShown) sb.show()
-                                            if (written.toDouble() / it.size > lastUpdate + 0.05) {
-                                                requireActivity().runOnUiThread {
-                                                    sb.setText(
-                                                        String.format(
-                                                            uploadingText,
-                                                            String.format(
-                                                                percentText,
-                                                                (100 * written.toDouble() / it.size).toInt()
-                                                            )
-                                                        )
-                                                    )
-                                                }
-                                                lastUpdate = (written.toDouble() / it.size)
-                                            }
-                                        }
-                                            .show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
+                                        newFileBottomSheet(it)
                                     }
                                 }) { // how to handle long clicks on items
                                     if (!it.isUnknown) {
-                                        val uploadingText = getString(R.string.downloading)
-                                        val percentText = getString(R.string.percent)
-                                        val sb = Snackbar.make(
-                                            binding.root,
-                                            String.format(uploadingText, "not started yet"),
-                                            Snackbar.LENGTH_INDEFINITE
-                                        )
-                                        var lastUpdate = 0.0
-
-                                        FileActionsBottomSheet.newInstance(
-                                            it,
-                                            client!!,
-                                            connection.id,
-                                            directory,
-                                            { updateUi() },
-                                            { itBool, suc, fail ->
-                                                showSnackbar(
-                                                    itBool,
-                                                    suc,
-                                                    fail
-                                                )
-                                            }) { written ->
-                                            if (!sb.isShown) sb.show()
-                                            if (written.toDouble() / it.size > lastUpdate + 0.05) {
-                                                requireActivity().runOnUiThread {
-                                                    sb.setText(
-                                                        String.format(
-                                                            uploadingText,
-                                                            String.format(
-                                                                percentText,
-                                                                (100 * written.toDouble() / it.size).toInt()
-                                                            )
-                                                        )
-                                                    )
-                                                }
-                                                lastUpdate = (written.toDouble() / it.size)
-                                            }
-                                        }.show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
+                                        newFileBottomSheet(it)
                                     }
                                 }
                         }
@@ -409,6 +307,22 @@ class FilesFragment : Fragment() {
         }
     }
 
+    private fun newFileBottomSheet(file: File) {
+        FileActionsBottomSheet.newInstance(
+            file,
+            client!!,
+            connection.id,
+            directory,
+            CounterSnackbar(
+                binding.root,
+                getString(R.string.downloading),
+                requireActivity(),
+                false
+            ),
+            { updateUi() },
+            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }).show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -433,7 +347,7 @@ class FilesFragment : Fragment() {
      */
     private fun getFilenameFromUri(uri: Uri): String {
         val uriString = uri.toString()
-        val file = File(uriString)
+        val file = java.io.File(uriString)
         var displayName = "0"
 
         if (uriString.startsWith("content://")) {
@@ -492,12 +406,8 @@ class FilesFragment : Fragment() {
         val uri = if (isText) null else Uri.parse(arguments?.getString("uri"))
         val text = if (isText) arguments?.getString("text") else null
 
-        val uploadingText = getString(R.string.uploading)
-        val percentText = getString(R.string.percent)
         val sb =
-            Snackbar.make(binding.root, String.format(uploadingText, "not started yet"), Snackbar.LENGTH_INDEFINITE)
-        sb.show()
-        var lastUpdate = 0.0
+            CounterSnackbar(binding.root, getString(R.string.uploading), requireActivity())
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 binding.swipeRefresh.isRefreshing = true
@@ -521,20 +431,7 @@ class FilesFragment : Fragment() {
                     requireContext().contentResolver.openInputStream(uri!!)
                 })?.let {
                     CountingInputStream(it) { read ->
-                        if (read.toDouble() / (read + it.available()) > lastUpdate + 0.05) {
-                            requireActivity().runOnUiThread {
-                                sb.setText(
-                                    String.format(
-                                        uploadingText,
-                                        String.format(
-                                            percentText,
-                                            (100 * read.toDouble() / (read + it.available())).toInt()
-                                        )
-                                    )
-                                )
-                            }
-                            lastUpdate = (read.toDouble() / (read + it.available()))
-                        }
+                        sb.update(read, read + it.available())
                     }
                 }
                 val success: Boolean = try {

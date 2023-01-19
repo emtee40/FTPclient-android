@@ -78,6 +78,7 @@
     <string name="bad_file">Bad file content</string>
     <string name="preview">Preview</string>
     <string name="uploading">Uploading: %s</string>
+    <string name="uploading_multi">Uploading: %%s (file %d/%d)</string>
     <string name="downloading">Downloading: %s</string>
     <string name="not_started">not started yet</string>
     <string name="percent">%d%%</string>

@@ -20,14 +20,14 @@ class CountingOutputStream(private val stream: OutputStream, private val onWrite
     }
 
     override fun write(b: ByteArray?) {
+        stream.write(b)
         written += b?.size ?: 0
         onWrite(written)
-        stream.write(b)
     }
 
     override fun write(b: ByteArray?, off: Int, len: Int) {
+        stream.write(b, off, len)
         written += b?.size ?: 0
         onWrite(written)
-        stream.write(b, off, len)
     }
 }
