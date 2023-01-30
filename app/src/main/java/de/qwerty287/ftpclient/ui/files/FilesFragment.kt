@@ -276,30 +276,8 @@ class FilesFragment : Fragment() {
                         binding.swipeRefresh.isRefreshing = false
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     withContext(Dispatchers.Main) {
-                        binding.swipeRefresh.isRefreshing = false
-                        val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
-                            .setTitle(R.string.error_occurred)
-                            .setMessage(R.string.error_descriptions)
-                            .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                                findNavController().navigateUp()
-                            }
-                            .setOnCancelListener { findNavController().navigateUp() }
-                            .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
-                                val clipboardManager =
-                                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                clipboardManager.setPrimaryClip(
-                                    ClipData.newPlainText(
-                                        getString(R.string.app_name),
-                                        e.stackTraceToString()
-                                    )
-                                )
-                                findNavController().navigateUp()
-                            }
-                            .create()
-                        dialog.setCanceledOnTouchOutside(false)
-                        dialog.show()
+                        showErrorDialog(e)
                     }
                 }
             }
@@ -326,6 +304,48 @@ class FilesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    /**
+     * Shows error dialog
+     */
+    private fun showErrorDialog(e: Exception) {
+        binding.swipeRefresh.isRefreshing = false
+        lifecycleScope.launch {
+            val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
+                .setTitle(R.string.error_occurred)
+                .setMessage(R.string.error_descriptions)
+                .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            try {
+                                client = connection.client() // try to reconnect
+                                updateUi()
+                            } catch (e: Exception) {
+                                showErrorDialog(e)
+                            }
+                        }
+                    }
+                }
+                .setOnCancelListener { findNavController().navigateUp() }
+                .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
+                    val clipboardManager =
+                        requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    clipboardManager.setPrimaryClip(
+                        ClipData.newPlainText(
+                            getString(R.string.app_name),
+                            e.stackTraceToString()
+                        )
+                    )
+                    findNavController().navigateUp()
+                }
+                .setNegativeButton(R.string.ok) { _: DialogInterface, _: Int ->
+                    findNavController().navigateUp()
+                }
+                .create()
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.show()
+        }
     }
 
     /**
