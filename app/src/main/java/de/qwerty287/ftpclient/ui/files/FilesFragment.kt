@@ -312,7 +312,7 @@ class FilesFragment : Fragment() {
     private fun showErrorDialog(e: Exception) {
         binding.swipeRefresh.isRefreshing = false
         lifecycleScope.launch {
-            val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
+            val dialog = MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.error_occurred)
                 .setMessage(R.string.error_descriptions)
                 .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
