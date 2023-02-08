@@ -37,14 +37,7 @@ internal class ConnectionAndBookmarkAdapter(
             holder.title.setOnClickListener {
                 val options = Bundle()
                 options.putInt("connection", connections[position - bookmarks.size].id)
-                options.putString("uri", uri)
-                options.putString("text", text)
-                try {
-                    navController.navigate(R.id.action_UploadFileIntentFragment_to_FilesFragment, options)
-                    UploadFileIntentFragment.exit = true
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                navigateToFiles(options)
             }
         } else {
             holder.title.text = bookmarks[position].title
@@ -52,14 +45,7 @@ internal class ConnectionAndBookmarkAdapter(
                 val options = Bundle()
                 options.putInt("connection", bookmarks[position].connection)
                 options.putString("directory", bookmarks[position].directory)
-                options.putString("uri", uri)
-                options.putString("text", text)
-                try {
-                    navController.navigate(R.id.action_UploadFileIntentFragment_to_FilesFragment, options)
-                    UploadFileIntentFragment.exit = true
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                navigateToFiles(options)
             }
             val icon =
                 AppCompatResources.getDrawable(holder.title.context, R.drawable.ic_baseline_bookmark_24) ?: return
@@ -67,6 +53,17 @@ internal class ConnectionAndBookmarkAdapter(
             val w = icon.intrinsicWidth
             icon.setBounds(0, 0, w, h)
             holder.title.setCompoundDrawablesRelative(icon, null, null, null)
+        }
+    }
+
+    private fun navigateToFiles(options: Bundle) {
+        options.putString("uri", uri)
+        options.putString("text", text)
+        try {
+            navController.navigate(R.id.action_UploadFileIntentFragment_to_FilesFragment, options)
+            UploadFileIntentFragment.exit = true
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
