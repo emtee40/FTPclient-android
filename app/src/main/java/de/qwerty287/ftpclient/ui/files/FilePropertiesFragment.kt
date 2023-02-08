@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.FragmentFilePropertiesBinding
-import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.providers.File
 import java.text.SimpleDateFormat
 
 class FilePropertiesFragment : Fragment() {

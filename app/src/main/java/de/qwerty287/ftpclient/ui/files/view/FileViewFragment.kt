@@ -17,7 +17,7 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
 import de.qwerty287.ftpclient.ui.files.FileExtensions
-import de.qwerty287.ftpclient.ui.files.providers.Client
+import de.qwerty287.ftpclient.providers.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

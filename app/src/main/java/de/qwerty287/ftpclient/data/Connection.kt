@@ -3,8 +3,8 @@ package de.qwerty287.ftpclient.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import de.qwerty287.ftpclient.ui.files.providers.Client
-import de.qwerty287.ftpclient.ui.files.providers.Provider
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.Provider
 
 @Entity(tableName = "connections")
 data class Connection(

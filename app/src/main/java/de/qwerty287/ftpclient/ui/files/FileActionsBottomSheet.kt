@@ -19,8 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
-import de.qwerty287.ftpclient.ui.files.providers.Client
-import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingOutputStream
 import kotlinx.coroutines.Dispatchers

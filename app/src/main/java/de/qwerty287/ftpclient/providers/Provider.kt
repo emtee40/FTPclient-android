@@ -1,4 +1,4 @@
-package de.qwerty287.ftpclient.ui.files.providers
+package de.qwerty287.ftpclient.providers
 
 enum class Provider {
     FTP,

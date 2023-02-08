@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import de.qwerty287.ftpclient.R
-import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.providers.File
 
 
 internal class FilesAdapter(

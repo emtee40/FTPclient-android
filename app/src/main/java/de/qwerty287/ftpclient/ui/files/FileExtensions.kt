@@ -1,7 +1,7 @@
 package de.qwerty287.ftpclient.ui.files
 
 import de.qwerty287.ftpclient.R
-import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.providers.File
 
 object FileExtensions {
     private val audioFormats = listOf(
