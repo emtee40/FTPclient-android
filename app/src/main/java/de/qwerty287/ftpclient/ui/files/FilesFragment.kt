@@ -23,8 +23,8 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
-import de.qwerty287.ftpclient.ui.files.providers.Client
-import de.qwerty287.ftpclient.ui.files.providers.File
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import kotlinx.coroutines.Dispatchers
