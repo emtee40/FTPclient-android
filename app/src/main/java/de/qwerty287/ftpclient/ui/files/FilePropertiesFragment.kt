@@ -56,7 +56,7 @@ class FilePropertiesFragment : Fragment() {
         if (file!!.isDirectory) {
             binding.fileSizeLayout.isVisible = false
         }
-        if (file!!.isSymbolicLink) {
+        if (file!!.isSymbolicLink && file!!.link != null) {
             binding.fileSymbolicLinkLayout.isVisible = true
         }
 

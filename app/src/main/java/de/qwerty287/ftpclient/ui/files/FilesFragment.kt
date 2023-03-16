@@ -248,7 +248,7 @@ class FilesFragment : Fragment() {
                     }.sortedBy { item -> item.name }
 
                     withContext(Dispatchers.Main) {
-                        if (files.isEmpty()) { // set up recyclerview or textview
+                        if (files.isEmpty()) { // set up RecyclerView or TextView
                             binding.textviewEmptyDir.isVisible = true
                             binding.recyclerviewFiles.isVisible = false
                         } else {
@@ -256,9 +256,9 @@ class FilesFragment : Fragment() {
                             binding.recyclerviewFiles.isVisible = true
                             binding.recyclerviewFiles.adapter =
                                 FilesAdapter(files, { // how to handle single clicks on items
-                                    if (it.isDirectory) {
+                                    if (it.isDirectory || (it.isSymbolicLink && it.link != null)) {
                                         val options = Bundle()
-                                        options.putString("directory", "$directory/${it.name}")
+                                        options.putString("directory", "$directory/${if (it.isDirectory) it.name else it.link}")
                                         options.putInt("connection", connection.id)
                                         findNavController().navigate(
                                             R.id.action_FilesFragment_to_FilesFragment,
@@ -400,22 +400,6 @@ class FilesFragment : Fragment() {
                 successRes
             } else {
                 failedRes
-            }, Snackbar.LENGTH_SHORT
-        ).show()
-    }
-
-    /**
-     * Show an information snackbar
-     * @param success If the operation was successful
-     * @param successString The text that is shown if the operation was successful
-     * @param failedString The text that is shown if the operation failed
-     */
-    private fun showSnackbar(success: Boolean, successString: String, failedString: String) {
-        Snackbar.make(
-            binding.root, if (success) {
-                successString
-            } else {
-                failedString
             }, Snackbar.LENGTH_SHORT
         ).show()
     }
