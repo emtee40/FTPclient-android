@@ -4,10 +4,10 @@ FTPClient is a very simple FTP client for Android 5.0+,
 using [Apache Commons Net](https://commons.apache.org/proper/commons-net/) for FTP and FTPS
 and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
 
-[<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/get-it-on.png"
+[<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/f-droid.png"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/de.qwerty287.ftpclient/)
-[<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/get-it-on-blue-on-white.png"
+[<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/codeberg.png"
      alt="Get it on Codeberg"
      height="80">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
 
