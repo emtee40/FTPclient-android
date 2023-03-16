@@ -12,8 +12,12 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -121,7 +125,16 @@ class FilesFragment : Fragment() {
 
         binding.recyclerviewFiles.layoutManager = LinearLayoutManager(requireContext())
 
-        setHasOptionsMenu(true)
+        requireActivity().addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
+                inflater.inflate(R.menu.files_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return menuItemSelected(menuItem)
+            }
+        }, viewLifecycleOwner)
+
         updateUi()
 
         binding.fabAddDir.setOnClickListener {
@@ -163,12 +176,7 @@ class FilesFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.files_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun menuItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.go_to -> {
                 val view = layoutInflater.inflate(R.layout.dialog_entry, null)
@@ -206,7 +214,7 @@ class FilesFragment : Fragment() {
                 true
             }
 
-            else -> super.onOptionsItemSelected(item)
+            else -> false
         }
     }
 
