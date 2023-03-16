@@ -185,6 +185,17 @@ object FileExtensions {
         "rmvb",
         "yt"
     )
+    private val previewableImageFormats = listOf(
+        "bmp",
+        "gif",
+        "jpg",
+        "jpeg",
+        "jpe",
+        "png",
+        "webp",
+        "heic",
+        "heif",
+    )
     private val imageFormats = listOf(
         "pic",
         "psd",
@@ -201,9 +212,7 @@ object FileExtensions {
         "mos",
         "pnx",
         "rdc",
-        "gif",
         "ief",
-        "bmp",
         "dib",
         "nef",
         "emf",
@@ -222,8 +231,6 @@ object FileExtensions {
         "hdr",
         "pic",
         "dxf",
-        "heic",
-        "heif",
         "xbm",
         "cgm",
         "ag",
@@ -245,7 +252,6 @@ object FileExtensions {
         "dng",
         "gbr",
         "mrw",
-        "png",
         "sr2",
         "crw",
         "eps",
@@ -261,9 +267,6 @@ object FileExtensions {
         "iff",
         "ilbm",
         "lbm",
-        "jpg",
-        "jpeg",
-        "jpe",
         "3ds",
         "pef",
         "jpf",
@@ -279,7 +282,6 @@ object FileExtensions {
         "avif",
         "g3",
         "raw",
-        "webp",
         "xpm",
         "svg",
         "wbmp",
@@ -495,7 +497,6 @@ object FileExtensions {
         "vor",
         "sgl",
         "vsd",
-
         "vst",
         "vsw",
         "vss",
@@ -750,7 +751,7 @@ object FileExtensions {
             R.drawable.ic_baseline_music_note_24
         } else if (file.isFile && getFileFormat(file) in videoFormats) {
             R.drawable.ic_baseline_local_movies_24
-        } else if (file.isFile && getFileFormat(file) in imageFormats) {
+        } else if (file.isFile && (isImage(file.name))) {
             R.drawable.ic_baseline_image_24
         } else if (file.isFile && getFileFormat(file) in fontFormats) {
             R.drawable.ic_baseline_font_download_24
@@ -787,10 +788,10 @@ object FileExtensions {
     }
 
     fun isImage(filename: String): Boolean {
-        return getFileFormat(filename) in imageFormats
+        return getFileFormat(filename) in imageFormats || getFileFormat(filename) in previewableImageFormats
     }
 
     fun previewable(filename: String): Boolean {
-        return isImage(filename) || getFileFormat(filename) in plainTextFormats
+        return getFileFormat(filename) in previewableImageFormats || getFileFormat(filename) in plainTextFormats
     }
 }
