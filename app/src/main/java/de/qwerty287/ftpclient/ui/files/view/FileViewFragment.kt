@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +22,7 @@ import de.qwerty287.ftpclient.providers.Client
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.InputStream
 import java.io.OutputStream
 
 
@@ -90,10 +92,39 @@ class FileViewFragment : Fragment() {
                                 fileStr += b.toChar().toString()
                             }
                             binding.textView.text = fileStr
+                            binding.fileContent.setText(fileStr)
+
+                            requireActivity().addMenuProvider(object : MenuProvider {
+                                private lateinit var menu: Menu
+
+                                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                                    this.menu = menu
+                                    menuInflater.inflate(R.menu.view_menu, menu)
+                                }
+
+                                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                                    return when (menuItem.itemId) {
+                                        R.id.edit_menu -> {
+                                            binding.textView.isVisible = false
+                                            binding.fileContentLayout.isVisible = true
+                                            menuItem.isVisible = false
+                                            menu.getItem(1).isVisible = true
+                                            true
+                                        }
+                                        R.id.save_menu -> {
+                                            saveFile {
+                                                menuItem.isVisible = false
+                                                menu.getItem(0).isVisible = true
+                                            }
+                                            true
+                                        }
+                                        else -> false
+                                    }
+                                }
+                            }, viewLifecycleOwner)
                         }
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     withContext(Dispatchers.Main) {
                         val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
                             .setTitle(R.string.error_occurred)
@@ -127,5 +158,62 @@ class FileViewFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun saveFile(updateMenu: () -> Unit) {
+        binding.fileContent.isEnabled = false
+        val content = binding.fileContent.text.toString()
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    client!!.upload(file, object : InputStream() {
+                        private var index = 0
+
+                        override fun read(): Int {
+                            if (index >= content.length) {
+                                return -1
+                            }
+                            val b = content[index]
+                            index++
+                            return b.code
+                        }
+                    })
+
+                    withContext(Dispatchers.Main) {
+                        binding.textView.text = content
+                        binding.textView.isVisible = true
+                        binding.fileContentLayout.isVisible = false
+                        updateMenu()
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
+                            .setTitle(R.string.error_occurred)
+                            .setMessage(R.string.error_descriptions)
+                            .setPositiveButton(R.string.ok) { d: DialogInterface, _: Int ->
+                                binding.fileContent.isEnabled = true
+                                d.dismiss()
+                            }
+                            .setOnCancelListener { findNavController().navigateUp() }
+                            .setNeutralButton(R.string.copy) { d: DialogInterface, _: Int ->
+                                val clipboardManager =
+                                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                clipboardManager.setPrimaryClip(
+                                    ClipData.newPlainText(
+                                        getString(R.string.app_name),
+                                        e.stackTraceToString()
+                                    )
+                                )
+                                binding.fileContent.isEnabled = true
+                                d.dismiss()
+                            }
+                            .create()
+                        dialog.setCanceledOnTouchOutside(false)
+                        dialog.show()
+                    }
+                }
+            }
+        }
     }
 }

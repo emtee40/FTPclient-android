@@ -81,4 +81,6 @@
     <string name="not_started">noch nicht gestartet</string>
     <string name="percent">%d%%</string>
     <string name="retry">Erneut versuchen</string>
+    <string name="file_content">Dateiinhalt</string>
+    <string name="save">Speichern</string>
 </resources>

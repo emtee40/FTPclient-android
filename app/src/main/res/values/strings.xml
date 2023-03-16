@@ -83,4 +83,6 @@
     <string name="downloading">Downloading: %s</string>
     <string name="not_started">not started yet</string>
     <string name="percent">%d%%</string>
+    <string name="file_content">File content</string>
+    <string name="save">Save</string>
 </resources>
