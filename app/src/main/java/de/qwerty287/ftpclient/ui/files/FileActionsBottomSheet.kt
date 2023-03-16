@@ -113,12 +113,8 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
 
         binding.filename.text = file.name
 
-        if (file.isDirectory) {
-            binding.downloadFile.isVisible = false
-        }
-        if (!FileExtensions.previewable(file.name)) {
-            binding.previewFile.isVisible = false
-        }
+        binding.downloadFile.isVisible = !file.isDirectory
+        binding.previewFile.isVisible = FileExtensions.previewable(file.name)
 
         binding.previewFile.setOnClickListener {
             val options = Bundle()
