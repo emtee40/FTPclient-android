@@ -192,10 +192,8 @@ class FileViewFragment : Fragment() {
                             .setTitle(R.string.error_occurred)
                             .setMessage(R.string.error_descriptions)
                             .setPositiveButton(R.string.ok) { d: DialogInterface, _: Int ->
-                                binding.fileContent.isEnabled = true
                                 d.dismiss()
                             }
-                            .setOnCancelListener { findNavController().navigateUp() }
                             .setNeutralButton(R.string.copy) { d: DialogInterface, _: Int ->
                                 val clipboardManager =
                                     requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -205,13 +203,15 @@ class FileViewFragment : Fragment() {
                                         e.stackTraceToString()
                                     )
                                 )
-                                binding.fileContent.isEnabled = true
                                 d.dismiss()
                             }
                             .create()
                         dialog.setCanceledOnTouchOutside(false)
                         dialog.show()
                     }
+                }
+                withContext(Dispatchers.Main) {
+                    binding.fileContent.isEnabled = true
                 }
             }
         }
