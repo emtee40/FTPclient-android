@@ -17,16 +17,16 @@ class FilePropertiesFragment : Fragment() {
 
     private var _binding: FragmentFilePropertiesBinding? = null
     private val binding get() = _binding!!
-    private var file: File? = null
+    private lateinit var file: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         try {
             file = if (Build.VERSION.SDK_INT >= 33) {
-                arguments?.getSerializable("file", File::class.java)
+                requireArguments().getSerializable("file", File::class.java)!!
             } else {
-                arguments?.getSerializable("file") as File?
+                requireArguments().getSerializable("file") as File
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -48,24 +48,19 @@ class FilePropertiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (file == null) {
-            findNavController().navigateUp()
-            return
-        }
-
-        if (file!!.isDirectory) {
+        if (file.isDirectory) {
             binding.fileSizeLayout.isVisible = false
         }
-        if (file!!.isSymbolicLink && file!!.link != null) {
+        if (file.isSymbolicLink && file.link != null) {
             binding.fileSymbolicLinkLayout.isVisible = true
         }
 
-        binding.filename.text = file!!.name
+        binding.filename.text = file.name
         binding.fileSize.text = getFileByteString()
-        binding.fileOwner.text = file!!.user
-        binding.fileGroup.text = file!!.group
-        binding.fileTimestamp.text = SimpleDateFormat.getDateTimeInstance().format(file!!.timestamp.time)
-        binding.fileSymbolicLink.text = file!!.link
+        binding.fileOwner.text = file.user
+        binding.fileGroup.text = file.group
+        binding.fileTimestamp.text = SimpleDateFormat.getDateTimeInstance().format(file.timestamp.time)
+        binding.fileSymbolicLink.text = file.link
     }
 
     override fun onDestroyView() {
@@ -78,15 +73,15 @@ class FilePropertiesFragment : Fragment() {
      * @return The [CharSequence]
      */
     private fun getFileByteString(): CharSequence {
-        if (file!!.size < 1024) {
-            return String.format(getString(R.string.bytes), file!!.size)
-        } else if (file!!.size < 1024 * 1024) {
-            return String.format(getString(R.string.kilobytes), (file!!.size / 1024.0))
-        } else if (file!!.size < 1024L * 1024 * 1024) {
-            return String.format(getString(R.string.megabytes), (file!!.size / (1024.0 * 1024)))
-        } else if (file!!.size < 1024L * 1024 * 1024 * 1024) {
-            return String.format(getString(R.string.gigabytes), (file!!.size / (1024.0 * 1024 * 1024)))
+        if (file.size < 1024) {
+            return getString(R.string.bytes, file.size)
+        } else if (file.size < 1024 * 1024) {
+            return getString(R.string.kilobytes, (file.size / 1024.0))
+        } else if (file.size < 1024L * 1024 * 1024) {
+            return getString(R.string.megabytes, (file.size / (1024.0 * 1024)))
+        } else if (file.size < 1024L * 1024 * 1024 * 1024) {
+            return getString(R.string.gigabytes, (file.size / (1024.0 * 1024 * 1024)))
         }
-        return String.format(getString(R.string.terabytes), (file!!.size / (1024.0 * 1024 * 1024 * 1024)))
+        return getString(R.string.terabytes, (file.size / (1024.0 * 1024 * 1024 * 1024)))
     }
 }

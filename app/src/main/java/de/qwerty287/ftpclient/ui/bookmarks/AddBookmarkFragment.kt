@@ -20,6 +20,7 @@ class AddBookmarkFragment : Fragment() {
     private var _binding: FragmentAddBookmarkBinding? = null
     private val binding get() = _binding!!
 
+    private var directory: String? = null
     private var connectionId: Int? = null
     private var bookmark: Bookmark? = null
 
@@ -29,10 +30,10 @@ class AddBookmarkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val directory = arguments?.getString("directory")
+        directory = requireArguments().getString("directory")
 
         if (directory != null) {
-            connectionId = arguments?.getInt("connectionId")
+            connectionId = requireArguments().getInt("connectionId")
         }
 
         _binding = FragmentAddBookmarkBinding.inflate(layoutInflater, container, false)
@@ -43,7 +44,7 @@ class AddBookmarkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (connectionId != null) {
-            binding.directory.setText(arguments?.getString("directory"))
+            binding.directory.setText(directory)
         } else {
             (requireActivity() as AppCompatActivity).supportActionBar?.setTitle(R.string.edit_bookmark)
             loadBookmark()
@@ -91,8 +92,8 @@ class AddBookmarkFragment : Fragment() {
 
     private fun loadBookmark() {
         lifecycleScope.launch {
-            val bookmarkId = arguments?.getInt("bookmarkId")
-            if (bookmarkId != null) {
+            val bookmarkId = requireArguments().getInt("bookmarkId", -1)
+            if (bookmarkId > -1) {
                 bookmark = AppDatabase.getInstance(requireContext()).bookmarkDao().get(bookmarkId.toLong())
                 binding.title.setText(bookmark?.title)
                 binding.directory.setText(bookmark?.directory)

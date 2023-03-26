@@ -40,7 +40,7 @@ class FileViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        file = arguments?.getString("file")!!
+        file = requireArguments().getString("file")!!
 
         _binding = FragmentFileViewBinding.inflate(inflater, container, false)
         return binding.root
@@ -54,10 +54,9 @@ class FileViewFragment : Fragment() {
             withContext(Dispatchers.IO) {
                 try {
                     if (client?.isConnected != true) {
-                        connection = arguments?.getInt("connection")?.let {
-                            AppDatabase.getInstance(requireContext()).connectionDao()
-                                .get(it.toLong())
-                        }!! // get connection from connection id, which is stored in the arguments
+                        // get connection from connection id, which is stored in the arguments
+                        connection = AppDatabase.getInstance(requireContext()).connectionDao()
+                                .get(requireArguments().getInt("connection").toLong())!!
 
                         client = connection.client()
                     }

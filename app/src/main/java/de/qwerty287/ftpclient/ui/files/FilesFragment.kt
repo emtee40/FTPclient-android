@@ -115,7 +115,7 @@ class FilesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        directory = arguments?.getString("directory", "") ?: ""
+        directory = requireArguments().getString("directory", "")
 
         _binding = FragmentFilesBinding.inflate(inflater, container, false)
         return binding.root
@@ -240,10 +240,9 @@ class FilesFragment : Fragment() {
                 }
                 try {
                     if (client?.isConnected != true) {
-                        connection = arguments?.getInt("connection")?.let {
-                            AppDatabase.getInstance(requireContext()).connectionDao()
-                                .get(it.toLong())
-                        }!! // get connection from connection id, which is stored in the arguments
+                        // get connection from connection id, which is stored in the arguments
+                        connection = AppDatabase.getInstance(requireContext()).connectionDao()
+                                .get(requireArguments().getInt("connection").toLong())!!
 
                         client = connection.client()
 
@@ -415,10 +414,10 @@ class FilesFragment : Fragment() {
     }
 
     private fun checkForUploadUri() {
-        if (arguments?.getString("uri") == null && arguments?.getString("text") == null) return
-        val isText = arguments?.getString("text") != null
-        val uri = if (isText) null else Uri.parse(arguments?.getString("uri"))
-        val text = if (isText) arguments?.getString("text") else null
+        if (requireArguments().getString("uri") == null && requireArguments().getString("text") == null) return
+        val isText = requireArguments().getString("text") != null
+        val uri = if (isText) null else Uri.parse(requireArguments().getString("uri"))
+        val text = if (isText) requireArguments().getString("text") else null
 
         val sb =
             CounterSnackbar(binding.root, getString(R.string.uploading), requireActivity())
@@ -475,9 +474,9 @@ class FilesFragment : Fragment() {
 
     private fun checkForUploadUrisMulti() {
         val uris = if (Build.VERSION.SDK_INT >= 33) {
-            arguments?.getParcelableArrayList("uris", Uri::class.java)
+            requireArguments().getParcelableArrayList("uris", Uri::class.java)
         } else {
-            arguments?.getParcelableArrayList("uris")
+            requireArguments().getParcelableArrayList("uris")
         } ?: return
 
         lifecycleScope.launch {

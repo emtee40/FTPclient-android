@@ -16,7 +16,7 @@
     <string name="filename">Nome do arquivo</string>
     <string name="size">Tamanho</string>
     <string name="owner">Proprietário</string>
-    <string name="bytes">%s Byte</string>
+    <string name="bytes">%d Byte</string>
     <string name="kilobytes">%.3f KiB</string>
     <string name="megabytes">%.3f MiB</string>
     <string name="gigabytes">%.2f GiB</string>
