@@ -10,4 +10,6 @@
     android:drawablePadding="24dp"
     android:focusable="true"
     android:padding="12dp"
-    android:textSize="16sp"/>
+    android:textSize="16sp"
+    android:ellipsize="end"
+    android:maxLines="2"/>
