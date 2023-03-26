@@ -5,6 +5,7 @@ package de.qwerty287.ftpclient.ui.files
 import android.content.*
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.view.*
@@ -247,6 +248,7 @@ class FilesFragment : Fragment() {
                         client = connection.client()
 
                         checkForUploadUri()
+                        checkForUploadUrisMulti()
                     }
 
                     files = if (directory == "") { // get files
@@ -466,6 +468,38 @@ class FilesFragment : Fragment() {
                 sb.dismiss()
                 inputStream?.close()
                 showSnackbar(success, R.string.upload_completed, R.string.upload_failed)
+                updateUi()
+            }
+        }
+    }
+
+    private fun checkForUploadUrisMulti() {
+        val uris = if (Build.VERSION.SDK_INT >= 33) {
+            arguments?.getParcelableArrayList("uris", Uri::class.java)
+        } else {
+            arguments?.getParcelableArrayList("uris")
+        } ?: return
+
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    binding.swipeRefresh.isRefreshing = true
+                }
+                var succeeded = 0
+                var failed = 0
+                for (i in uris) {
+                    val success = uploadFile(i, getString(R.string.uploading_multi, succeeded + failed + 1, uris.size))
+                    if (success) {
+                        succeeded += 1
+                    } else {
+                        failed += 1
+                    }
+                }
+                Snackbar.make(
+                    binding.root,
+                    String.format(requireContext().getString(R.string.upload_summary), succeeded, failed),
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 updateUi()
             }
         }

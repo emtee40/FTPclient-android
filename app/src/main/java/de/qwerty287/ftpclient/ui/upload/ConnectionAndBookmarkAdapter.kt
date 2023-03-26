@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.ui.upload
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,8 @@ internal class ConnectionAndBookmarkAdapter(
     private val bookmarks: List<Bookmark>,
     private val navController: NavController,
     private val uri: String?,
-    private val text: String?
+    private val text: String?,
+    private val uris: ArrayList<Uri>?,
 ) :
     RecyclerView.Adapter<ConnectionAndBookmarkAdapter.ViewHolder>() {
 
@@ -59,6 +61,7 @@ internal class ConnectionAndBookmarkAdapter(
     private fun navigateToFiles(options: Bundle) {
         options.putString("uri", uri)
         options.putString("text", text)
+        options.putParcelableArrayList("uris", uris)
         try {
             navController.navigate(R.id.action_UploadFileIntentFragment_to_FilesFragment, options)
             UploadFileIntentFragment.exit = true

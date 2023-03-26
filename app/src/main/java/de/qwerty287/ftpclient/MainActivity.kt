@@ -34,13 +34,29 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        if (intent.action == Intent.ACTION_SEND) {
+        if (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE) {
             val options = Bundle()
             if (intent.hasExtra(Intent.EXTRA_STREAM)) {
-                if (Build.VERSION.SDK_INT >= 33) {
-                    options.putString("uri", intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java).toString())
+                if (intent.action == Intent.ACTION_SEND) {
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        options.putString(
+                            "uri",
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java).toString()
+                        )
+                    } else {
+                        options.putString("uri", intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM).toString())
+                    }
                 } else {
-                    options.putString("uri", intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM).toString())
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        options.putParcelableArrayList(
+                            "uris",
+                            intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
+                        )
+                    } else {
+                        options.putParcelableArrayList("uris",
+                            intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
+                        )
+                    }
                 }
             } else if (intent.hasExtra(Intent.EXTRA_TEXT)) {
                 options.putString("text", intent.getCharSequenceExtra(Intent.EXTRA_TEXT).toString())

@@ -1,5 +1,7 @@
 package de.qwerty287.ftpclient.ui.upload
 
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,7 +70,12 @@ class UploadFileIntentFragment : Fragment() {
                 bm,
                 findNavController(),
                 requireArguments().getString("uri"),
-                requireArguments().getString("text")
+                requireArguments().getString("text"),
+                if (Build.VERSION.SDK_INT >= 33) {
+                    requireArguments().getParcelableArrayList("uris", Uri::class.java)
+                } else {
+                    requireArguments().getParcelableArrayList("uris")
+                }
             )
         }
     }
