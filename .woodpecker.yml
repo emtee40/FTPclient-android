@@ -12,6 +12,6 @@ pipeline:
       - GITEA_RELEASE_ATTACHER_REMOVE_OTHERS=1
       - GITEA_RELEASE_ATTACHER_FILENAME=debug.apk
       - GITEA_RELEASE_ATTACHER_PATH=app/build/outputs/apk/debug/app-debug.apk
-    secrets: [GITEA_RELEASE_ATTACHER_TOKEN]
+    secrets: [ GITEA_RELEASE_ATTACHER_TOKEN ]
     when:
-      event: [push, tag, deployment]
+      event: [ push, tag, deployment ]

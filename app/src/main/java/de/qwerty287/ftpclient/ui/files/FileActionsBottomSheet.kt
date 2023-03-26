@@ -70,7 +70,14 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                     val uri = it.data?.data
                     if (uri != null) {
                         val outputStream = requireContext().contentResolver.openOutputStream(uri)
-                            ?.let { it1 -> CountingOutputStream(it1) { written -> updateProgressSnackbar.update(written, file.size.toInt()) } }
+                            ?.let { it1 ->
+                                CountingOutputStream(it1) { written ->
+                                    updateProgressSnackbar.update(
+                                        written,
+                                        file.size.toInt()
+                                    )
+                                }
+                            }
                         val success = try {
                             client.download(getAbsoluteFilePath(), outputStream!!)
                         } catch (e: NullPointerException) {

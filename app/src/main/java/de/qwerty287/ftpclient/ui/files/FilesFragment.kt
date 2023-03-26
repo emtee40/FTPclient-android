@@ -13,12 +13,9 @@ import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
-import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,7 +66,10 @@ class FilesFragment : Fragment() {
                     var failed = 0
                     for (i in 0 until clipData.itemCount) {
                         val clipUri = clipData.getItemAt(i).uri
-                        val success = uploadFile(clipUri, getString(R.string.uploading_multi, succeeded + failed + 1, clipData.itemCount))
+                        val success = uploadFile(
+                            clipUri,
+                            getString(R.string.uploading_multi, succeeded + failed + 1, clipData.itemCount)
+                        )
                         if (success) {
                             succeeded += 1
                         } else {
@@ -126,7 +126,7 @@ class FilesFragment : Fragment() {
 
         binding.recyclerviewFiles.layoutManager = LinearLayoutManager(requireContext())
 
-        requireActivity().addMenuProvider(object : MenuProvider{
+        requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
                 inflater.inflate(R.menu.files_menu, menu)
             }
@@ -242,7 +242,7 @@ class FilesFragment : Fragment() {
                     if (client?.isConnected != true) {
                         // get connection from connection id, which is stored in the arguments
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
-                                .get(requireArguments().getInt("connection").toLong())!!
+                            .get(requireArguments().getInt("connection").toLong())!!
 
                         client = connection.client()
 
@@ -267,7 +267,10 @@ class FilesFragment : Fragment() {
                                 FilesAdapter(files, { // how to handle single clicks on items
                                     if (it.isDirectory || (it.isSymbolicLink && it.link != null)) {
                                         val options = Bundle()
-                                        options.putString("directory", "$directory/${if (it.isDirectory) it.name else it.link}")
+                                        options.putString(
+                                            "directory",
+                                            "$directory/${if (it.isDirectory) it.name else it.link}"
+                                        )
                                         options.putInt("connection", connection.id)
                                         findNavController().navigate(
                                             R.id.action_FilesFragment_to_FilesFragment,
@@ -307,7 +310,8 @@ class FilesFragment : Fragment() {
                 false
             ),
             { updateUi() },
-            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }).show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
+            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+            .show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
     }
 
     override fun onDestroyView() {

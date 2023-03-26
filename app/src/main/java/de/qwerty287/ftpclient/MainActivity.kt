@@ -53,7 +53,8 @@ class MainActivity : AppCompatActivity() {
                             intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM, Uri::class.java)
                         )
                     } else {
-                        options.putParcelableArrayList("uris",
+                        options.putParcelableArrayList(
+                            "uris",
                             intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM)
                         )
                     }

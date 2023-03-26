@@ -17,8 +17,8 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
-import de.qwerty287.ftpclient.ui.files.FileExtensions
 import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.ui.files.FileExtensions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -56,7 +56,7 @@ class FileViewFragment : Fragment() {
                     if (client?.isConnected != true) {
                         // get connection from connection id, which is stored in the arguments
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
-                                .get(requireArguments().getInt("connection").toLong())!!
+                            .get(requireArguments().getInt("connection").toLong())!!
 
                         client = connection.client()
                     }
@@ -110,6 +110,7 @@ class FileViewFragment : Fragment() {
                                             menu.getItem(1).isVisible = true
                                             true
                                         }
+
                                         R.id.save_menu -> {
                                             saveFile {
                                                 menuItem.isVisible = false
@@ -117,6 +118,7 @@ class FileViewFragment : Fragment() {
                                             }
                                             true
                                         }
+
                                         else -> false
                                     }
                                 }

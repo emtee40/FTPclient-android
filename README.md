@@ -5,11 +5,11 @@ using [Apache Commons Net](https://commons.apache.org/proper/commons-net/) for F
 and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
 
 [<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/f-droid.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/de.qwerty287.ftpclient/)
+alt="Get it on F-Droid"
+height="80">](https://f-droid.org/packages/de.qwerty287.ftpclient/)
 [<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/assets/codeberg.png"
-     alt="Get it on Codeberg"
-     height="80">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
+alt="Get it on Codeberg"
+height="80">](https://codeberg.org/qwerty287/ftpclient/releases/latest)
 
 ## Features
 
