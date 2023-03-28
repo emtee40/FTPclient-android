@@ -244,7 +244,7 @@ class FilesFragment : Fragment() {
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
                             .get(requireArguments().getInt("connection").toLong())!!
 
-                        client = connection.client()
+                        client = connection.client(requireContext())
 
                         if (directory == "") {
                             directory = connection.startDirectory
@@ -348,7 +348,7 @@ class FilesFragment : Fragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             try {
-                                client = connection.client() // try to reconnect
+                                client = connection.client(requireContext()) // try to reconnect
                                 updateUi()
                             } catch (e: Exception) {
                                 showErrorDialog(e)

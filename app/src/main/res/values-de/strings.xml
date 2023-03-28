@@ -84,4 +84,20 @@
     <string name="file_content">Dateiinhalt</string>
     <string name="save">Speichern</string>
     <string name="start_directory">Start-Verzeichnis - leer lassen für Root-Verzeichnis</string>
+    <string name="mtm_notification">Zertifikats-Validierung</string>
+    <string name="mtm_accept_cert">Unbekanntes Zertifikat akzeptieren?</string>
+    <string name="mtm_trust_anchor">Das Server-Zertifikat wurde nicht von einer bekannten Certificate Authority siginiert.\n\n%s</string>
+    <string name="mtm_cert_expired">Das Server-Zertifikat ist abgelaufen.\n\n%s</string>
+    <string name="mtm_unknown_err">%s\n\n%s</string>
+    <string name="mtm_parsing_err">Fehler beim Einlesen: %s</string>
+    <string name="mtm_accept_server_name">Nicht übereinstimmenden Server-Namen akzeptieren?</string>
+    <string name="mtm_hostname_mismatch">Der Server konnte sich nicht als „%s“ authentifizieren. Das Zertifikat gilt nur für:\n\n%s\n\n%s</string>
+    <string name="mtm_cert_details">Zertifikats-Details:\n%s</string>
+    <string name="mtm_cert_details_properties">%s\nGültig vom %s bis zum %s\nSHA-1: %s\nSHA-256: %s\nSigniert von: %s</string>
+    <string name="mtm_decision_always">Vertrauen</string>
+    <string name="mtm_decision_abort">Ablehnen</string>
+    <string name="security_menu">Sicherheitsoptionen</string>
+    <string-array name="security_options">
+        <item>Vertrauenswürdige Zertifikate löschen</item>
+    </string-array>
 </resources>

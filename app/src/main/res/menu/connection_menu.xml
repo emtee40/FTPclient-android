@@ -5,4 +5,8 @@
         android:id="@+id/bookmarks_menu"
         android:title="@string/bookmarks"/>
 
+    <item
+        android:id="@+id/security_menu"
+        android:title="@string/security_menu"/>
+
 </menu>

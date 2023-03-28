@@ -58,7 +58,7 @@ class FileViewFragment : Fragment() {
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
                             .get(requireArguments().getInt("connection").toLong())!!
 
-                        client = connection.client()
+                        client = connection.client(requireContext())
                     }
 
                     val byteList = ArrayList<Int>()

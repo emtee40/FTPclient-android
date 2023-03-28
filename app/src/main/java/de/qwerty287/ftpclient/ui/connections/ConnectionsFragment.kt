@@ -5,12 +5,16 @@ import android.view.*
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.databinding.FragmentConnectionsBinding
+import de.qwerty287.ftpclient.ui.files.providers.MemorizingTrustManager
+import kotlinx.coroutines.launch
 
 
 class ConnectionsFragment : Fragment() {
@@ -50,6 +54,26 @@ class ConnectionsFragment : Fragment() {
         return when (item.itemId) {
             R.id.bookmarks_menu -> {
                 findNavController().navigate(R.id.action_ConnectionsFragment_to_BookmarksFragment)
+                true
+            }
+            R.id.security_menu -> {
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.security_menu)
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                    .setItems(R.array.security_options) { di, index ->
+                        when (index) {
+                            0 -> {
+                                lifecycleScope.launch {
+                                    val mtm = MemorizingTrustManager(requireContext())
+                                    for (cert in mtm.certificates) {
+                                        mtm.deleteCertificate(cert)
+                                    }
+                                }
+                            }
+                        }
+                        di.dismiss()
+                    }
+                    .show()
                 true
             }
 

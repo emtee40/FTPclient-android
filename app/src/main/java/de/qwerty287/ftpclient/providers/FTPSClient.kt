@@ -1,14 +1,14 @@
 package de.qwerty287.ftpclient.providers
 
+import android.content.Context
+import de.qwerty287.ftpclient.ui.files.providers.MemorizingTrustManager
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream
 import java.io.OutputStream
 
-class FTPSClient : Client {
-    private var client: FTPSClient = FTPSClient().apply {
-        autodetectUTF8 = true
-    }
+class FTPSClient(private var context: Context) : Client {
+    private var client: FTPSClient = FTPSClient().applyDefaults()
 
     override fun connect(host: String, port: Int) {
         client.connect(host, port)
@@ -17,9 +17,7 @@ class FTPSClient : Client {
 
     override var implicit: Boolean = false
         set(value) {
-            client = FTPSClient(value).apply {
-                autodetectUTF8 = true
-            }
+            client = FTPSClient(value).applyDefaults()
         }
     override var utf8: Boolean = false
         set(value) {
@@ -78,5 +76,14 @@ class FTPSClient : Client {
         }
         client.disconnect()
         return true
+    }
+
+    private fun FTPSClient.applyDefaults(): FTPSClient {
+        return apply {
+            autodetectUTF8 = true
+            val m = MemorizingTrustManager(context)
+            trustManager = m
+            hostnameVerifier = m.MemorizingHostnameVerifier()
+        }
     }
 }

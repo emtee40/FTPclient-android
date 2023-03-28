@@ -86,4 +86,20 @@
     <string name="file_content">File content</string>
     <string name="save">Save</string>
     <string name="start_directory">Start directory - leave empty for root directory</string>
+    <string name="mtm_notification">Certificate verification</string>
+    <string name="mtm_accept_cert">Accept unknown certificate?</string>
+    <string name="mtm_trust_anchor">The server certificate is not signed by a known Certificate Authority.\n\n%s</string>
+    <string name="mtm_cert_expired">The server certificate is expired\n\n%s.</string>
+    <string name="mtm_unknown_err">%s\n\n%s</string>
+    <string name="mtm_parsing_err">Parsing error: %s</string>
+    <string name="mtm_accept_server_name">Accept mismatching server name?</string>
+    <string name="mtm_hostname_mismatch">Server could not authenticate as "%s". The certificate is only valid for:\n\n%s\n\n%s</string>
+    <string name="mtm_cert_details">Certificate details:\n%s</string>
+    <string name="mtm_decision_always">Trust</string>
+    <string name="mtm_decision_abort">Abort</string>
+    <string name="mtm_cert_details_properties">%s\nValid from %s to %s\nSHA-1: %s\nSHA-256: %s\nSigned by: %s</string>
+    <string name="security_menu">Security options</string>
+    <string-array name="security_options">
+        <item>Delete trusted certificates</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.data
 
+import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -20,8 +21,8 @@ data class Connection(
     @ColumnInfo(name = "start_directory") val startDirectory: String,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 ) {
-    fun client(): Client {
-        val client = type.get()
+    fun client(context: Context): Client {
+        val client = type.get(context)
 
         client.implicit = implicit
         client.utf8 = utf8
