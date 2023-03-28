@@ -1,7 +1,6 @@
 package de.qwerty287.ftpclient.providers
 
 import android.content.Context
-import de.qwerty287.ftpclient.ui.files.providers.MemorizingTrustManager
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream

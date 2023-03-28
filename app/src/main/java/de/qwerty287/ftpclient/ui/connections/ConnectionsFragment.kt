@@ -13,7 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.databinding.FragmentConnectionsBinding
-import de.qwerty287.ftpclient.ui.files.providers.MemorizingTrustManager
+import de.qwerty287.ftpclient.providers.MemorizingTrustManager
 import kotlinx.coroutines.launch
 
 
