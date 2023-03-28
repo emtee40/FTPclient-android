@@ -246,6 +246,10 @@ class FilesFragment : Fragment() {
 
                         client = connection.client()
 
+                        if (directory == "") {
+                            directory = connection.startDirectory
+                        }
+
                         checkForUploadUri()
                         checkForUploadUrisMulti()
                     }
@@ -269,7 +273,7 @@ class FilesFragment : Fragment() {
                                         val options = Bundle()
                                         options.putString(
                                             "directory",
-                                            "$directory/${if (it.isDirectory) it.name else it.link}"
+                                            subDirectory(it)
                                         )
                                         options.putInt("connection", connection.id)
                                         findNavController().navigate(
@@ -295,6 +299,18 @@ class FilesFragment : Fragment() {
             }
 
         }
+    }
+
+    /**
+     * Get a subdirectory. Callers must make sure that the [file] is either
+     * a directory or a link, and if it's a link, [File.link] must not be null.
+     */
+    private fun subDirectory(file: File): String {
+        val name = if (file.isDirectory) file.name else file.link!!
+        if (directory == "" || name.startsWith("/")) {
+            return name
+        }
+        return "$directory/${if (file.isDirectory) file.name else file.link}"
     }
 
     private fun newFileBottomSheet(file: File) {
@@ -423,6 +439,9 @@ class FilesFragment : Fragment() {
         val uri = if (isText) null else Uri.parse(requireArguments().getString("uri"))
         val text = if (isText) requireArguments().getString("text") else null
 
+        requireArguments().remove("uri")
+        requireArguments().remove("text")
+
         val sb =
             CounterSnackbar(binding.root, getString(R.string.uploading), requireActivity())
         lifecycleScope.launch {
@@ -482,6 +501,8 @@ class FilesFragment : Fragment() {
         } else {
             requireArguments().getParcelableArrayList("uris")
         } ?: return
+
+        requireArguments().remove("uris")
 
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {

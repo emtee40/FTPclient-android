@@ -117,7 +117,8 @@ class AddConnectionFragment : Fragment() {
                         },
                         binding.implicit.isChecked,
                         binding.utf8.isChecked,
-                        binding.passive.isChecked
+                        binding.passive.isChecked,
+                        binding.startDirectory.text.toString(),
                     )
                     db.insert(connection)
                 } else {
@@ -136,6 +137,7 @@ class AddConnectionFragment : Fragment() {
                         binding.implicit.isChecked,
                         binding.utf8.isChecked,
                         binding.passive.isChecked,
+                        binding.startDirectory.text.toString().removeSuffix("/"),
                         connectionId
                     )
                     db.update(connection)
@@ -159,6 +161,7 @@ class AddConnectionFragment : Fragment() {
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
                 binding.password.setText(c.password)
+                binding.startDirectory.setText(c.startDirectory)
                 binding.typeGroup.check(
                     when (c.type) {
                         Provider.FTP -> R.id.type_ftp

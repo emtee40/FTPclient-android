@@ -83,4 +83,5 @@
     <string name="retry">Erneut versuchen</string>
     <string name="file_content">Dateiinhalt</string>
     <string name="save">Speichern</string>
+    <string name="start_directory">Start-Verzeichnis - leer lassen für Root-Verzeichnis</string>
 </resources>
