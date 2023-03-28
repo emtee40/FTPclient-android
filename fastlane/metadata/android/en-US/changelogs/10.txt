@@ -1,0 +1,5 @@
+- add simple editor for text files
+- follow symlinks
+- share multiple files
+- retry button on error
+- only allow file preview for files that are really previewable
