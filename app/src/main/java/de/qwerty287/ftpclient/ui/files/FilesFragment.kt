@@ -32,6 +32,7 @@ import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.ByteArrayInputStream
 import java.io.InputStream
 
 
@@ -450,19 +451,7 @@ class FilesFragment : Fragment() {
             }
             withContext(Dispatchers.IO) {
                 val inputStream = (if (isText) {
-                    object : InputStream() {
-                        var index = 0
-                        val chars = text!!.toCharArray()
-                        override fun read(): Int {
-                            val i = if (chars.size > index) chars[index].code else -1
-                            index++
-                            return i
-                        }
-
-                        override fun available(): Int {
-                            return chars.size - index
-                        }
-                    }
+                    ByteArrayInputStream(text!!.toByteArray())
                 } else {
                     requireContext().contentResolver.openInputStream(uri!!)
                 })?.let {
