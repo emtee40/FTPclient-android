@@ -1,0 +1,4 @@
+- support for self-signed TLS certificates
+- support for start directory  
+- fix files list not displayed on some servers
+- fix protection of data connections
