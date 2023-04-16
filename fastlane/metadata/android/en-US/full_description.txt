@@ -1,5 +1,4 @@
-FTPClient is a very simple FTP, FTPS and SFTP client for Android 5.0+, using Apache Commons Net
-(https://commons.apache.org/proper/commons-net) and SSHJ (https://github.com/hierynomus/sshj/).
+FTPClient is a very simple FTP, FTPS and SFTP client for Android 5.0+, using Apache Commons Net (https://commons.apache.org/proper/commons-net) and SSHJ (https://github.com/hierynomus/sshj/).
 
 <b>Features</b>
 
