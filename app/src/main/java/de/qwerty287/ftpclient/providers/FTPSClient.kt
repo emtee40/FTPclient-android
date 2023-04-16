@@ -11,7 +11,6 @@ class FTPSClient(private var context: Context) : Client {
 
     override fun connect(host: String, port: Int) {
         client.connect(host, port)
-        client.setFileType(FTP.BINARY_FILE_TYPE)
     }
 
     override var implicit: Boolean = false
@@ -32,6 +31,8 @@ class FTPSClient(private var context: Context) : Client {
 
     override fun login(user: String, password: String) {
         client.login(user, password)
+        client.setFileType(FTP.BINARY_FILE_TYPE)
+        client.execPROT("P")
     }
 
     override val isConnected: Boolean
