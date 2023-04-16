@@ -466,6 +466,7 @@ object FileExtensions {
         "rs",
         "md",
         "org",
+        "log",
     )
     private val documentFormats = listOf(
         // extensions below this comment are extracted from application mime types
