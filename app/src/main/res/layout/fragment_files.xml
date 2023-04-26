@@ -40,7 +40,7 @@
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/fab_add_file"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_folder_24"/>
+        app:srcCompat="@drawable/folder"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_file"
@@ -52,6 +52,6 @@
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"/>
+        app:srcCompat="@drawable/insert_drive_file"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

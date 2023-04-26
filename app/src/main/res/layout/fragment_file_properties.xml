@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/filename"
-                app:srcCompat="@drawable/ic_baseline_insert_drive_file_24"/>
+                app:srcCompat="@drawable/insert_drive_file"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/size"
-                app:srcCompat="@drawable/ic_baseline_photo_size_select_small_24"/>
+                app:srcCompat="@drawable/photo_size_select_small"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/owner"
-                app:srcCompat="@drawable/ic_baseline_person_24"/>
+                app:srcCompat="@drawable/person"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/group"
-                app:srcCompat="@drawable/ic_baseline_group_24"/>
+                app:srcCompat="@drawable/group"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/timestamp"
-                app:srcCompat="@drawable/ic_baseline_access_time_24"/>
+                app:srcCompat="@drawable/access_time"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -216,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/points_to"
-                app:srcCompat="@drawable/ic_baseline_link_24"/>
+                app:srcCompat="@drawable/link"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

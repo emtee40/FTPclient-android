@@ -32,7 +32,7 @@
             android:padding="12dp"
             android:text="@string/preview"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_image_24"/>
+            app:drawableStartCompat="@drawable/image"/>
 
         <TextView
             android:id="@+id/download_file"
@@ -46,7 +46,7 @@
             android:padding="12dp"
             android:text="@string/download_file"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_download_24"/>
+            app:drawableStartCompat="@drawable/download"/>
 
         <TextView
             android:id="@+id/file_properties"
@@ -60,7 +60,7 @@
             android:padding="12dp"
             android:text="@string/file_properties"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_info_24"/>
+            app:drawableStartCompat="@drawable/info"/>
 
         <TextView
             android:id="@+id/rename_file"
@@ -74,7 +74,7 @@
             android:padding="12dp"
             android:text="@string/rename"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_edit_24"/>
+            app:drawableStartCompat="@drawable/edit"/>
 
         <TextView
             android:id="@+id/delete_file"
@@ -88,7 +88,7 @@
             android:padding="12dp"
             android:text="@string/delete"
             android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_baseline_delete_24"/>
+            app:drawableStartCompat="@drawable/delete"/>
 
     </LinearLayout>
 

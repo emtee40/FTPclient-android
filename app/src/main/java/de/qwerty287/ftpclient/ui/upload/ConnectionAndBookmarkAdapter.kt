@@ -50,7 +50,7 @@ internal class ConnectionAndBookmarkAdapter(
                 navigateToFiles(options)
             }
             val icon =
-                AppCompatResources.getDrawable(holder.title.context, R.drawable.ic_baseline_bookmark_24) ?: return
+                AppCompatResources.getDrawable(holder.title.context, R.drawable.bookmark) ?: return
             val h = icon.intrinsicHeight
             val w = icon.intrinsicWidth
             icon.setBounds(0, 0, w, h)

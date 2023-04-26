@@ -226,7 +226,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="false"
         android:contentDescription="@string/add_connection"
-        android:src="@drawable/ic_baseline_check_24"
+        android:src="@drawable/check"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

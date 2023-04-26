@@ -747,31 +747,31 @@ object FileExtensions {
 
     fun getDrawableFromFTPFile(file: File): Int {
         return if (file.isDirectory) {
-            R.drawable.ic_baseline_folder_24
+            R.drawable.folder
         } else if (file.isFile && getFileFormat(file) in audioFormats) {
-            R.drawable.ic_baseline_music_note_24
+            R.drawable.music_note
         } else if (file.isFile && getFileFormat(file) in videoFormats) {
-            R.drawable.ic_baseline_local_movies_24
+            R.drawable.local_movies
         } else if (file.isFile && (isImage(file.name))) {
-            R.drawable.ic_baseline_image_24
+            R.drawable.image
         } else if (file.isFile && getFileFormat(file) in fontFormats) {
-            R.drawable.ic_baseline_font_download_24
+            R.drawable.font_download
         } else if (file.isFile && getFileFormat(file) in spreadsheetFormats) {
-            R.drawable.ic_baseline_table_chart_24
+            R.drawable.table_chart
         } else if (file.isFile && getFileFormat(file) in locationFormats) {
-            R.drawable.ic_baseline_location_on_24
+            R.drawable.location_on
         } else if (file.isFile && (getFileFormat(file) in documentFormats || getFileFormat(file) in plainTextFormats)) {
-            R.drawable.ic_baseline_text_snippet_24
+            R.drawable.text_snippet
         } else if (file.isFile && getFileFormat(file) in packageFormats) {
-            R.drawable.ic_baseline_archive_24
+            R.drawable.archive
         } else if (file.isFile && getFileFormat(file) in presentationFormats) {
-            R.drawable.ic_baseline_slideshow_24
+            R.drawable.slideshow
         } else if (file.isFile) {
-            R.drawable.ic_baseline_insert_drive_file_24
+            R.drawable.insert_drive_file
         } else if (file.isSymbolicLink) {
-            R.drawable.ic_baseline_link_24
+            R.drawable.link
         } else {
-            R.drawable.ic_baseline_error_24
+            R.drawable.error
         }
     }
 
