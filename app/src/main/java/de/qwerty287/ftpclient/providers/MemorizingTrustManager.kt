@@ -33,7 +33,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
     private val defaultTrustManager: X509TrustManager? = getTrustManager(null)
     private var decisionId = 0
     private var keyStoreStorage: SharedPreferences = context.getSharedPreferences(KEYSTORE_NAME, Context.MODE_PRIVATE)
-    private var appKeyStore: KeyStore? = loadAppKeyStore()
+    private var appKeyStore: KeyStore = loadAppKeyStore()
     private var appTrustManager: X509TrustManager? = getTrustManager(appKeyStore)
 
     /**
@@ -43,7 +43,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
      */
     val certificates: Enumeration<String>
         get() = try {
-            appKeyStore!!.aliases()
+            appKeyStore.aliases()
         } catch (e: KeyStoreException) {
             // this should never happen, however...
             throw RuntimeException(e)
@@ -57,7 +57,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
      */
     fun getCertificate(alias: String?): Certificate {
         return try {
-            appKeyStore!!.getCertificate(alias)
+            appKeyStore.getCertificate(alias)
         } catch (e: KeyStoreException) {
             // this should never happen, however...
             throw RuntimeException(e)
@@ -79,7 +79,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
      * @throws KeyStoreException if the certificate could not be deleted.
      */
     fun deleteCertificate(alias: String?) {
-        appKeyStore!!.deleteEntry(alias)
+        appKeyStore.deleteEntry(alias)
         keyStoreUpdated()
     }
 
@@ -98,12 +98,11 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         return null
     }
 
-    private fun loadAppKeyStore(): KeyStore? {
+    private fun loadAppKeyStore(): KeyStore {
         val keyStore: KeyStore = try {
             KeyStore.getInstance(KeyStore.getDefaultType())
         } catch (e: KeyStoreException) {
-            e.printStackTrace()
-            return null
+            throw RuntimeException(e)
         }
         try {
             keyStore.load(null, null)
@@ -129,7 +128,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
 
     private fun storeCert(alias: String, cert: Certificate) {
         try {
-            appKeyStore!!.setCertificateEntry(alias, cert)
+            appKeyStore.setCertificateEntry(alias, cert)
         } catch (e: KeyStoreException) {
             e.printStackTrace()
             return
@@ -148,7 +147,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         // store KeyStore to shared preferences
         val byteArrayOutputStream = ByteArrayOutputStream()
         try {
-            appKeyStore!!.store(byteArrayOutputStream, "MTM".toCharArray())
+            appKeyStore.store(byteArrayOutputStream, "MTM".toCharArray())
             byteArrayOutputStream.flush()
             byteArrayOutputStream.close()
             keyStoreStorage.edit()
@@ -162,7 +161,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
     // if the certificate is stored in the app key store, it is considered "known"
     private fun isCertKnown(cert: X509Certificate): Boolean {
         return try {
-            appKeyStore!!.getCertificateAlias(cert) != null
+            appKeyStore.getCertificateAlias(cert) != null
         } catch (e: KeyStoreException) {
             false
         }
@@ -190,7 +189,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
                     defaultTrustManager.checkClientTrusted(chain, authType)
                 }
             } catch (e: CertificateException) {
-                interactCert(chain, authType, e)
+                interactCert(chain, e)
             }
         }
     }
@@ -317,7 +316,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         return choice.state
     }
 
-    private fun interactCert(chain: Array<X509Certificate>, authType: String, cause: CertificateException) {
+    private fun interactCert(chain: Array<X509Certificate>, cause: CertificateException) {
         if (interact(certChainMessage(chain, cause), R.string.mtm_accept_cert) == MTMDecision.DECISION_ALWAYS) {
             storeCert(chain[0]) // only store the server cert, not the whole chain
         } else {
@@ -353,7 +352,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         override fun verify(hostname: String, session: SSLSession): Boolean {
             return try {
                 val cert = session.peerCertificates[0] as X509Certificate
-                if (cert == appKeyStore!!.getCertificate(hostname.lowercase())) {
+                if (cert == appKeyStore.getCertificate(hostname.lowercase())) {
                     true
                 } else {
                     interactHostname(cert, hostname)
