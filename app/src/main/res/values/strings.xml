@@ -98,6 +98,9 @@
     <string name="mtm_decision_always">Trust</string>
     <string name="mtm_decision_abort">Abort</string>
     <string name="mtm_cert_details_properties">%s\nValid from %s to %s\nSHA-1: %s\nSHA-256: %s\nSigned by: %s</string>
+    <string name="name">Name</string>
+    <string name="sorting">Sorting</string>
+    <string name="descending">Descending</string>
     <string name="security_menu">Security options</string>
     <string-array name="security_options">
         <item>Delete trusted certificates</item>

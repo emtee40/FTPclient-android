@@ -97,6 +97,9 @@
     <string name="mtm_decision_always">Vertrauen</string>
     <string name="mtm_decision_abort">Ablehnen</string>
     <string name="security_menu">Sicherheitsoptionen</string>
+    <string name="name">Name</string>
+    <string name="sorting">Sortierung</string>
+    <string name="descending">Absteigend</string>
     <string-array name="security_options">
         <item>Vertrauenswürdige Zertifikate löschen</item>
     </string-array>

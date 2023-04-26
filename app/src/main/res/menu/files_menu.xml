@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="@string/sorting"
+        android:icon="@drawable/ic_baseline_sort_24"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_name"
+                    android:title="@string/name"
+                    android:checked="true"/>
+                <item
+                    android:id="@+id/sort_timestamp"
+                    android:title="@string/timestamp"/>
+                <item
+                    android:id="@+id/sort_size"
+                    android:title="@string/size"/>
+            </group>
+            <item
+                android:id="@+id/sort_descending"
+                android:title="@string/descending"
+                android:checkable="true"/>
+        </menu>
+    </item>
     <item
         android:id="@+id/update_ui"
         android:title="@string/update"/>

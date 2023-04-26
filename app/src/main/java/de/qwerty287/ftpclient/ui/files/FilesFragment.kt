@@ -27,14 +27,13 @@ import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
+import de.qwerty287.ftpclient.providers.Sorting
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayInputStream
-import java.io.InputStream
-
 
 class FilesFragment : Fragment() {
 
@@ -44,6 +43,7 @@ class FilesFragment : Fragment() {
 
     private var client: Client? = null
     private lateinit var connection: Connection
+    private val sorting = Sorting()
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -216,6 +216,34 @@ class FilesFragment : Fragment() {
                 true
             }
 
+            R.id.sort_name -> {
+                item.isChecked = true
+                sorting.method = Sorting.Method.NAME
+                updateUi()
+                true
+            }
+
+            R.id.sort_timestamp -> {
+                item.isChecked = true
+                sorting.method = Sorting.Method.TIMESTAMP
+                updateUi()
+                true
+            }
+
+            R.id.sort_size -> {
+                item.isChecked = true
+                sorting.method = Sorting.Method.SIZE
+                updateUi()
+                true
+            }
+
+            R.id.sort_descending -> {
+                item.isChecked = !item.isChecked
+                sorting.descending = item.isChecked
+                updateUi()
+                true
+            }
+
             else -> false
         }
     }
@@ -255,11 +283,11 @@ class FilesFragment : Fragment() {
                         checkForUploadUrisMulti()
                     }
 
-                    files = if (directory == "") { // get files
+                    files = sorting.sort(if (directory == "") { // get files
                         client!!.list()
                     } else {
                         client!!.list(directory)
-                    }.sortedBy { item -> item.name }
+                    })
 
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) { // set up RecyclerView or TextView
