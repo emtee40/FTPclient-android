@@ -1,4 +1,4 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.ftps
 
 import android.annotation.SuppressLint
 import android.app.Activity

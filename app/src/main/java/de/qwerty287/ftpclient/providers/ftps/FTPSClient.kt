@@ -1,6 +1,9 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.ftps
 
 import android.content.Context
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.File
+import de.qwerty287.ftpclient.providers.ftp.FTPClient
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream

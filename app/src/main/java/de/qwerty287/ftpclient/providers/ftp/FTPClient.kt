@@ -1,5 +1,7 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.ftp
 
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.File
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile

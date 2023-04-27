@@ -1,4 +1,4 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.sftp
 
 import android.content.Context
 import android.net.Uri

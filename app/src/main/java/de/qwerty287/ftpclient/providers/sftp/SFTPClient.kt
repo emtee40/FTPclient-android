@@ -1,11 +1,12 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.sftp
 
+import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.common.Factory
 import net.schmizz.sshj.common.SSHException
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
-import net.schmizz.sshj.userauth.keyprovider.FileKeyProvider
 import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
 import net.schmizz.sshj.userauth.password.PasswordUtils
 import net.schmizz.sshj.xfer.InMemoryDestFile

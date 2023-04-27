@@ -13,7 +13,7 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
-import de.qwerty287.ftpclient.providers.KeyFileManager
+import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 import kotlinx.coroutines.launch
 
 class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {

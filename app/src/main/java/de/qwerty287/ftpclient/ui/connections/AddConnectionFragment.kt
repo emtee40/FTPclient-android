@@ -1,7 +1,6 @@
 package de.qwerty287.ftpclient.ui.connections
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +14,11 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
-import de.qwerty287.ftpclient.providers.KeyFileManager
+import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 import de.qwerty287.ftpclient.providers.Provider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

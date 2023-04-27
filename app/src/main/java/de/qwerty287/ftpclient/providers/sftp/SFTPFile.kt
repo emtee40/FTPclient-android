@@ -1,5 +1,6 @@
-package de.qwerty287.ftpclient.providers
+package de.qwerty287.ftpclient.providers.sftp
 
+import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.sftp.FileMode
 import net.schmizz.sshj.sftp.RemoteResourceInfo
 import java.util.*
