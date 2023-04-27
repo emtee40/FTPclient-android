@@ -56,6 +56,7 @@ class ConnectionsFragment : Fragment() {
                 findNavController().navigate(R.id.action_ConnectionsFragment_to_BookmarksFragment)
                 true
             }
+
             R.id.security_menu -> {
                 MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.security_menu)

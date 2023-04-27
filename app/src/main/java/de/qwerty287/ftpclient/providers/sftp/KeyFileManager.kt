@@ -2,11 +2,7 @@ package de.qwerty287.ftpclient.providers.sftp
 
 import android.content.Context
 import android.net.Uri
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.InputStream
-import java.io.OutputStream
+import java.io.*
 
 class KeyFileManager(private val context: Context) {
     private val tempDir = File(context.cacheDir, KEY_NAMES)
@@ -24,6 +20,7 @@ class KeyFileManager(private val context: Context) {
     fun file(id: Int): File {
         return File(context.filesDir, filename(id))
     }
+
     fun delete(id: Int) {
         context.deleteFile(filename(id))
     }

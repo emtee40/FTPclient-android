@@ -5,8 +5,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.qwerty287.ftpclient.providers.Client
-import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 import de.qwerty287.ftpclient.providers.Provider
+import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 
 @Entity(tableName = "connections")
 data class Connection(

@@ -238,9 +238,15 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
             stringBuilder.append(certDetails(c))
         }
         return if (isPathException(e)) {
-            context.getString(R.string.mtm_trust_anchor, context.getString(R.string.mtm_cert_details, stringBuilder.toString()))
+            context.getString(
+                R.string.mtm_trust_anchor,
+                context.getString(R.string.mtm_cert_details, stringBuilder.toString())
+            )
         } else if (isExpiredException(e)) {
-            context.getString(R.string.mtm_cert_expired, context.getString(R.string.mtm_cert_details, stringBuilder.toString()))
+            context.getString(
+                R.string.mtm_cert_expired,
+                context.getString(R.string.mtm_cert_details, stringBuilder.toString())
+            )
         } else {
             // get to the cause
             while (e.cause != null) {
@@ -275,10 +281,12 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
             e.printStackTrace()
             hostnames = context.getString(R.string.mtm_parsing_err, e.localizedMessage)
         }
-        return context.getString(R.string.mtm_hostname_mismatch,
+        return context.getString(
+            R.string.mtm_hostname_mismatch,
             hostname,
             hostnames,
-            context.getString(R.string.mtm_cert_details, certDetails(cert)))
+            context.getString(R.string.mtm_cert_details, certDetails(cert))
+        )
     }
 
     private fun interact(message: String, titleId: Int): Int {
@@ -303,7 +311,13 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
                         condition
                     )
                 }
-                .setOnCancelListener { _: DialogInterface? -> interactResult(myId, MTMDecision.DECISION_ABORT, condition) }
+                .setOnCancelListener { _: DialogInterface? ->
+                    interactResult(
+                        myId,
+                        MTMDecision.DECISION_ABORT,
+                        condition
+                    )
+                }
             materialAlertDialogBuilder.show()
         }
         try {

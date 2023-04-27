@@ -2,7 +2,10 @@
 
 package de.qwerty287.ftpclient.ui.files.view
 
-import android.content.*
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*

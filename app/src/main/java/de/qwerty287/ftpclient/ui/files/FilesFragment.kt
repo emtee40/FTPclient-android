@@ -283,11 +283,13 @@ class FilesFragment : Fragment() {
                         checkForUploadUrisMulti()
                     }
 
-                    files = sorting.sort(if (directory == "") { // get files
-                        client!!.list()
-                    } else {
-                        client!!.list(directory)
-                    })
+                    files = sorting.sort(
+                        if (directory == "") { // get files
+                            client!!.list()
+                        } else {
+                            client!!.list(directory)
+                        }
+                    )
 
                     withContext(Dispatchers.Main) {
                         if (files.isEmpty()) { // set up RecyclerView or TextView

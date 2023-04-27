@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="@string/sorting"
         android:icon="@drawable/sort"
+        android:title="@string/sorting"
         app:showAsAction="ifRoom">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/sort_name"
-                    android:title="@string/name"
-                    android:checked="true"/>
+                    android:checked="true"
+                    android:title="@string/name"/>
                 <item
                     android:id="@+id/sort_timestamp"
                     android:title="@string/timestamp"/>
@@ -20,8 +20,8 @@
             </group>
             <item
                 android:id="@+id/sort_descending"
-                android:title="@string/descending"
-                android:checkable="true"/>
+                android:checkable="true"
+                android:title="@string/descending"/>
         </menu>
     </item>
     <item

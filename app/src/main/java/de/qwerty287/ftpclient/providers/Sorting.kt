@@ -10,13 +10,13 @@ class Sorting(var method: Method = Method.NAME, var descending: Boolean = false)
             when (method) {
                 Method.NAME -> files.sortedByDescending { it.name }
                 Method.TIMESTAMP -> files.sortedByDescending { it.timestamp }
-                Method.SIZE -> files.sortedByDescending {it.size }
+                Method.SIZE -> files.sortedByDescending { it.size }
             }
         } else {
             when (method) {
                 Method.NAME -> files.sortedBy { it.name }
                 Method.TIMESTAMP -> files.sortedBy { it.timestamp }
-                Method.SIZE -> files.sortedBy {it.size }
+                Method.SIZE -> files.sortedBy { it.size }
             }
         }
     }
