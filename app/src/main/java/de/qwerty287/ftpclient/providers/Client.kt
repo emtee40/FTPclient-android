@@ -9,6 +9,7 @@ interface Client {
     var utf8: Boolean
     var passive: Boolean
     fun login(user: String, password: String)
+    fun loginPubKey(user: String, key: java.io.File, passphrase: String)
     val isConnected: Boolean
     fun upload(name: String, stream: InputStream): Boolean
     fun download(name: String, stream: OutputStream): Boolean

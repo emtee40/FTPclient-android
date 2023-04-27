@@ -13,6 +13,7 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
+import de.qwerty287.ftpclient.providers.KeyFileManager
 import kotlinx.coroutines.launch
 
 class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
@@ -63,6 +64,9 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                             db.bookmarkDao().getAllByConnection(connection.id.toLong()).forEach {
                                 db.bookmarkDao().delete(it)
                             }
+                            if (connection.publicKey) {
+                                KeyFileManager(requireContext()).delete(connection.id)
+                            }
                             db.connectionDao().delete(connection)
                         }
                     }
@@ -85,6 +89,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.server,
                 connection.port,
                 connection.username,
+                connection.publicKey,
                 connection.password,
                 connection.type,
                 connection.implicit,
@@ -93,7 +98,10 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.startDirectory,
             )
             lifecycleScope.launch {
-                db.connectionDao().insert(newConn)
+                val newId = db.connectionDao().insert(newConn)
+                if (connection.publicKey) {
+                    KeyFileManager(requireContext()).copy(connection.id, newId.toInt())
+                }
             }
             dismiss()
         }

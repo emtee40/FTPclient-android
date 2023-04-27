@@ -35,6 +35,10 @@ class FTPSClient(private var context: Context) : Client {
         client.execPROT("P")
     }
 
+    override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
+        throw NotImplementedError("FTPS does not support public keys")
+    }
+
     override val isConnected: Boolean
         get() = client.isConnected
 

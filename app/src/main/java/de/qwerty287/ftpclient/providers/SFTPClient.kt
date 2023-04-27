@@ -1,8 +1,13 @@
 package de.qwerty287.ftpclient.providers
 
 import net.schmizz.sshj.SSHClient
+import net.schmizz.sshj.common.Factory
+import net.schmizz.sshj.common.SSHException
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier
+import net.schmizz.sshj.userauth.keyprovider.FileKeyProvider
+import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
+import net.schmizz.sshj.userauth.password.PasswordUtils
 import net.schmizz.sshj.xfer.InMemoryDestFile
 import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
@@ -19,6 +24,17 @@ class SFTPClient : Client {
 
     override fun login(user: String, password: String) {
         client.authPassword(user, password)
+    }
+
+    override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
+        val format = KeyProviderUtil.detectKeyFileFormat(key)
+        val fkp = Factory.Named.Util.create(
+            client.transport.config.fileKeyProviderFactories,
+            format.toString()
+        )
+            ?: throw SSHException("No provider available for $format key file")
+        fkp.init(key, PasswordUtils.createOneOff(passphrase.toCharArray()))
+        client.authPublickey(user, fkp)
     }
 
     override val isConnected: Boolean

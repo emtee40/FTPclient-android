@@ -33,6 +33,10 @@ class FTPClient : Client {
         client.setFileType(FTP.BINARY_FILE_TYPE)
     }
 
+    override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
+        throw NotImplementedError("FTP does not support public keys")
+    }
+
     override val isConnected: Boolean
         get() = client.isConnected
 

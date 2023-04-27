@@ -1,24 +1,36 @@
 package de.qwerty287.ftpclient.ui.connections
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
+import de.qwerty287.ftpclient.providers.KeyFileManager
 import de.qwerty287.ftpclient.providers.Provider
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import net.schmizz.sshj.SSHClient
+import net.schmizz.sshj.userauth.keyprovider.KeyFormat
+import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPSClient
+import java.io.File
 
 class AddConnectionFragment : Fragment() {
 
@@ -26,6 +38,30 @@ class AddConnectionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var connectionId: Int? = null
+    private var tempKeyFile: File? = null
+
+    private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val uri = it.data?.data
+                if (uri != null) {
+                    tempKeyFile?.delete()
+                    tempKeyFile = KeyFileManager(requireContext()).storeTemp(uri)
+                    if (KeyProviderUtil.detectKeyFileFormat(tempKeyFile) == KeyFormat.Unknown) {
+                        // invalid
+                        tempKeyFile!!.delete()
+                        tempKeyFile = null
+                        requireActivity().runOnUiThread {
+                            Toast.makeText(requireContext(), R.string.key_error, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    checkInputs()
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +70,13 @@ class AddConnectionFragment : Fragment() {
 
         _binding = FragmentAddConnectionBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    private fun checkInputs() {
+        binding.addConnection.isClickable = (!(binding.title.text.isNullOrBlank() ||
+                binding.server.text.isNullOrBlank() ||
+                binding.port.text.isNullOrBlank())) &&
+                (!(binding.publicKey.isChecked && binding.typeGroup.checkedButtonId == R.id.type_sftp) || tempKeyFile != null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,12 +90,6 @@ class AddConnectionFragment : Fragment() {
         }
 
         var portChanged = connectionId != null
-
-        fun checkInputs() {
-            binding.addConnection.isClickable = !(binding.title.text.isNullOrBlank() ||
-                    binding.server.text.isNullOrBlank() ||
-                    binding.port.text.isNullOrBlank())
-        }
 
         binding.apply {
             listOf(title, server, user, password).forEach {
@@ -70,6 +107,7 @@ class AddConnectionFragment : Fragment() {
             binding.implicit.isVisible = false
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
+            binding.publicKeyLayout.isVisible = false
             if (!portChanged) {
                 binding.port.setText(FTPClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -81,6 +119,7 @@ class AddConnectionFragment : Fragment() {
             binding.implicit.isVisible = true
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
+            binding.publicKeyLayout.isVisible = false
             if (!portChanged) {
                 binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -92,6 +131,7 @@ class AddConnectionFragment : Fragment() {
             binding.implicit.isVisible = false
             binding.utf8.isVisible = false
             binding.passive.isVisible = false
+            binding.publicKeyLayout.isVisible = true
             if (!portChanged) {
                 binding.port.setText(SSHClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -99,50 +139,16 @@ class AddConnectionFragment : Fragment() {
             }
         }
 
+        binding.selectKeyFile.setOnClickListener {
+            val requestFileIntent = Intent(Intent.ACTION_GET_CONTENT)
+            requestFileIntent.type = "*/*" // TODO key file type?
+            result.launch(Intent.createChooser(requestFileIntent, getString(R.string.select_file)))
+        }
+
+        binding.publicKey.setOnCheckedChangeListener { _, _ -> checkInputs() }
+
         binding.addConnection.setOnClickListener {
-            lifecycleScope.launch {
-                val db = AppDatabase.getInstance(requireContext()).connectionDao()
-                if (connectionId == null) {
-                    val connection = Connection(
-                        binding.title.text.toString(),
-                        binding.server.text.toString(),
-                        binding.port.text.toString().toInt(),
-                        binding.user.text.toString(),
-                        binding.password.text.toString(),
-                        when (binding.typeGroup.checkedButtonId) {
-                            R.id.type_ftp -> Provider.FTP
-                            R.id.type_ftps -> Provider.FTPS
-                            R.id.type_sftp -> Provider.SFTP
-                            else -> Provider.FTP
-                        },
-                        binding.implicit.isChecked,
-                        binding.utf8.isChecked,
-                        binding.passive.isChecked,
-                        binding.startDirectory.text.toString(),
-                    )
-                    db.insert(connection)
-                } else {
-                    val connection = Connection(
-                        binding.title.text.toString(),
-                        binding.server.text.toString(),
-                        binding.port.text.toString().toInt(),
-                        binding.user.text.toString(),
-                        binding.password.text.toString(),
-                        when (binding.typeGroup.checkedButtonId) {
-                            R.id.type_ftp -> Provider.FTP
-                            R.id.type_ftps -> Provider.FTPS
-                            R.id.type_sftp -> Provider.SFTP
-                            else -> Provider.FTP
-                        },
-                        binding.implicit.isChecked,
-                        binding.utf8.isChecked,
-                        binding.passive.isChecked,
-                        binding.startDirectory.text.toString().removeSuffix("/"),
-                        connectionId
-                    )
-                    db.update(connection)
-                }
-            }
+            storeConnection()
             findNavController().navigateUp()
         }
         binding.addConnection.isClickable = false
@@ -160,6 +166,8 @@ class AddConnectionFragment : Fragment() {
                 binding.server.setText(c.server)
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
+                binding.publicKeyLayout.isVisible = c.type == Provider.SFTP
+                binding.publicKey.isChecked = c.publicKey
                 binding.password.setText(c.password)
                 binding.startDirectory.setText(c.startDirectory)
                 binding.typeGroup.check(
@@ -175,8 +183,60 @@ class AddConnectionFragment : Fragment() {
                 binding.utf8.isVisible = c.type != Provider.SFTP
                 binding.passive.isChecked = c.passive
                 binding.passive.isVisible = c.type != Provider.SFTP
-            }
 
+                if (c.publicKey) {
+                    tempKeyFile = KeyFileManager(requireContext()).finalToTemp(c.id)
+                }
+            }
+        }
+    }
+
+    private fun storeConnection() {
+        lifecycleScope.launch {
+            val db = AppDatabase.getInstance(requireContext()).connectionDao()
+            val prov = when (binding.typeGroup.checkedButtonId) {
+                R.id.type_ftp -> Provider.FTP
+                R.id.type_ftps -> Provider.FTPS
+                R.id.type_sftp -> Provider.SFTP
+                else -> Provider.FTP
+            }
+            val pubKey = binding.publicKey.isChecked && prov == Provider.SFTP
+            if (connectionId == null) {
+                val connection = Connection(
+                    binding.title.text.toString(),
+                    binding.server.text.toString(),
+                    binding.port.text.toString().toInt(),
+                    binding.user.text.toString(),
+                    pubKey,
+                    binding.password.text.toString(),
+                    prov,
+                    binding.implicit.isChecked,
+                    binding.utf8.isChecked,
+                    binding.passive.isChecked,
+                    binding.startDirectory.text.toString(),
+                )
+                connectionId = db.insert(connection).toInt()
+            } else {
+                val connection = Connection(
+                    binding.title.text.toString(),
+                    binding.server.text.toString(),
+                    binding.port.text.toString().toInt(),
+                    binding.user.text.toString(),
+                    pubKey,
+                    binding.password.text.toString(),
+                    prov,
+                    binding.implicit.isChecked,
+                    binding.utf8.isChecked,
+                    binding.passive.isChecked,
+                    binding.startDirectory.text.toString().removeSuffix("/"),
+                    connectionId!!
+                )
+                db.update(connection)
+            }
+            if (pubKey) {
+                // TODO does this work inside lifecycleScope.launch { } ?
+                KeyFileManager(requireContext()).tempToFinal(tempKeyFile!!, connectionId!!)
+            }
         }
     }
 
