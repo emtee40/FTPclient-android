@@ -29,9 +29,7 @@ import kotlin.concurrent.withLock
 
 @SuppressLint("CustomX509TrustManager")
 class MemorizingTrustManager(private var context: Context) : X509TrustManager {
-    private val openDecisions = SparseArray<MTMDecision>()
     private val defaultTrustManager: X509TrustManager? = getTrustManager(null)
-    private var decisionId = 0
     private var keyStoreStorage: SharedPreferences = context.getSharedPreferences(KEYSTORE_NAME, Context.MODE_PRIVATE)
     private var appKeyStore: KeyStore = loadAppKeyStore()
     private var appTrustManager: X509TrustManager? = getTrustManager(appKeyStore)
@@ -206,19 +204,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         return defaultTrustManager!!.acceptedIssuers
     }
 
-    private fun createDecisionId(d: MTMDecision): Int {
-        var myId: Int
-        synchronized(openDecisions) {
-            myId = decisionId
-            openDecisions.put(myId, d)
-            decisionId += 1
-        }
-        return myId
-    }
-
     private fun certDetails(c: X509Certificate): String {
-
-        //val validityDateFormatter = SimpleDateFormat("yyyy-MM-dd", context.resources.configuration.locale)
         val validityDateFormatter = SimpleDateFormat.getInstance()
         return context.getString(
             R.string.mtm_cert_details_properties,
@@ -289,49 +275,45 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         )
     }
 
-    private fun interact(message: String, titleId: Int): Int {
-        val choice = MTMDecision()
-        val myId = createDecisionId(choice)
+    private fun interact(message: String, titleId: Int): Boolean {
+        var choice: Boolean? = null
+        val lock = ReentrantLock()
+        val condition = lock.newCondition()
 
-        val condition = choice.newCondition()
-
-        (context as Activity?)!!.runOnUiThread {
+        (context as Activity).runOnUiThread {
             val materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(titleId).setMessage(message)
                 .setPositiveButton(R.string.mtm_decision_always) { _: DialogInterface?, _: Int ->
-                    interactResult(
-                        myId,
-                        MTMDecision.DECISION_ALWAYS,
-                        condition
-                    )
+                    lock.withLock {
+                        choice = true
+                        condition.signal()
+                    }
                 }
                 .setNeutralButton(R.string.mtm_decision_abort) { _: DialogInterface?, _: Int ->
-                    interactResult(
-                        myId,
-                        MTMDecision.DECISION_ABORT,
-                        condition
-                    )
+                    lock.withLock {
+                        choice = false
+                        condition.signal()
+                    }
                 }
                 .setOnCancelListener { _: DialogInterface? ->
-                    interactResult(
-                        myId,
-                        MTMDecision.DECISION_ABORT,
-                        condition
-                    )
+                    lock.withLock {
+                        choice = false
+                        condition.signal()
+                    }
                 }
             materialAlertDialogBuilder.show()
         }
         try {
-            choice.withLock {
+            lock.withLock {
                 condition.await()
             }
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
-        return choice.state
+        return choice!!
     }
 
     private fun interactCert(chain: Array<X509Certificate>, cause: CertificateException) {
-        if (interact(certChainMessage(chain, cause), R.string.mtm_accept_cert) == MTMDecision.DECISION_ALWAYS) {
+        if (interact(certChainMessage(chain, cause), R.string.mtm_accept_cert)) {
             storeCert(chain[0]) // only store the server cert, not the whole chain
         } else {
             throw cause
@@ -339,27 +321,11 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
     }
 
     private fun interactHostname(cert: X509Certificate, hostname: String): Boolean {
-        if (interact(hostNameMessage(cert, hostname), R.string.mtm_accept_server_name) == MTMDecision.DECISION_ALWAYS) {
+        if (interact(hostNameMessage(cert, hostname), R.string.mtm_accept_server_name)) {
             storeCert(hostname, cert)
             return true
         }
         return false
-    }
-
-    private fun interactResult(decisionId: Int, choice: Int, cond: Condition) {
-        var d: MTMDecision?
-        synchronized(openDecisions) {
-            d = openDecisions[decisionId]
-            openDecisions.remove(decisionId)
-        }
-        if (d == null) {
-            return
-        }
-
-        d!!.withLock {
-            d!!.state = choice
-            cond.signal()
-        }
     }
 
     inner class MemorizingHostnameVerifier : HostnameVerifier {
@@ -380,19 +346,9 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         }
     }
 
-    private class MTMDecision : ReentrantLock() {
-        var state = DECISION_INVALID
-
-        companion object {
-            const val DECISION_INVALID = 0
-            const val DECISION_ABORT = 1
-            const val DECISION_ALWAYS = 2
-        }
-    }
-
     companion object {
-        const val KEYSTORE_NAME = "keystore"
-        const val KEYSTORE_KEY = "keystore"
+        private const val KEYSTORE_NAME = "keystore"
+        private const val KEYSTORE_KEY = "keystore"
 
         private fun isExpiredException(e: Throwable?): Boolean {
             var err = e
