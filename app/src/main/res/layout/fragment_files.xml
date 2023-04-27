@@ -37,7 +37,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_directory"
-        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/fab_add_file"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/folder"/>
@@ -49,7 +48,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/add_file"
-        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/insert_drive_file"/>

@@ -253,7 +253,6 @@
         android:clickable="false"
         android:contentDescription="@string/add_connection"
         android:src="@drawable/check"
-        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

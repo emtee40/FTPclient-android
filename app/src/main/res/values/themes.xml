@@ -3,12 +3,13 @@
     <style name="Theme.FTPClient" parent="Theme.Material3.Light">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/light_green_500</item>
-        <item name="colorPrimaryContainer">@color/light_green_700</item>
+        <item name="colorPrimaryContainer">?attr/colorPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">?attr/colorPrimary</item>
+        <item name="colorSecondaryContainer">@color/light_green_200</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/light_green_200</item>
+        <item name="android:statusBarColor">?attr/colorSecondaryContainer</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
