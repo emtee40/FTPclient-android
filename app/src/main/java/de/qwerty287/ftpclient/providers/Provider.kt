@@ -14,7 +14,7 @@ enum class Provider {
         return when (this) {
             FTP -> FTPClient()
             FTPS -> FTPSClient(context)
-            SFTP -> SFTPClient()
+            SFTP -> SFTPClient(context)
         }
     }
 }

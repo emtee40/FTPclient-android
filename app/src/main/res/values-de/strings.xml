@@ -105,5 +105,10 @@
     <string name="descending">Absteigend</string>
     <string-array name="security_options">
         <item>Vertrauenswürdige Zertifikate löschen</item>
+        <item>Vertrauenswürdige SSH-Authentizitäten löschen</item>
     </string-array>
+    <string name="host_key_unknown">Authentizität kann nicht sichergestellt werden</string>
+    <string name="host_key_unknown_msg">Die Authentizität des Hosts „%1$s“ kann nicht sichergestellt werden.\nDer Fingerabdruck des %2$s-Schlüssels ist %3$s.</string>
+    <string name="host_key_changed">WARNUNG: Host-Schlüssel hat sich geändert</string>
+    <string name="host_key_changed_msg">Der Host-Schlüssel von "%1$s" hat sich geändert. Jemand könnte gerade jetzt die Verbindung abhören (Man-in-the-middle-Angriff)!\n\Es kann auch sein, dass der Host-Schlüssel sich einfach geändert hat.\nDer Fingerabdruck des %2$s-Schlüssels, der vom Remote-Host gesendet wurde, ist %3$s.</string>
 </resources>

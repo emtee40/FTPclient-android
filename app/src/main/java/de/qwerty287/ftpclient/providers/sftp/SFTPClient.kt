@@ -1,5 +1,6 @@
 package de.qwerty287.ftpclient.providers.sftp
 
+import android.content.Context
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
@@ -14,7 +15,7 @@ import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
 import java.io.OutputStream
 
-class SFTPClient : Client {
+class SFTPClient(private val context: Context) : Client {
 
     private val client = SSHClient()
     private var sftpClient: SFTPClient? = null
@@ -42,7 +43,7 @@ class SFTPClient : Client {
         get() = client.isConnected && client.isAuthenticated
 
     override fun connect(host: String, port: Int) {
-        client.addHostKeyVerifier(PromiscuousVerifier()) // TODO allow accept/decline
+        client.addHostKeyVerifier(KeyVerifier(context))
         client.connect(host, port)
     }
 
