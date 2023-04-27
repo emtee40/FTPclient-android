@@ -234,7 +234,6 @@ class AddConnectionFragment : Fragment() {
                 db.update(connection)
             }
             if (pubKey) {
-                // TODO does this work inside lifecycleScope.launch { } ?
                 KeyFileManager(requireContext()).tempToFinal(tempKeyFile!!, connectionId!!)
             }
         }
