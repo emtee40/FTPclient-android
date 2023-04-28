@@ -1,0 +1,4 @@
+- SFTP: support public-key authentication
+- SFTP: prevent MITM attacks by checking keys
+- Material You (dynamic colors)
+- allow different sorting
