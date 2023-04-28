@@ -134,6 +134,7 @@ class FilesFragment : Fragment() {
                     Sorting.Method.NAME -> R.id.sort_name
                     Sorting.Method.TIMESTAMP -> R.id.sort_timestamp
                     Sorting.Method.SIZE -> R.id.sort_size
+                    Sorting.Method.SERVER -> R.id.sort_server
                 })?.isChecked = true
                 menu.findItem(R.id.sort_descending)?.isChecked = sorting.descending
             }
@@ -239,6 +240,13 @@ class FilesFragment : Fragment() {
             R.id.sort_size -> {
                 item.isChecked = true
                 sorting.method = Sorting.Method.SIZE
+                updateUi()
+                true
+            }
+
+            R.id.sort_server -> {
+                item.isChecked = true
+                sorting.method = Sorting.Method.SERVER
                 updateUi()
                 true
             }

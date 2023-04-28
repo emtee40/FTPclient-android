@@ -2,7 +2,7 @@ package de.qwerty287.ftpclient.providers
 
 class Sorting(var method: Method = Method.NAME, var descending: Boolean = false) {
     enum class Method {
-        NAME, TIMESTAMP, SIZE
+        NAME, TIMESTAMP, SIZE, SERVER
     }
 
     fun sort(files: List<File>): List<File> {
@@ -11,12 +11,14 @@ class Sorting(var method: Method = Method.NAME, var descending: Boolean = false)
                 Method.NAME -> files.sortedByDescending { it.name }
                 Method.TIMESTAMP -> files.sortedByDescending { it.timestamp }
                 Method.SIZE -> files.sortedByDescending { it.size }
+                Method.SERVER -> files
             }
         } else {
             when (method) {
                 Method.NAME -> files.sortedBy { it.name }
                 Method.TIMESTAMP -> files.sortedBy { it.timestamp }
                 Method.SIZE -> files.sortedBy { it.size }
+                Method.SERVER -> files
             }
         }
     }
