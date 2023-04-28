@@ -130,6 +130,12 @@ class FilesFragment : Fragment() {
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
                 inflater.inflate(R.menu.files_menu, menu)
+                menu.findItem(when (sorting.method) {
+                    Sorting.Method.NAME -> R.id.sort_name
+                    Sorting.Method.TIMESTAMP -> R.id.sort_timestamp
+                    Sorting.Method.SIZE -> R.id.sort_size
+                })?.isChecked = true
+                menu.findItem(R.id.sort_descending)?.isChecked = sorting.descending
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
