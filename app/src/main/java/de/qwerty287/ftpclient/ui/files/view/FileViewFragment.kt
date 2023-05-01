@@ -21,6 +21,7 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
 import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.FileExtensions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,8 +36,12 @@ class FileViewFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var file: String
 
-    private var client: Client? = null
-    private lateinit var connection: Connection
+    private var _connection: Connection? = null
+    private var connection: Connection
+        get() = _connection!!
+        set(value) {
+            _connection = value
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,16 +61,14 @@ class FileViewFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    if (client?.isConnected != true) {
+                    if (_connection == null) {
                         // get connection from connection id, which is stored in the arguments
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
                             .get(requireArguments().getInt("connection").toLong())!!
-
-                        client = connection.client(requireContext())
                     }
 
                     val byteList = ArrayList<Int>()
-                    client!!.download(file, object : OutputStream() {
+                    store.getClient(connection).download(file, object : OutputStream() {
                         override fun write(b: Int) {
                             byteList.add(b)
                         }
@@ -171,7 +174,7 @@ class FileViewFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    client!!.upload(file, object : InputStream() {
+                    store.getClient(connection).upload(file, object : InputStream() {
                         private var index = 0
 
                         override fun read(): Int {

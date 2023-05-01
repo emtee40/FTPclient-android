@@ -5,12 +5,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.color.DynamicColors
+import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.ActivityMainBinding
+import de.qwerty287.ftpclient.providers.Client
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 
@@ -18,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    internal val state = StateStore()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,5 +80,30 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    inner class StateStore {
+        private var client: Client? = null
+        private var clientConnId = -1
+
+        fun setClient(connection: Connection) {
+            client = connection.client(this@MainActivity)
+            clientConnId = connection.id
+        }
+
+        /**
+         * If [connection] is null, callers must make sure that it's impossible that an old client is used.
+         */
+        fun getClient(connection: Connection? = null): Client {
+            if (connection != null && !connected(connection.id)) {
+                setClient(connection)
+            }
+
+            return client!!
+        }
+
+        private fun connected(connId: Int): Boolean {
+            return clientConnId == connId && client?.isConnected == true
+        }
     }
 }

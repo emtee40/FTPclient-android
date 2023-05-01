@@ -25,9 +25,9 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
-import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.providers.Sorting
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import kotlinx.coroutines.Dispatchers
@@ -41,8 +41,12 @@ class FilesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var directory: String
 
-    private var client: Client? = null
-    private lateinit var connection: Connection
+    private var _connection: Connection? = null
+    private var connection: Connection
+        get() = _connection!!
+        set(value) {
+            _connection = value
+        }
     private val sorting = Sorting()
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -96,7 +100,7 @@ class FilesFragment : Fragment() {
             }
         }
         val success: Boolean = try {
-            client!!.upload(
+            store.getClient(connection).upload(
                 getAbsoluteFilePath(getFilenameFromUri(uri)),
                 inputStream!!
             )
@@ -159,7 +163,7 @@ class FilesFragment : Fragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
-                                client!!.mkdir(getAbsoluteFilePath(dirName))
+                                store.getClient(connection).mkdir(getAbsoluteFilePath(dirName))
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -282,12 +286,10 @@ class FilesFragment : Fragment() {
                     binding.swipeRefresh.isRefreshing = true
                 }
                 try {
-                    if (client?.isConnected != true) {
+                    if (_connection == null) {
                         // get connection from connection id, which is stored in the arguments
                         connection = AppDatabase.getInstance(requireContext()).connectionDao()
                             .get(requireArguments().getInt("connection").toLong())!!
-
-                        client = connection.client(requireContext())
 
                         if (directory == "") {
                             directory = connection.startDirectory
@@ -299,9 +301,9 @@ class FilesFragment : Fragment() {
 
                     files = sorting.sort(
                         if (directory == "") { // get files
-                            client!!.list()
+                            store.getClient(connection).list()
                         } else {
-                            client!!.list(directory)
+                            store.getClient(connection).list(directory)
                         }
                     )
 
@@ -361,7 +363,6 @@ class FilesFragment : Fragment() {
     private fun newFileBottomSheet(file: File) {
         FileActionsBottomSheet.newInstance(
             file,
-            client!!,
             connection.id,
             directory,
             CounterSnackbar(
@@ -370,8 +371,8 @@ class FilesFragment : Fragment() {
                 requireActivity(),
                 false
             ),
-            { updateUi() },
-            { itBool, suc, fail -> showSnackbar(itBool, suc, fail) })
+            { updateUi() }
+        ) { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }
             .show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
     }
 
@@ -393,7 +394,7 @@ class FilesFragment : Fragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             try {
-                                client = connection.client(requireContext()) // try to reconnect
+                                store.setClient(connection) // try to reconnect
                                 updateUi()
                             } catch (e: Exception) {
                                 showErrorDialog(e)
@@ -504,7 +505,7 @@ class FilesFragment : Fragment() {
                     }
                 }
                 val success: Boolean = try {
-                    client!!.upload(
+                    store.getClient(connection).upload(
                         getAbsoluteFilePath(
                             if (isText) {
                                 text!!.split(" ", limit = 2)[0]

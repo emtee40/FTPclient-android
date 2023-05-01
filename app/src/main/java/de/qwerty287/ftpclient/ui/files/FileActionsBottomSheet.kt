@@ -19,8 +19,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.databinding.BottomSheetFileActionsBinding
-import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingOutputStream
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +32,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
     companion object {
         fun newInstance(
             file: File,
-            client: Client,
             connId: Int,
             directory: String,
             updateProgressSnackbar: CounterSnackbar,
@@ -45,7 +44,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
             args.putInt("connection", connId)
             val fragment = FileActionsBottomSheet()
             fragment.arguments = args
-            fragment.client = client
             fragment.updateParent = updateParent
             fragment.showSnackbar = showSnackbar
             fragment.updateProgressSnackbar = updateProgressSnackbar
@@ -57,7 +55,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
 
     private lateinit var file: File
-    private lateinit var client: Client
     private lateinit var directory: String
     private lateinit var updateParent: (() -> Unit)
     private lateinit var showSnackbar: ((Boolean, Int, Int) -> Unit)
@@ -79,7 +76,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                                 }
                             }
                         val success = try {
-                            client.download(getAbsoluteFilePath(), outputStream!!)
+                            store.getClient().download(getAbsoluteFilePath(), outputStream!!)
                         } catch (e: NullPointerException) {
                             false
                         } catch (e: Exception) {
@@ -164,9 +161,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 if (file.isFile) {
-                                    client.rm(getAbsoluteFilePath())
+                                    store.getClient().rm(getAbsoluteFilePath())
                                 } else {
-                                    client.rmDir(getAbsoluteFilePath())
+                                    store.getClient().rmDir(getAbsoluteFilePath())
                                 }
                             } catch (e: Exception) {
                                 e.printStackTrace()
@@ -195,7 +192,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
-                                client.rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
+                                store.getClient().rename(getAbsoluteFilePath(), getAbsoluteFilePath(newName))
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
