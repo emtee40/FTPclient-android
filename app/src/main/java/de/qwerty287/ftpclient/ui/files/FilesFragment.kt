@@ -120,7 +120,10 @@ class FilesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        directory = requireArguments().getString("directory", "")
+        if (_connection == null) {
+            // not initialized yet, so store the directory
+            directory = requireArguments().getString("directory", "")
+        }
 
         _binding = FragmentFilesBinding.inflate(inflater, container, false)
         return binding.root
