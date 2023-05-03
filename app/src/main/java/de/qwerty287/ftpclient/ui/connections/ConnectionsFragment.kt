@@ -72,6 +72,7 @@ class ConnectionsFragment : Fragment() {
                                     }
                                 }
                             }
+
                             1 -> {
                                 lifecycleScope.launch {
                                     KeyVerifier(requireContext()).file.delete()
