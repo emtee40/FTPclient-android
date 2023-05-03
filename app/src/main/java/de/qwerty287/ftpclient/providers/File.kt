@@ -14,4 +14,10 @@ interface File : Serializable {
     val isSymbolicLink: Boolean
     val isUnknown: Boolean
     val link: String?
+
+    companion object {
+        fun joinPaths(p1: String, p2: String): String {
+            return "${p1.removeSuffix("/")}/${p2.removePrefix("/")}"
+        }
+    }
 }

@@ -358,11 +358,7 @@ class FilesFragment : Fragment() {
         if (directory == "" || name.startsWith("/")) {
             return name
         }
-        return joinPaths(directory, name)
-    }
-
-    private fun joinPaths(p1: String, p2: String): String {
-        return "${p1.removeSuffix("/")}/${p2.removePrefix("/")}"
+        return File.joinPaths(directory, name)
     }
 
     private fun newFileBottomSheet(file: File) {
@@ -433,7 +429,7 @@ class FilesFragment : Fragment() {
      * @param fileName The name of the file, without parent directories
      */
     private fun getAbsoluteFilePath(fileName: String): String {
-        return joinPaths(directory, fileName)
+        return File.joinPaths(directory, fileName)
     }
 
     /**
