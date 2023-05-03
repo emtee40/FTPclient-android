@@ -7,7 +7,6 @@ import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.common.Factory
 import net.schmizz.sshj.common.SSHException
 import net.schmizz.sshj.sftp.SFTPClient
-import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
 import net.schmizz.sshj.userauth.password.PasswordUtils
 import net.schmizz.sshj.xfer.InMemoryDestFile

@@ -63,8 +63,6 @@
     <string name="delete_bookmark_confirmation">Möchten Sie dieses Lesezeichen wirklich löschen?</string>
     <string name="delete_connection_message">Das wird alle Lesezeichen dieser Verbindung löschen.</string>
     <string name="add_directory">Verzechnis hinzufügen</string>
-    <string name="upload_completed_partially">Upload %d von %d abgeschlossen</string>
-    <string name="upload_failed_partially">Upload %d von %d fehlgeschlagen</string>
     <string name="upload_summary">Upload beendet: %d erfolgreich, %d fehlgeschlagen</string>
     <string name="connection_type_ftp">FTP</string>
     <string name="connection_type_ftps">FTPS</string>
@@ -87,7 +85,6 @@
     <string name="file_content">Dateiinhalt</string>
     <string name="save">Speichern</string>
     <string name="start_directory">Start-Verzeichnis - leer lassen für Root-Verzeichnis</string>
-    <string name="mtm_notification">Zertifikats-Validierung</string>
     <string name="mtm_accept_cert">Unbekanntes Zertifikat akzeptieren?</string>
     <string name="mtm_trust_anchor">Das Server-Zertifikat wurde nicht von einer bekannten Certificate Authority siginiert.\n\n%s</string>
     <string name="mtm_cert_expired">Das Server-Zertifikat ist abgelaufen.\n\n%s</string>

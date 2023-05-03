@@ -66,8 +66,6 @@
     <string name="delete_bookmark_confirmation">Do you really want to delete this bookmark?</string>
     <string name="delete_connection_message">This will delete all bookmarks from this connection.</string>
     <string name="add_directory">Add directory</string>
-    <string name="upload_completed_partially">Upload %d of %d completed</string>
-    <string name="upload_failed_partially">Upload %d of %d failed</string>
     <string name="upload_summary">Upload finished: %d succeeded, %d failed</string>
     <string name="connection_type_ftp">FTP</string>
     <string name="connection_type_ftps">FTPS</string>
@@ -89,7 +87,6 @@
     <string name="file_content">File content</string>
     <string name="save">Save</string>
     <string name="start_directory">Start directory - leave empty for root directory</string>
-    <string name="mtm_notification">Certificate verification</string>
     <string name="mtm_accept_cert">Accept unknown certificate?</string>
     <string name="mtm_trust_anchor">The server certificate is not signed by a known Certificate Authority.\n\n%s</string>
     <string name="mtm_cert_expired">The server certificate is expired\n\n%s.</string>

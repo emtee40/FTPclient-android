@@ -63,8 +63,6 @@
     <string name="delete_bookmark_confirmation">Êtes-vous sûr de vouloir supprimer ce marque-page ?</string>
     <string name="delete_connection_message">Vous allez supprimer tous les marque-pages pour cette connexion.</string>
     <string name="add_directory">Ajouter un répertoire</string>
-    <string name="upload_completed_partially">"Téléversement réussi à %d sur %d "</string>
-    <string name="upload_failed_partially">Téléversement échoué à %d sur %d</string>
     <string name="upload_summary">Téléversement terminé : %d réussi(s), %d échoué(s)</string>
     <string name="connection_type_ftp">FTP</string>
     <string name="connection_type_ftps">FTPS</string>

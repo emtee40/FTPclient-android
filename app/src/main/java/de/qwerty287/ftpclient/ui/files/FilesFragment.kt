@@ -1,5 +1,3 @@
-@file:Suppress("BlockingMethodInNonBlockingContext")
-
 package de.qwerty287.ftpclient.ui.files
 
 import android.content.*

@@ -44,7 +44,7 @@ class BookmarksFragment : Fragment() {
      */
     private fun showBookmarks() {
         AppDatabase.getInstance(requireContext())
-            .bookmarkDao().getAll().observe(viewLifecycleOwner, {
+            .bookmarkDao().getAll().observe(viewLifecycleOwner) {
                 if (it.isEmpty()) {
                     binding.noConnections.isVisible = true
                     binding.recyclerviewBookmarks.adapter = null
@@ -60,6 +60,6 @@ class BookmarksFragment : Fragment() {
                         requireActivity().supportFragmentManager
                     )
                 }
-            })
+            }
     }
 }

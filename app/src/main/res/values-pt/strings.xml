@@ -64,8 +64,6 @@
     <string name="delete_bookmark_confirmation">Você realmente quer apagar este favorito?</string>
     <string name="delete_connection_message">Isto apagará todos os favoritos desta conexão.</string>
     <string name="add_directory">Adicionar pasta</string>
-    <string name="upload_completed_partially">Upload: %d de %d concluído</string>
-    <string name="upload_failed_partially">Upload: %d de %d falhou</string>
     <string name="upload_summary">Upload terminou: %d bem-sucedido(s), %d falhou</string>
     <string name="connection_type_ftp">FTP</string>
     <string name="connection_type_ftps">FTPS</string>

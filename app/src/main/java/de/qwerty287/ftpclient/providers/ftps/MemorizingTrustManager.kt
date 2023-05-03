@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.util.Base64
-import android.util.SparseArray
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import java.io.ByteArrayInputStream
@@ -19,7 +18,6 @@ import java.security.NoSuchAlgorithmException
 import java.security.cert.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession

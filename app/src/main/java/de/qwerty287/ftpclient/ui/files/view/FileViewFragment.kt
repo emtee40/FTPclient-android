@@ -1,5 +1,3 @@
-@file:Suppress("BlockingMethodInNonBlockingContext")
-
 package de.qwerty287.ftpclient.ui.files.view
 
 import android.content.ClipData
@@ -20,7 +18,6 @@ import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
-import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.FileExtensions
 import kotlinx.coroutines.Dispatchers
