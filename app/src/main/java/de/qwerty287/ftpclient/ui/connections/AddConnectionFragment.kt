@@ -226,7 +226,7 @@ class AddConnectionFragment : Fragment() {
                     binding.implicit.isChecked,
                     binding.utf8.isChecked,
                     binding.passive.isChecked,
-                    binding.startDirectory.text.toString().removeSuffix("/"),
+                    binding.startDirectory.text.toString(),
                     connectionId!!
                 )
                 db.update(connection)

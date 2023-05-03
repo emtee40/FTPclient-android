@@ -360,7 +360,11 @@ class FilesFragment : Fragment() {
         if (directory == "" || name.startsWith("/")) {
             return name
         }
-        return "$directory/${if (file.isDirectory) file.name else file.link}"
+        return joinPaths(directory, name)
+    }
+
+    private fun joinPaths(p1: String, p2: String): String {
+        return "${p1.removeSuffix("/")}/${p2.removePrefix("/")}"
     }
 
     private fun newFileBottomSheet(file: File) {
@@ -431,11 +435,7 @@ class FilesFragment : Fragment() {
      * @param fileName The name of the file, without parent directories
      */
     private fun getAbsoluteFilePath(fileName: String): String {
-        return if (directory != "") {
-            "$directory/$fileName"
-        } else {
-            fileName
-        }
+        return joinPaths(directory, fileName)
     }
 
     /**
@@ -445,7 +445,6 @@ class FilesFragment : Fragment() {
      */
     private fun getFilenameFromUri(uri: Uri): String {
         val uriString = uri.toString()
-        val file = java.io.File(uriString)
         var displayName = "0"
 
         if (uriString.startsWith("content://")) {
@@ -461,7 +460,7 @@ class FilesFragment : Fragment() {
                 cursor?.close()
             }
         } else if (uriString.startsWith("file://")) {
-            displayName = file.name
+            displayName = java.io.File(uriString).name
         }
         return displayName
     }
