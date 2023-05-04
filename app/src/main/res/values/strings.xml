@@ -93,7 +93,6 @@
     <string name="mtm_unknown_err">%s\n\n%s</string>
     <string name="mtm_parsing_err">Parsing error: %s</string>
     <string name="mtm_accept_server_name">Accept mismatching server name?</string>
-    <string name="mtm_hostname_mismatch">Server could not authenticate as "%s". The certificate is only valid for:\n\n%s\n\n%s</string>
     <string name="mtm_cert_details">Certificate details:\n%s</string>
     <string name="mtm_decision_always">Trust</string>
     <string name="mtm_decision_abort">Abort</string>

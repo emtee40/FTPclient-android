@@ -96,7 +96,6 @@ class FTPSClient(private var context: Context) : Client {
             autodetectUTF8 = true
             val m = MemorizingTrustManager(context)
             trustManager = m
-            hostnameVerifier = m.MemorizingHostnameVerifier()
         }
     }
 }

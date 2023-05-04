@@ -19,8 +19,6 @@ import java.security.cert.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.locks.ReentrantLock
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLSession
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 import kotlin.concurrent.withLock
@@ -44,21 +42,6 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
             // this should never happen, however...
             throw RuntimeException(e)
         }
-
-    /**
-     * Get a certificate for a given alias.
-     *
-     * @param alias the certificate's alias as returned by [.getCertificates].
-     * @return the certificate associated with the alias or <tt>null</tt> if none found.
-     */
-    fun getCertificate(alias: String?): Certificate {
-        return try {
-            appKeyStore.getCertificate(alias)
-        } catch (e: KeyStoreException) {
-            // this should never happen, however...
-            throw RuntimeException(e)
-        }
-    }
 
     /**
      * Removes the given certificate from MTMs key store.
@@ -172,6 +155,7 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
             }
         } catch (ae: CertificateException) {
             // if the cert is stored in our appTrustManager, we ignore expiredness
+            // TODO rethink this
             if (isExpiredException(ae) || isCertKnown(chain[0])) {
                 return
             }
@@ -240,46 +224,13 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         }
     }
 
-    private fun hostNameMessage(cert: X509Certificate, hostname: String): String {
-        var hostnames: String
-        try {
-            val sans = cert.subjectAlternativeNames
-            if (sans == null) {
-                hostnames = cert.subjectDN.toString()
-            } else {
-                val stringBuilder = StringBuilder()
-                for (altName in sans) {
-                    // TODO find a better way to display this (use string resources)
-                    val name = altName[1]!!
-                    if (name is String) {
-                        stringBuilder.append("[")
-                        stringBuilder.append(altName[0])
-                        stringBuilder.append("] ")
-                        stringBuilder.append(name)
-                        stringBuilder.append("\n")
-                    }
-                }
-                hostnames = stringBuilder.toString()
-            }
-        } catch (e: CertificateParsingException) {
-            e.printStackTrace()
-            hostnames = context.getString(R.string.mtm_parsing_err, e.localizedMessage)
-        }
-        return context.getString(
-            R.string.mtm_hostname_mismatch,
-            hostname,
-            hostnames,
-            context.getString(R.string.mtm_cert_details, certDetails(cert))
-        )
-    }
-
-    private fun interact(message: String, titleId: Int): Boolean {
+    private fun interact(message: String): Boolean {
         var choice: Boolean? = null
         val lock = ReentrantLock()
         val condition = lock.newCondition()
 
         (context as Activity).runOnUiThread {
-            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(titleId).setMessage(message)
+            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(R.string.mtm_accept_cert).setMessage(message)
                 .setPositiveButton(R.string.mtm_decision_always) { _: DialogInterface?, _: Int ->
                     lock.withLock {
                         choice = true
@@ -311,36 +262,10 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
     }
 
     private fun interactCert(chain: Array<X509Certificate>, cause: CertificateException) {
-        if (interact(certChainMessage(chain, cause), R.string.mtm_accept_cert)) {
+        if (interact(certChainMessage(chain, cause))) {
             storeCert(chain[0]) // only store the server cert, not the whole chain
         } else {
             throw cause
-        }
-    }
-
-    private fun interactHostname(cert: X509Certificate, hostname: String): Boolean {
-        if (interact(hostNameMessage(cert, hostname), R.string.mtm_accept_server_name)) {
-            storeCert(hostname, cert)
-            return true
-        }
-        return false
-    }
-
-    inner class MemorizingHostnameVerifier : HostnameVerifier {
-        override fun verify(hostname: String, session: SSLSession): Boolean {
-            return try {
-                val cert = session.peerCertificates[0] as X509Certificate
-                if (cert == appKeyStore.getCertificate(hostname.lowercase())) {
-                    true
-                } else {
-                    interactHostname(cert, hostname)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                false
-            }
-
-            // otherwise, we check if the hostname is an alias for this cert in our keystore
         }
     }
 

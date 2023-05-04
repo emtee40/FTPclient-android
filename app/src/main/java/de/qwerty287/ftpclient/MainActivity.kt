@@ -109,7 +109,9 @@ class MainActivity : AppCompatActivity() {
         fun exitClient() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    client?.exit()
+                    if (client != null && client!!.isConnected) {
+                        client!!.exit()
+                    }
                 }
             }
         }
