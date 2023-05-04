@@ -389,41 +389,40 @@ class FilesFragment : Fragment() {
      */
     private fun showErrorDialog(e: Exception) {
         binding.swipeRefresh.isRefreshing = false
-        lifecycleScope.launch {
-            val dialog = MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.error_occurred)
-                .setMessage(R.string.error_descriptions)
-                .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            try {
-                                store.setClient(connection) // try to reconnect
-                                updateUi()
-                            } catch (e: Exception) {
-                                showErrorDialog(e)
-                            }
-                        }
+        val dialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.error_occurred)
+            .setMessage(R.string.error_descriptions)
+            .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        store.setClient(connection) // try to reconnect
+                        updateUi()
                     }
                 }
-                .setOnCancelListener { findNavController().navigateUp() }
-                .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
-                    val clipboardManager =
-                        requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                    clipboardManager.setPrimaryClip(
-                        ClipData.newPlainText(
-                            getString(R.string.app_name),
-                            e.stackTraceToString()
-                        )
+            }
+            .setOnCancelListener {
+                store.exitClient()
+                findNavController().navigateUp()
+            }
+            .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
+                val clipboardManager =
+                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboardManager.setPrimaryClip(
+                    ClipData.newPlainText(
+                        getString(R.string.app_name),
+                        e.stackTraceToString()
                     )
-                    findNavController().navigateUp()
-                }
-                .setNegativeButton(R.string.ok) { _: DialogInterface, _: Int ->
-                    findNavController().navigateUp()
-                }
-                .create()
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.show()
-        }
+                )
+                store.exitClient()
+                findNavController().navigateUp()
+            }
+            .setNegativeButton(R.string.ok) { _: DialogInterface, _: Int ->
+                store.exitClient()
+                findNavController().navigateUp()
+            }
+            .create()
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
     }
 
     /**

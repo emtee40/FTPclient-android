@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -13,6 +14,9 @@ import com.google.android.material.color.DynamicColors
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.ActivityMainBinding
 import de.qwerty287.ftpclient.providers.Client
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 
@@ -86,6 +90,7 @@ class MainActivity : AppCompatActivity() {
         private var clientConnId = -1
 
         fun setClient(connection: Connection) {
+            exitClient()
             client = connection.client(this@MainActivity)
             clientConnId = connection.id
         }
@@ -99,6 +104,14 @@ class MainActivity : AppCompatActivity() {
             }
 
             return client!!
+        }
+
+        fun exitClient() {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    client?.exit()
+                }
+            }
         }
 
         private fun connected(connId: Int): Boolean {
