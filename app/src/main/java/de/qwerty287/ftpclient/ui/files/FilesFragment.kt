@@ -357,7 +357,7 @@ class FilesFragment : Fragment() {
      */
     private fun subDirectory(file: File): String {
         val name = if (file.isDirectory) file.name else file.link!!
-        if (directory == "" || name.startsWith("/")) {
+        if (name.startsWith("/")) {
             return name
         }
         return File.joinPaths(directory, name)
