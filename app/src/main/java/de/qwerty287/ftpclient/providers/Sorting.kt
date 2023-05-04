@@ -11,7 +11,7 @@ class Sorting(var method: Method = Method.NAME, var descending: Boolean = false)
                 Method.NAME -> files.sortedByDescending { it.name }
                 Method.TIMESTAMP -> files.sortedByDescending { it.timestamp }
                 Method.SIZE -> files.sortedByDescending { it.size }
-                Method.SERVER -> files
+                Method.SERVER -> files.reversed()
             }
         } else {
             when (method) {
