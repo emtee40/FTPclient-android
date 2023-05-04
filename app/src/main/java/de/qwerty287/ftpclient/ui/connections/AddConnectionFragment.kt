@@ -103,6 +103,7 @@ class AddConnectionFragment : Fragment() {
 
         binding.typeFtp.setOnClickListener {
             binding.implicit.isVisible = false
+            binding.privateData.isVisible = false
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
             binding.publicKeyLayout.isVisible = false
@@ -115,6 +116,7 @@ class AddConnectionFragment : Fragment() {
 
         binding.typeFtps.setOnClickListener {
             binding.implicit.isVisible = true
+            binding.privateData.isVisible = true
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
             binding.publicKeyLayout.isVisible = false
@@ -127,6 +129,7 @@ class AddConnectionFragment : Fragment() {
 
         binding.typeSftp.setOnClickListener {
             binding.implicit.isVisible = false
+            binding.privateData.isVisible = false
             binding.utf8.isVisible = false
             binding.passive.isVisible = false
             binding.publicKeyLayout.isVisible = true
@@ -177,6 +180,8 @@ class AddConnectionFragment : Fragment() {
                 )
                 binding.implicit.isChecked = c.implicit
                 binding.implicit.isVisible = c.type == Provider.FTPS
+                binding.privateData.isChecked = c.privateData
+                binding.privateData.isVisible = c.type == Provider.FTPS
                 binding.utf8.isChecked = c.utf8
                 binding.utf8.isVisible = c.type != Provider.SFTP
                 binding.passive.isChecked = c.passive
@@ -211,6 +216,7 @@ class AddConnectionFragment : Fragment() {
                     binding.implicit.isChecked,
                     binding.utf8.isChecked,
                     binding.passive.isChecked,
+                    binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
                 )
                 connectionId = db.insert(connection).toInt()
@@ -226,6 +232,7 @@ class AddConnectionFragment : Fragment() {
                     binding.implicit.isChecked,
                     binding.utf8.isChecked,
                     binding.passive.isChecked,
+                    binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
                     connectionId!!
                 )

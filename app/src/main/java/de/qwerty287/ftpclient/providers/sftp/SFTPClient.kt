@@ -40,6 +40,7 @@ class SFTPClient(private val context: Context) : Client {
 
     override val isConnected: Boolean
         get() = client.isConnected && client.isAuthenticated
+    override var privateData: Boolean = false
 
     override fun connect(host: String, port: Int) {
         client.addHostKeyVerifier(KeyVerifier(context))

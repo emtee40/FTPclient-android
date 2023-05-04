@@ -11,6 +11,7 @@ interface Client {
     fun login(user: String, password: String)
     fun loginPubKey(user: String, key: java.io.File, passphrase: String)
     val isConnected: Boolean
+    var privateData: Boolean
     fun upload(name: String, stream: InputStream): Boolean
     fun download(name: String, stream: OutputStream): Boolean
     fun mkdir(path: String): Boolean

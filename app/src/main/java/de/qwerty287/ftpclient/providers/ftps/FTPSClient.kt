@@ -35,7 +35,6 @@ class FTPSClient(private var context: Context) : Client {
     override fun login(user: String, password: String) {
         client.login(user, password)
         client.setFileType(FTP.BINARY_FILE_TYPE)
-        client.execPROT("P")
     }
 
     override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
@@ -44,6 +43,13 @@ class FTPSClient(private var context: Context) : Client {
 
     override val isConnected: Boolean
         get() = client.isConnected
+    override var privateData: Boolean = false
+        set(value) {
+            if (value) {
+                client.execPROT("P")
+            }
+            field = value
+        }
 
     override fun upload(name: String, stream: InputStream): Boolean {
         return client.storeFile(name, stream)

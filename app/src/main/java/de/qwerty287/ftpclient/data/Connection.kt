@@ -20,6 +20,7 @@ data class Connection(
     @ColumnInfo(name = "implicit") val implicit: Boolean,
     @ColumnInfo(name = "utf8") val utf8: Boolean,
     @ColumnInfo(name = "passive") val passive: Boolean,
+    @ColumnInfo(name = "private_data") val privateData: Boolean,
     @ColumnInfo(name = "start_directory") val startDirectory: String,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 ) {
@@ -35,6 +36,7 @@ data class Connection(
         } else {
             client.login(username, password) // connect to server and login with login credentials
         }
+        client.privateData = privateData
 
         return client
     }

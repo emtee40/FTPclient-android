@@ -41,6 +41,7 @@ class FTPClient : Client {
 
     override val isConnected: Boolean
         get() = client.isConnected
+    override var privateData: Boolean = false
 
     override fun upload(name: String, stream: InputStream): Boolean {
         return client.storeFile(name, stream)

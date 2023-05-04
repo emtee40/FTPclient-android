@@ -95,6 +95,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.implicit,
                 connection.utf8,
                 connection.passive,
+                connection.privateData,
                 connection.startDirectory,
             )
             lifecycleScope.launch {

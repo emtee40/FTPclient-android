@@ -109,4 +109,5 @@
     <string name="host_key_changed">WARNUNG: Host-Schlüssel hat sich geändert</string>
     <string name="host_key_changed_msg">Der Host-Schlüssel von "%1$s" hat sich geändert. Jemand könnte gerade jetzt die Verbindung abhören (Man-in-the-middle-Angriff)!\n\Es kann auch sein, dass der Host-Schlüssel sich einfach geändert hat.\nDer Fingerabdruck des %2$s-Schlüssels, der vom Remote-Host gesendet wurde, ist %3$s.</string>
     <string name="as_server">Wie Server</string>
+    <string name="private_data">Private Datenverbindung verwenden</string>
 </resources>
