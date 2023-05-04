@@ -14,6 +14,9 @@ import com.google.android.material.color.DynamicColors
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.ActivityMainBinding
 import de.qwerty287.ftpclient.providers.Client
+import de.qwerty287.ftpclient.providers.ftps.MemorizingTrustManager
+import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
+import de.qwerty287.ftpclient.providers.sftp.KeyVerifier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,6 +47,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        state.mtm = MemorizingTrustManager(this)
+        state.kfm = KeyFileManager(this)
+        state.kv = KeyVerifier(this)
 
         if (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE) {
             val options = Bundle()
@@ -88,6 +95,10 @@ class MainActivity : AppCompatActivity() {
     inner class StateStore {
         private var client: Client? = null
         private var clientConnId = -1
+
+        lateinit var mtm: MemorizingTrustManager
+        lateinit var kfm: KeyFileManager
+        lateinit var kv: KeyVerifier
 
         fun setClient(connection: Connection) {
             exitClient()

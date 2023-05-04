@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.Provider
 import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
@@ -32,7 +33,7 @@ data class Connection(
         client.connect(server, port)
         client.passive = passive
         if (publicKey) {
-            client.loginPubKey(username, KeyFileManager(context).file(id), password)
+            client.loginPubKey(username, (context as MainActivity).state.kfm.file(id), password)
         } else {
             client.login(username, password) // connect to server and login with login credentials
         }

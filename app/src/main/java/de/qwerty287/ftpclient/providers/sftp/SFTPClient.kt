@@ -1,6 +1,7 @@
 package de.qwerty287.ftpclient.providers.sftp
 
 import android.content.Context
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
@@ -43,7 +44,7 @@ class SFTPClient(private val context: Context) : Client {
     override var privateData: Boolean = false
 
     override fun connect(host: String, port: Int) {
-        client.addHostKeyVerifier(KeyVerifier(context))
+        client.addHostKeyVerifier((context as MainActivity).state.kv)
         client.connect(host, port)
     }
 

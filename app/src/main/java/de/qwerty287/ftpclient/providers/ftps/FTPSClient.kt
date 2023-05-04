@@ -1,6 +1,7 @@
 package de.qwerty287.ftpclient.providers.ftps
 
 import android.content.Context
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.providers.ftp.FTPClient
@@ -94,8 +95,7 @@ class FTPSClient(private var context: Context) : Client {
     private fun FTPSClient.applyDefaults(): FTPSClient {
         return apply {
             autodetectUTF8 = true
-            val m = MemorizingTrustManager(context)
-            trustManager = m
+            trustManager = (context as MainActivity).state.mtm
         }
     }
 }

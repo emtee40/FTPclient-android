@@ -15,6 +15,7 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.databinding.FragmentConnectionsBinding
 import de.qwerty287.ftpclient.providers.ftps.MemorizingTrustManager
 import de.qwerty287.ftpclient.providers.sftp.KeyVerifier
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import kotlinx.coroutines.launch
 
 
@@ -66,7 +67,7 @@ class ConnectionsFragment : Fragment() {
                         when (index) {
                             0 -> {
                                 lifecycleScope.launch {
-                                    val mtm = MemorizingTrustManager(requireContext())
+                                    val mtm = store.mtm
                                     for (cert in mtm.certificates) {
                                         mtm.deleteCertificate(cert)
                                     }
@@ -75,7 +76,7 @@ class ConnectionsFragment : Fragment() {
 
                             1 -> {
                                 lifecycleScope.launch {
-                                    KeyVerifier(requireContext()).file.delete()
+                                    store.kv.file.delete()
                                 }
                             }
                         }

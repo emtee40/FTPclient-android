@@ -9,11 +9,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
 import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import kotlinx.coroutines.launch
 
 class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
@@ -65,7 +67,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                                 db.bookmarkDao().delete(it)
                             }
                             if (connection.publicKey) {
-                                KeyFileManager(requireContext()).delete(connection.id)
+                                store.kfm.delete(connection.id)
                             }
                             db.connectionDao().delete(connection)
                         }
@@ -101,7 +103,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
             lifecycleScope.launch {
                 val newId = db.connectionDao().insert(newConn)
                 if (connection.publicKey) {
-                    KeyFileManager(requireContext()).copy(connection.id, newId.toInt())
+                    store.kfm.copy(connection.id, newId.toInt())
                 }
             }
             dismiss()

@@ -14,12 +14,14 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
 import de.qwerty287.ftpclient.providers.Provider
 import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -46,7 +48,7 @@ class AddConnectionFragment : Fragment() {
                 val uri = it.data?.data
                 if (uri != null) {
                     tempKeyFile?.delete()
-                    tempKeyFile = KeyFileManager(requireContext()).storeTemp(uri)
+                    tempKeyFile = store.kfm.storeTemp(uri)
                     if (KeyProviderUtil.detectKeyFileFormat(tempKeyFile) == KeyFormat.Unknown) {
                         // invalid
                         tempKeyFile!!.delete()
@@ -188,7 +190,7 @@ class AddConnectionFragment : Fragment() {
                 binding.passive.isVisible = c.type != Provider.SFTP
 
                 if (c.publicKey) {
-                    tempKeyFile = KeyFileManager(requireContext()).finalToTemp(c.id)
+                    tempKeyFile = store.kfm.finalToTemp(c.id)
                 }
             }
         }
@@ -239,7 +241,7 @@ class AddConnectionFragment : Fragment() {
                 db.update(connection)
             }
             if (pubKey) {
-                KeyFileManager(requireContext()).tempToFinal(tempKeyFile!!, connectionId!!)
+                store.kfm.tempToFinal(tempKeyFile!!, connectionId!!)
             }
         }
     }
