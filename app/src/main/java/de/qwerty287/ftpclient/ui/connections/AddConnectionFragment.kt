@@ -243,6 +243,7 @@ class AddConnectionFragment : Fragment() {
             if (pubKey) {
                 store.kfm.tempToFinal(tempKeyFile!!, connectionId!!)
             }
+            store.invalidateClient()
         }
     }
 

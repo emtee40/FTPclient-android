@@ -130,5 +130,10 @@ class MainActivity : AppCompatActivity() {
         private fun connected(connId: Int): Boolean {
             return clientConnId == connId && client?.isConnected == true
         }
+
+        fun invalidateClient() {
+            client = null
+            clientConnId = -1
+        }
     }
 }
