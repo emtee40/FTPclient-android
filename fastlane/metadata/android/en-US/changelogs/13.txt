@@ -1,0 +1,5 @@
+- reuse clients
+- close connections
+- allow to disable private data connections (FTPS)
+- remove hostname verifier (FPTS)
+- fix opening directory
