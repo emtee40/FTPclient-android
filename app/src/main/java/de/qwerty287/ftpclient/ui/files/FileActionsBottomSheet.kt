@@ -93,7 +93,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
 
         file = if (Build.VERSION.SDK_INT >= 33) {
-            requireArguments().getSerializable("file", File::class.java) as File
+            requireArguments().getSerializable("file", File::class.java)!!
         } else {
             requireArguments().getSerializable("file") as File
         }
