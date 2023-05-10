@@ -24,7 +24,7 @@ import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFilesBinding
 import de.qwerty287.ftpclient.providers.File
-import de.qwerty287.ftpclient.providers.Sorting
+import de.qwerty287.ftpclient.providers.SortingFilter
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
@@ -45,7 +45,7 @@ class FilesFragment : Fragment() {
         set(value) {
             _connection = value
         }
-    private val sorting = Sorting()
+    private val sortingFilter = SortingFilter()
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -136,14 +136,14 @@ class FilesFragment : Fragment() {
             override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
                 inflater.inflate(R.menu.files_menu, menu)
                 menu.findItem(
-                    when (sorting.method) {
-                        Sorting.Method.NAME -> R.id.sort_name
-                        Sorting.Method.TIMESTAMP -> R.id.sort_timestamp
-                        Sorting.Method.SIZE -> R.id.sort_size
-                        Sorting.Method.SERVER -> R.id.sort_server
+                    when (sortingFilter.method) {
+                        SortingFilter.Method.NAME -> R.id.sort_name
+                        SortingFilter.Method.TIMESTAMP -> R.id.sort_timestamp
+                        SortingFilter.Method.SIZE -> R.id.sort_size
+                        SortingFilter.Method.SERVER -> R.id.sort_server
                     }
                 )?.isChecked = true
-                menu.findItem(R.id.sort_descending)?.isChecked = sorting.descending
+                menu.findItem(R.id.sort_descending)?.isChecked = sortingFilter.descending
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -232,35 +232,42 @@ class FilesFragment : Fragment() {
 
             R.id.sort_name -> {
                 item.isChecked = true
-                sorting.method = Sorting.Method.NAME
+                sortingFilter.method = SortingFilter.Method.NAME
                 updateUi()
                 true
             }
 
             R.id.sort_timestamp -> {
                 item.isChecked = true
-                sorting.method = Sorting.Method.TIMESTAMP
+                sortingFilter.method = SortingFilter.Method.TIMESTAMP
                 updateUi()
                 true
             }
 
             R.id.sort_size -> {
                 item.isChecked = true
-                sorting.method = Sorting.Method.SIZE
+                sortingFilter.method = SortingFilter.Method.SIZE
                 updateUi()
                 true
             }
 
             R.id.sort_server -> {
                 item.isChecked = true
-                sorting.method = Sorting.Method.SERVER
+                sortingFilter.method = SortingFilter.Method.SERVER
                 updateUi()
                 true
             }
 
             R.id.sort_descending -> {
                 item.isChecked = !item.isChecked
-                sorting.descending = item.isChecked
+                sortingFilter.descending = item.isChecked
+                updateUi()
+                true
+            }
+
+            R.id.show_hidden -> {
+                item.isChecked = !item.isChecked
+                sortingFilter.showHidden = item.isChecked
                 updateUi()
                 true
             }
@@ -302,7 +309,7 @@ class FilesFragment : Fragment() {
                         checkForUploadUrisMulti()
                     }
 
-                    files = sorting.sort(
+                    files = sortingFilter.sortFilter(
                         if (directory == "") { // get files
                             store.getClient(connection).list()
                         } else {

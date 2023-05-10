@@ -39,4 +39,10 @@
         android:id="@+id/bookmark"
         android:title="@string/add_bookmark"/>
 
+    <item
+        android:id="@+id/show_hidden"
+        android:checkable="true"
+        android:checked="true"
+        android:title="@string/show_hidden"/>
+
 </menu>
