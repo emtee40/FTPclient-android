@@ -49,7 +49,7 @@
     <string name="delete_completed">Deletion completed</string>
     <string name="deletion_failed">Deletion failed</string>
     <string name="renaming_completed">Renaming completed</string>
-    <string name="renaming_failed">Renamig failed</string>
+    <string name="renaming_failed">Renaming failed</string>
     <string name="dir_creation_completed">Directory creation completed</string>
     <string name="dir_creation_failed">Directory creation failed</string>
     <string name="timestamp">Timestamp</string>
@@ -112,4 +112,7 @@
     <string name="as_server">As server</string>
     <string name="private_data">Use private data connection</string>
     <string name="show_hidden">Show hidden files</string>
+    <string name="download_multiple">Download multiple</string>
+    <string name="download_summary">Download finished: %d succeeded, %d failed</string>
+    <string name="downloading_multi">Downloading: %%s (file %d/%d)</string>
 </resources>

@@ -110,4 +110,7 @@
     <string name="as_server">Wie Server</string>
     <string name="private_data">Private Datenverbindung verwenden</string>
     <string name="show_hidden">Versteckte Dateien anzeigen</string>
+    <string name="download_multiple">Mehrere herunterladen</string>
+    <string name="download_summary">Herunterladen abgeschlossen: %d erfolgreich, %d fehlgeschlagen</string>
+    <string name="downloading_multi">Herunterladen: %%s (Datei %d/%d)</string>
 </resources>

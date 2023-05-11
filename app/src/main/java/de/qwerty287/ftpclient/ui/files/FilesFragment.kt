@@ -46,6 +46,8 @@ class FilesFragment : Fragment() {
             _connection = value
         }
     private val sortingFilter = SortingFilter()
+    private lateinit var files: List<File>
+    private val downloadMultipleDialog = DownloadMultipleDialog(this)
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -272,6 +274,11 @@ class FilesFragment : Fragment() {
                 true
             }
 
+            R.id.download_multiple -> {
+                downloadMultipleDialog.open(requireContext(), files)
+                true
+            }
+
             else -> false
         }
     }
@@ -283,8 +290,6 @@ class FilesFragment : Fragment() {
      * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
      */
     private fun updateUi() {
-        var files: List<File>
-
         if (_binding == null) {
             // seems that this isn't ready yet
             return
@@ -436,7 +441,7 @@ class FilesFragment : Fragment() {
      * Get the absolute file path of a file in the directory
      * @param fileName The name of the file, without parent directories
      */
-    private fun getAbsoluteFilePath(fileName: String): String {
+    internal fun getAbsoluteFilePath(fileName: String): String {
         return File.joinPaths(directory, fileName)
     }
 

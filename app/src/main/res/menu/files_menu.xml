@@ -45,4 +45,8 @@
         android:checked="true"
         android:title="@string/show_hidden"/>
 
+    <item
+        android:id="@+id/download_multiple"
+        android:title="@string/download_multiple"/>
+
 </menu>
