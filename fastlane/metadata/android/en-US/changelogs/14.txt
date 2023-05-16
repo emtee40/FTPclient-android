@@ -1,0 +1,3 @@
+- allow hiding hidden files
+- use MSLD command if supported
+- fix downloading
