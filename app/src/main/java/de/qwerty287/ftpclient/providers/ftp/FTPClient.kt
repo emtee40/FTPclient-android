@@ -4,6 +4,7 @@ import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPClient
+import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
 import java.io.InputStream
 import java.io.OutputStream
@@ -30,9 +31,12 @@ class FTPClient : Client {
             field = value
         }
 
+    private var supportsMlsCommands = false
+
     override fun login(user: String, password: String) {
         client.login(user, password)
         client.setFileType(FTP.BINARY_FILE_TYPE)
+        supportsMlsCommands = client.hasFeature(FTPCmd.MLST)
     }
 
     override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
@@ -68,11 +72,11 @@ class FTPClient : Client {
     }
 
     override fun list(): List<File> {
-        return convertFiles(client.listFiles())
+        return convertFiles(if (supportsMlsCommands) client.mlistDir() else client.listFiles())
     }
 
     override fun list(path: String?): List<File> {
-        return convertFiles(client.listFiles(path))
+        return convertFiles(if (supportsMlsCommands) client.mlistDir(path) else client.listFiles(path))
     }
 
     override fun exit(): Boolean {
