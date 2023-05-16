@@ -64,6 +64,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                 withContext(Dispatchers.IO) {
                     val uri = it.data?.data
                     if (uri != null) {
+                        val client = store.getClient()
                         val outputStream = requireContext().contentResolver.openOutputStream(uri)
                             ?.let { it1 ->
                                 CountingOutputStream(it1) { written ->
@@ -73,8 +74,9 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                                     )
                                 }
                             }
+                        dismiss()
                         val success = try {
-                            store.getClient().download(getAbsoluteFilePath(), outputStream!!)
+                            client.download(getAbsoluteFilePath(), outputStream!!)
                         } catch (e: NullPointerException) {
                             false
                         } catch (e: Exception) {
@@ -86,7 +88,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                     }
                 }
             }
-            if (it.data?.data != null) dismiss()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
