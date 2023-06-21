@@ -101,10 +101,8 @@
     <string name="sorting">Sorting</string>
     <string name="descending">Descending</string>
     <string name="security_menu">Security options</string>
-    <string-array name="security_options">
-        <item>Delete trusted certificates</item>
-        <item>Delete trusted SSH authenticities</item>
-    </string-array>
+    <string name="del_cert">Delete trusted certificates</string>
+    <string name="del_ssh_auth">Delete trusted SSH authenticities</string>
     <string name="host_key_unknown">Can\'t establish authenticity</string>
     <string name="host_key_unknown_msg">The authenticity of host "%1$s" can\'t be established.\n%2$s key fingerprint is %3$s.</string>
     <string name="host_key_changed">WARNING: Host key has changed</string>
@@ -116,4 +114,9 @@
     <string name="download_summary">Download finished: %d succeeded, %d failed</string>
     <string name="downloading_multi">Downloading: %%s (file %d/%d)</string>
     <string name="saf_integration">Enable SAF integration (Requires restart. Not supported by all servers.)</string>
+
+    <string-array name="security_options" translatable="false">
+        <item>@string/del_cert</item>
+        <item>@string/del_ssh_auth</item>
+    </string-array>
 </resources>

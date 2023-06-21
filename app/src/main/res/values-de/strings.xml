@@ -99,10 +99,8 @@
     <string name="name">Name</string>
     <string name="sorting">Sortierung</string>
     <string name="descending">Absteigend</string>
-    <string-array name="security_options">
-        <item>Vertrauenswürdige Zertifikate löschen</item>
-        <item>Vertrauenswürdige SSH-Authentizitäten löschen</item>
-    </string-array>
+    <string name="del_cert">Vertrauenswürdige Zertifikate löschen</string>
+    <string name="del_ssh_auth">Vertrauenswürdige SSH-Authentizitäten löschen</string>
     <string name="host_key_unknown">Authentizität kann nicht sichergestellt werden</string>
     <string name="host_key_unknown_msg">Die Authentizität des Hosts „%1$s“ kann nicht sichergestellt werden.\nDer Fingerabdruck des %2$s-Schlüssels ist %3$s.</string>
     <string name="host_key_changed">WARNUNG: Host-Schlüssel hat sich geändert</string>
