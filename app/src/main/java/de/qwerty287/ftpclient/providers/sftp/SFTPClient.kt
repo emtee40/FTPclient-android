@@ -7,6 +7,7 @@ import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.common.Factory
 import net.schmizz.sshj.common.SSHException
+import net.schmizz.sshj.sftp.FileMode
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
 import net.schmizz.sshj.userauth.password.PasswordUtils
@@ -14,6 +15,8 @@ import net.schmizz.sshj.xfer.InMemoryDestFile
 import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SFTPClient(private val context: Context) : Client {
 
@@ -44,7 +47,7 @@ class SFTPClient(private val context: Context) : Client {
     override var privateData: Boolean = false
 
     override fun connect(host: String, port: Int) {
-        client.addHostKeyVerifier((context as MainActivity).state.kv)
+        client.addHostKeyVerifier(KeyVerifier.fromContext(context))
         client.connect(host, port)
     }
 
@@ -67,6 +70,24 @@ class SFTPClient(private val context: Context) : Client {
             result.add(SFTPFile(it))
         }
         return result
+    }
+
+    override fun file(path: String): File {
+        val attr = sftp.stat(path)
+        return object : File {
+            override val name: String = path.split("/").last()
+            override val size: Long = attr.size
+            override val user: String = attr.uid.toString()
+            override val group: String = attr.gid.toString()
+            override val timestamp: Calendar = Calendar.getInstance().apply {
+                time = Date(attr.mtime)
+            }
+            override val isDirectory: Boolean = attr.type == FileMode.Type.DIRECTORY
+            override val isFile: Boolean = attr.type == FileMode.Type.REGULAR
+            override val isSymbolicLink: Boolean = attr.type == FileMode.Type.SYMLINK
+            override val isUnknown: Boolean = !(isDirectory || isFile || isSymbolicLink)
+            override val link: String? = null
+        }
     }
 
     override fun exit(): Boolean {

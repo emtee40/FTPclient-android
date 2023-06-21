@@ -2,12 +2,17 @@ package de.qwerty287.ftpclient.providers.sftp
 
 import android.content.Context
 import android.net.Uri
+import de.qwerty287.ftpclient.MainActivity
 import java.io.*
 
 class KeyFileManager(private val context: Context) {
     private val tempDir = File(context.cacheDir, KEY_NAMES)
 
     companion object {
+        fun fromContext(context: Context): KeyFileManager {
+            return if (context is MainActivity) context.state.kfm else KeyFileManager(context)
+        }
+
         private const val KEY_NAMES = "ssh_keys"
     }
 

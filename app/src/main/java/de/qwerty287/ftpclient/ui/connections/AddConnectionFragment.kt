@@ -188,6 +188,7 @@ class AddConnectionFragment : Fragment() {
                 binding.utf8.isVisible = c.type != Provider.SFTP
                 binding.passive.isChecked = c.passive
                 binding.passive.isVisible = c.type != Provider.SFTP
+                binding.safIntegration.isChecked = c.safIntegration
 
                 if (c.publicKey) {
                     tempKeyFile = store.kfm.finalToTemp(c.id)
@@ -220,6 +221,7 @@ class AddConnectionFragment : Fragment() {
                     binding.passive.isChecked,
                     binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
+                    binding.safIntegration.isChecked
                 )
                 connectionId = db.insert(connection).toInt()
             } else {
@@ -236,6 +238,7 @@ class AddConnectionFragment : Fragment() {
                     binding.passive.isChecked,
                     binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
+                    binding.safIntegration.isChecked,
                     connectionId!!
                 )
                 db.update(connection)

@@ -3,6 +3,7 @@ package de.qwerty287.ftpclient.data
 import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
@@ -23,6 +24,7 @@ data class Connection(
     @ColumnInfo(name = "passive") val passive: Boolean,
     @ColumnInfo(name = "private_data") val privateData: Boolean,
     @ColumnInfo(name = "start_directory") val startDirectory: String,
+    @ColumnInfo(name = "saf_integration") val safIntegration: Boolean,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 ) {
     fun client(context: Context): Client {
@@ -33,7 +35,7 @@ data class Connection(
         client.connect(server, port)
         client.passive = passive
         if (publicKey) {
-            client.loginPubKey(username, (context as MainActivity).state.kfm.file(id), password)
+            client.loginPubKey(username, KeyFileManager.fromContext(context).file(id), password)
         } else {
             client.login(username, password) // connect to server and login with login credentials
         }

@@ -5,10 +5,13 @@ import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.providers.ftp.FTPClient
+import de.qwerty287.ftpclient.providers.ftp.FTPFile
 import org.apache.commons.net.ftp.FTP
+import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.IllegalStateException
 
 class FTPSClient(private var context: Context) : Client {
     private var client: FTPSClient = FTPSClient().applyDefaults()
@@ -32,10 +35,12 @@ class FTPSClient(private var context: Context) : Client {
             else client.enterLocalActiveMode()
             field = value
         }
+    private var supportsMlsCommands = false
 
     override fun login(user: String, password: String) {
         client.login(user, password)
         client.setFileType(FTP.BINARY_FILE_TYPE)
+        supportsMlsCommands = client.hasFeature(FTPCmd.MLST)
     }
 
     override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
@@ -77,11 +82,19 @@ class FTPSClient(private var context: Context) : Client {
     }
 
     override fun list(): List<File> {
-        return FTPClient.convertFiles(client.listFiles())
+        return FTPClient.convertFiles(if (supportsMlsCommands) client.mlistDir() else client.listFiles())
     }
 
     override fun list(path: String?): List<File> {
-        return FTPClient.convertFiles(client.listFiles(path))
+        return FTPClient.convertFiles(if (supportsMlsCommands) client.mlistDir(path) else client.listFiles(path))
+    }
+
+    override fun file(path: String): File {
+        if (!supportsMlsCommands) {
+            // TODO improve this
+            throw IllegalStateException("server does not support MLST command")
+        }
+        return FTPFile(client.mlistFile(path))
     }
 
     override fun exit(): Boolean {
@@ -95,7 +108,7 @@ class FTPSClient(private var context: Context) : Client {
     private fun FTPSClient.applyDefaults(): FTPSClient {
         return apply {
             autodetectUTF8 = true
-            trustManager = (context as MainActivity).state.mtm
+            trustManager = MemorizingTrustManager.fromContext(context)
         }
     }
 }

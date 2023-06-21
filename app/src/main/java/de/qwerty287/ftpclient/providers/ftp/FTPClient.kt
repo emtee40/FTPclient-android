@@ -8,6 +8,7 @@ import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
 import java.io.InputStream
 import java.io.OutputStream
+import java.lang.IllegalStateException
 
 class FTPClient : Client {
     private val client: FTPClient = FTPClient().apply {
@@ -77,6 +78,14 @@ class FTPClient : Client {
 
     override fun list(path: String?): List<File> {
         return convertFiles(if (supportsMlsCommands) client.mlistDir(path) else client.listFiles(path))
+    }
+
+    override fun file(path: String): File {
+        if (!supportsMlsCommands) {
+            // TODO improve this
+            throw IllegalStateException("server does not support MLST command")
+        }
+        return FTPFile(client.mlistFile(path))
     }
 
     override fun exit(): Boolean {

@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.util.Base64
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -318,5 +319,8 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
             }
         }
 
+        fun fromContext(context: Context): MemorizingTrustManager {
+            return if (context is MainActivity) context.state.mtm else MemorizingTrustManager(context)
+        }
     }
 }

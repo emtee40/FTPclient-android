@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import net.schmizz.sshj.common.KeyType
 import net.schmizz.sshj.common.SecurityUtils
@@ -15,6 +16,10 @@ import kotlin.concurrent.withLock
 
 class KeyVerifier(private val context: Context) : OpenSSHKnownHosts(File(context.filesDir, FILENAME)) {
     companion object {
+        fun fromContext(context: Context): KeyVerifier {
+            return if (context is MainActivity) context.state.kv else KeyVerifier(context)
+        }
+
         private const val FILENAME = "known_hosts"
     }
 

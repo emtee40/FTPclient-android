@@ -115,4 +115,5 @@
     <string name="download_multiple">Download multiple</string>
     <string name="download_summary">Download finished: %d succeeded, %d failed</string>
     <string name="downloading_multi">Downloading: %%s (file %d/%d)</string>
+    <string name="saf_integration">Enable SAF integration (Requires restart. Not supported by all servers.)</string>
 </resources>

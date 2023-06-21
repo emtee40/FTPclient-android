@@ -20,5 +20,6 @@ interface Client {
     fun rename(old: String, new: String): Boolean
     fun list(): List<File>
     fun list(path: String?): List<File>
+    fun file(path: String): File
     fun exit(): Boolean
 }
