@@ -28,6 +28,8 @@ import de.qwerty287.ftpclient.providers.SortingFilter
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
+import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialog
+import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialogActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -401,40 +403,20 @@ class FilesFragment : Fragment() {
      */
     private fun showErrorDialog(e: Exception) {
         binding.swipeRefresh.isRefreshing = false
-        val dialog = MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.error_occurred)
-            .setMessage(R.string.error_descriptions)
-            .setPositiveButton(R.string.retry) { _: DialogInterface, _: Int ->
+        ErrorDialog(requireContext(), e, true, findNavController(), object : ErrorDialogActions {
+            override fun retry() {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
-                        store.setClient(connection) // try to reconnect
                         updateUi()
                     }
                 }
             }
-            .setOnCancelListener {
+
+            override fun close() {
                 store.exitClient()
-                findNavController().navigateUp()
             }
-            .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
-                val clipboardManager =
-                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                clipboardManager.setPrimaryClip(
-                    ClipData.newPlainText(
-                        getString(R.string.app_name),
-                        e.stackTraceToString()
-                    )
-                )
-                store.exitClient()
-                findNavController().navigateUp()
-            }
-            .setNegativeButton(R.string.ok) { _: DialogInterface, _: Int ->
-                store.exitClient()
-                findNavController().navigateUp()
-            }
-            .create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
+
+        })
     }
 
     /**

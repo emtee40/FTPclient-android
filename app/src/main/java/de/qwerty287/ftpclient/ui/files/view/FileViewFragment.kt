@@ -20,6 +20,8 @@ import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.FileExtensions
+import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialog
+import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialogActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -192,26 +194,15 @@ class FileViewFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
-                            .setTitle(R.string.error_occurred)
-                            .setMessage(R.string.error_descriptions)
-                            .setPositiveButton(R.string.ok) { d: DialogInterface, _: Int ->
-                                d.dismiss()
+                        ErrorDialog(requireContext(), e, false, findNavController(), object : ErrorDialogActions {
+                            override fun retry() {
+                                throw IllegalAccessException("unsupported")
                             }
-                            .setNeutralButton(R.string.copy) { d: DialogInterface, _: Int ->
-                                val clipboardManager =
-                                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                clipboardManager.setPrimaryClip(
-                                    ClipData.newPlainText(
-                                        getString(R.string.app_name),
-                                        e.stackTraceToString()
-                                    )
-                                )
-                                d.dismiss()
+
+                            override fun close() {
+                                store.exitClient()
                             }
-                            .create()
-                        dialog.setCanceledOnTouchOutside(false)
-                        dialog.show()
+                        })
                     }
                 }
                 withContext(Dispatchers.Main) {
