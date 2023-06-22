@@ -29,7 +29,6 @@ import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.utils.CounterSnackbar
 import de.qwerty287.ftpclient.ui.files.utils.CountingInputStream
 import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialog
-import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialogActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -386,10 +385,11 @@ class FilesFragment : Fragment() {
                 binding.root,
                 getString(R.string.downloading),
                 requireActivity(),
-                false
+                false,
             ),
-            { updateUi() }
-        ) { itBool, suc, fail -> showSnackbar(itBool, suc, fail) }
+            this::updateUi,
+            this::showSnackbar
+        )
             .show(requireActivity().supportFragmentManager, "FileActionsBottomSheet")
     }
 
@@ -403,20 +403,7 @@ class FilesFragment : Fragment() {
      */
     private fun showErrorDialog(e: Exception) {
         binding.swipeRefresh.isRefreshing = false
-        ErrorDialog(requireContext(), e, true, findNavController(), object : ErrorDialogActions {
-            override fun retry() {
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
-                        updateUi()
-                    }
-                }
-            }
-
-            override fun close() {
-                store.exitClient()
-            }
-
-        })
+        ErrorDialog(this, e, this::updateUi)
     }
 
     /**

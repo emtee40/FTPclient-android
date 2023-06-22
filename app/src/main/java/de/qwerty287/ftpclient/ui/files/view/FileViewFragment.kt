@@ -1,9 +1,5 @@
 package de.qwerty287.ftpclient.ui.files.view
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.DialogInterface
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*
@@ -13,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
@@ -21,7 +16,6 @@ import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.FileExtensions
 import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialog
-import de.qwerty287.ftpclient.ui.files.utils.error.ErrorDialogActions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -132,27 +126,7 @@ class FileViewFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        val dialog = MaterialAlertDialogBuilder(requireContext()) // show error dialog
-                            .setTitle(R.string.error_occurred)
-                            .setMessage(R.string.error_descriptions)
-                            .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                                findNavController().navigateUp()
-                            }
-                            .setOnCancelListener { findNavController().navigateUp() }
-                            .setNeutralButton(R.string.copy) { _: DialogInterface, _: Int ->
-                                val clipboardManager =
-                                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                clipboardManager.setPrimaryClip(
-                                    ClipData.newPlainText(
-                                        getString(R.string.app_name),
-                                        e.stackTraceToString()
-                                    )
-                                )
-                                findNavController().navigateUp()
-                            }
-                            .create()
-                        dialog.setCanceledOnTouchOutside(false)
-                        dialog.show()
+                        ErrorDialog(this@FileViewFragment, e)
                     }
                 }
             }
@@ -194,15 +168,7 @@ class FileViewFragment : Fragment() {
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        ErrorDialog(requireContext(), e, false, findNavController(), object : ErrorDialogActions {
-                            override fun retry() {
-                                throw NotImplementedError()
-                            }
-
-                            override fun close() {
-                                store.exitClient()
-                            }
-                        })
+                        ErrorDialog(this@FileViewFragment, e)
                     }
                 }
                 withContext(Dispatchers.Main) {

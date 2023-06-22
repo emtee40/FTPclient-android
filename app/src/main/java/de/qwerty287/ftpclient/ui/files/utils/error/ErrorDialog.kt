@@ -4,40 +4,46 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
+import de.qwerty287.ftpclient.ui.FragmentUtils.store
+import kotlinx.coroutines.withContext
 
-class ErrorDialog(context: Context, e: Exception, supportsRetry: Boolean, private val navController: NavController, private val actions: ErrorDialogActions) {
+class ErrorDialog(
+    private val fragment: Fragment,
+    e: Exception,
+    retry: (() -> Unit)? = null,
+) {
     init {
-        val dialog = MaterialAlertDialogBuilder(context) // show error dialog
+        val dialog = MaterialAlertDialogBuilder(fragment.requireContext()) // show error dialog
             .setTitle(R.string.error_occurred)
             .setMessage(R.string.error_descriptions)
             .setNegativeButton(R.string.ok) { d: DialogInterface, _: Int ->
                 cancel(d)
             }
             .apply {
-                if (supportsRetry) {
+                if (retry != null) {
                     setPositiveButton(R.string.retry) { d: DialogInterface, _: Int ->
-                        actions.retry()
+                        retry()
                         d.dismiss()
                     }
                 }
             }
             .setNeutralButton(R.string.copy) { d: DialogInterface, _: Int ->
                 val clipboardManager =
-                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    fragment.requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 clipboardManager.setPrimaryClip(
                     ClipData.newPlainText(
-                        context.getString(R.string.app_name),
+                        fragment.getString(R.string.app_name),
                         e.stackTraceToString()
                     )
                 )
                 cancel(d)
             }
-            .setOnCancelListener {
-                cancel(it)
-            }
+            .setOnCancelListener(this::cancel)
             .create()
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
@@ -45,7 +51,7 @@ class ErrorDialog(context: Context, e: Exception, supportsRetry: Boolean, privat
 
     private fun cancel(d: DialogInterface) {
         d.dismiss()
-        actions.close()
-        navController.navigateUp()
+        fragment.store.exitClient()
+        fragment.findNavController().navigateUp()
     }
 }
