@@ -1,7 +1,6 @@
 package de.qwerty287.ftpclient.providers.ftps
 
 import android.content.Context
-import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import de.qwerty287.ftpclient.providers.ftp.FTPClient
@@ -11,7 +10,6 @@ import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPSClient
 import java.io.InputStream
 import java.io.OutputStream
-import java.lang.IllegalStateException
 
 class FTPSClient(private var context: Context) : Client {
     private var client: FTPSClient = FTPSClient().applyDefaults()

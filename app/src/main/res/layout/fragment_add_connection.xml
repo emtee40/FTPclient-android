@@ -223,12 +223,12 @@
                 android:id="@+id/private_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:checked="true"
-                android:visibility="gone"
-                android:text="@string/private_data"/>
+                android:text="@string/private_data"
+                android:visibility="gone"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/start_directory_layout"
@@ -255,8 +255,8 @@
                 android:id="@+id/saf_integration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:checked="false"
                 android:text="@string/saf_integration"/>

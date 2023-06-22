@@ -14,13 +14,11 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentAddConnectionBinding
 import de.qwerty287.ftpclient.providers.Provider
-import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

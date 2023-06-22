@@ -1,7 +1,6 @@
 package de.qwerty287.ftpclient.providers.sftp
 
 import android.content.Context
-import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
@@ -16,7 +15,6 @@ import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SFTPClient(private val context: Context) : Client {
 

@@ -231,25 +231,26 @@ class MemorizingTrustManager(private var context: Context) : X509TrustManager {
         val condition = lock.newCondition()
 
         (context as Activity).runOnUiThread {
-            val materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(R.string.mtm_accept_cert).setMessage(message)
-                .setPositiveButton(R.string.mtm_decision_always) { _: DialogInterface?, _: Int ->
-                    lock.withLock {
-                        choice = true
-                        condition.signal()
+            val materialAlertDialogBuilder =
+                MaterialAlertDialogBuilder(context).setTitle(R.string.mtm_accept_cert).setMessage(message)
+                    .setPositiveButton(R.string.mtm_decision_always) { _: DialogInterface?, _: Int ->
+                        lock.withLock {
+                            choice = true
+                            condition.signal()
+                        }
                     }
-                }
-                .setNeutralButton(R.string.mtm_decision_abort) { _: DialogInterface?, _: Int ->
-                    lock.withLock {
-                        choice = false
-                        condition.signal()
+                    .setNeutralButton(R.string.mtm_decision_abort) { _: DialogInterface?, _: Int ->
+                        lock.withLock {
+                            choice = false
+                            condition.signal()
+                        }
                     }
-                }
-                .setOnCancelListener { _: DialogInterface? ->
-                    lock.withLock {
-                        choice = false
-                        condition.signal()
+                    .setOnCancelListener { _: DialogInterface? ->
+                        lock.withLock {
+                            choice = false
+                            condition.signal()
+                        }
                     }
-                }
             materialAlertDialogBuilder.show()
         }
         try {

@@ -8,7 +8,6 @@ import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
 import java.io.InputStream
 import java.io.OutputStream
-import java.lang.IllegalStateException
 
 class FTPClient : Client {
     private val client: FTPClient = FTPClient().apply {

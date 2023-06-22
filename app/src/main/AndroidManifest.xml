@@ -29,17 +29,17 @@
                 <data android:mimeType="*/*"/>
             </intent-filter>
         </activity>
-        
+
         <provider
-            android:authorities="de.qwerty287.ftpclient.storageprovider"
             android:name="de.qwerty287.ftpclient.providers.saf.Provider"
-            android:label="@string/app_name"
-            android:exported="true"
+            android:authorities="de.qwerty287.ftpclient.storageprovider"
             android:enabled="true"
+            android:exported="true"
             android:grantUriPermissions="true"
+            android:label="@string/app_name"
             android:permission="android.permission.MANAGE_DOCUMENTS">
             <intent-filter>
-                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER"/>
             </intent-filter>
         </provider>
     </application>

@@ -41,15 +41,20 @@ class DownloadMultipleDialog(fragment: FilesFragment) {
                             val df = DocumentFile.fromTreeUri(requireContext(), uri)!!
                             selected.forEach { file ->
                                 val docFile = df.createFile("", file.name)!!
-                                val sb = CounterSnackbar(view!!,
-                                    getString(R.string.downloading_multi, succeeded + failed + 1,
-                                        selected.size), requireActivity())
-                                val outputStream = CountingOutputStream(requireContext().contentResolver.openOutputStream(docFile.uri)!!) { written ->
+                                val sb = CounterSnackbar(
+                                    view!!,
+                                    getString(
+                                        R.string.downloading_multi, succeeded + failed + 1,
+                                        selected.size
+                                    ), requireActivity()
+                                )
+                                val outputStream =
+                                    CountingOutputStream(requireContext().contentResolver.openOutputStream(docFile.uri)!!) { written ->
                                         sb.update(
                                             written,
                                             file.size.toInt()
                                         )
-                                }
+                                    }
                                 val s = try {
                                     store.getClient().download(getAbsoluteFilePath(file.name), outputStream)
                                 } catch (e: NullPointerException) {
@@ -66,7 +71,11 @@ class DownloadMultipleDialog(fragment: FilesFragment) {
                                     failed++
                                 }
                             }
-                            Snackbar.make(view!!, getString(R.string.download_summary, succeeded, failed), Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                view!!,
+                                getString(R.string.download_summary, succeeded, failed),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                             reset()
                         }
                     }

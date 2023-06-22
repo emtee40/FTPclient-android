@@ -5,12 +5,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
-import kotlinx.coroutines.withContext
 
 class ErrorDialog(
     private val fragment: Fragment,

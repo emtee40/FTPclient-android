@@ -21,8 +21,9 @@ class Provider : DocumentsProvider() {
     companion object {
         private fun fileToMap(file: File, dr: DocRepresentation, parent: Boolean): HashMap<String, Any?> {
             val meta = HashMap<String, Any?>()
-            meta[DocumentsContract.Document.COLUMN_DOCUMENT_ID] = (if(parent) dr.child(file.name) else dr).toString()
-            meta[DocumentsContract.Document.COLUMN_MIME_TYPE] = if (file.isDirectory) DocumentsContract.Document.MIME_TYPE_DIR else mimeFromFile(file.name)
+            meta[DocumentsContract.Document.COLUMN_DOCUMENT_ID] = (if (parent) dr.child(file.name) else dr).toString()
+            meta[DocumentsContract.Document.COLUMN_MIME_TYPE] =
+                if (file.isDirectory) DocumentsContract.Document.MIME_TYPE_DIR else mimeFromFile(file.name)
             meta[DocumentsContract.Document.COLUMN_DISPLAY_NAME] = file.name
             meta[DocumentsContract.Document.COLUMN_SUMMARY] = null
             meta[DocumentsContract.Document.COLUMN_LAST_MODIFIED] = file.timestamp.timeInMillis
@@ -37,7 +38,8 @@ class Provider : DocumentsProvider() {
         }
 
         private fun mimeFromFile(name: String): String {
-            return MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(name)) ?: "application/octet-stream"
+            return MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(name))
+                ?: "application/octet-stream"
             // TODO: find an unspecific mime
         }
 
@@ -152,13 +154,14 @@ class Provider : DocumentsProvider() {
             throw RuntimeException("could not download file")
         }
 
-        return ParcelFileDescriptor.open(localFile, when (mode) {
-            // TODO writable?
-            "r" -> ParcelFileDescriptor.MODE_READ_ONLY
-            "rw" -> ParcelFileDescriptor.MODE_READ_WRITE
-            "w" -> ParcelFileDescriptor.MODE_WRITE_ONLY
-            else -> throw IllegalArgumentException("mode \"$mode\" is not supported")
-        }, Handler(context!!.mainLooper) // TODO check this
+        return ParcelFileDescriptor.open(
+            localFile, when (mode) {
+                // TODO writable?
+                "r" -> ParcelFileDescriptor.MODE_READ_ONLY
+                "rw" -> ParcelFileDescriptor.MODE_READ_WRITE
+                "w" -> ParcelFileDescriptor.MODE_WRITE_ONLY
+                else -> throw IllegalArgumentException("mode \"$mode\" is not supported")
+            }, Handler(context!!.mainLooper) // TODO check this
         ) {
             if (mode == "rw" || mode == "w") {
                 client.upload(File.joinPaths(conn.startDirectory, dr.name), FileInputStream(localFile))
@@ -185,7 +188,11 @@ class Provider : DocumentsProvider() {
         val oldDisplayName = dr.name.split("/").last()
         val newName = dr.name.removeSuffix(oldDisplayName) + displayName
         val newDr = DocRepresentation(conn.id, newName)
-        if (!client.rename(File.joinPaths(conn.startDirectory, dr.name), File.joinPaths(conn.startDirectory, newDr.name))) {
+        if (!client.rename(
+                File.joinPaths(conn.startDirectory, dr.name),
+                File.joinPaths(conn.startDirectory, newDr.name)
+            )
+        ) {
             throw RuntimeException("could not rename file")
         }
         return newDr.toString()

@@ -1,6 +1,7 @@
 package de.qwerty287.ftpclient.ui.files
 
-import android.content.*
+import android.content.DialogInterface
+import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
