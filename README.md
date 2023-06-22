@@ -1,6 +1,6 @@
-# FTPClient - A simple FTP, FTPS and SFTP client for Android
+# FTPClient - Simple FTP, FTPS and SFTP client for Android
 
-FTPClient is a very simple FTP client for Android 5.0+,
+FTPClient is a very simple FTP, FPTS and SFTP client for Android 5.0+,
 using [Apache Commons Net](https://commons.apache.org/proper/commons-net/) for FTP and FTPS
 and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
 
@@ -18,4 +18,18 @@ and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
 * view text and image files
 * edit text files
 
-<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/001.png" width="300"> <img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/002.png" width="300"> <img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/003.png" width="300"> <img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/004.png" width="300">
+## Screenshots
+
+<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/001.png" width="300">
+<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/002.png" width="300">
+<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/003.png" width="300">
+<img src="https://codeberg.org/qwerty287/ftpclient/raw/branch/main/fastlane/metadata/android/en-US/images/phoneScreenshots/004.png" width="300">
+
+## Troubleshooting
+
+Before opening an issue, please take a look at the following information which may help to fix your issue.
+
+### FTPS
+
+If FPTClient can't connect to your server or does not view any files, please try toggling the "Use passive mode" and
+"Use private data connection" checkboxes, also in any combination.
