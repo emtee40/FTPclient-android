@@ -9,12 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import de.qwerty287.ftpclient.MainActivity
 import de.qwerty287.ftpclient.R
 import de.qwerty287.ftpclient.data.AppDatabase
 import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.BottomSheetConnectionActionsBinding
-import de.qwerty287.ftpclient.providers.sftp.KeyFileManager
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import kotlinx.coroutines.launch
 
@@ -56,26 +54,24 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.deleteConnection.setOnClickListener {
-            lifecycleScope.launch {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(R.string.delete_connection_confirmation)
-                    .setMessage(R.string.delete_connection_message)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                        lifecycleScope.launch {
-                            db.bookmarkDao().getAllByConnection(connection.id.toLong()).forEach {
-                                db.bookmarkDao().delete(it)
-                            }
-                            if (connection.publicKey) {
-                                store.kfm.delete(connection.id)
-                            }
-                            db.connectionDao().delete(connection)
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.delete_connection_confirmation)
+                .setMessage(R.string.delete_connection_message)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
+                    lifecycleScope.launch {
+                        db.bookmarkDao().getAllByConnection(connection.id.toLong()).forEach {
+                            db.bookmarkDao().delete(it)
                         }
+                        if (connection.publicKey) {
+                            store.kfm.delete(connection.id)
+                        }
+                        db.connectionDao().delete(connection)
                     }
-                    .create()
-                    .show()
-                dismiss()
-            }
+                }
+                .create()
+                .show()
+            dismiss()
         }
 
         binding.editConnection.setOnClickListener {

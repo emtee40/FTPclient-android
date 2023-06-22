@@ -53,19 +53,17 @@ class BookmarkActionsBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.deleteBookmark.setOnClickListener {
-            lifecycleScope.launch {
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(R.string.delete_bookmark_confirmation)
-                    .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
-                        lifecycleScope.launch {
-                            db.bookmarkDao().delete(bookmark)
-                        }
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.delete_bookmark_confirmation)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
+                    lifecycleScope.launch {
+                        db.bookmarkDao().delete(bookmark)
                     }
-                    .create()
-                    .show()
-                dismiss()
-            }
+                }
+                .create()
+                .show()
+            dismiss()
         }
 
         binding.editBookmark.setOnClickListener {
