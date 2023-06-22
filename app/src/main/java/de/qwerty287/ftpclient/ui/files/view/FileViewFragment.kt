@@ -196,7 +196,7 @@ class FileViewFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         ErrorDialog(requireContext(), e, false, findNavController(), object : ErrorDialogActions {
                             override fun retry() {
-                                throw IllegalAccessException("unsupported")
+                                throw NotImplementedError()
                             }
 
                             override fun close() {
