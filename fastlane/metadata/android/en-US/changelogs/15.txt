@@ -1,2 +1,2 @@
-- experimental suppport for SAF integration
+- experimental support for SAF integration
 - various code improvements and cleanups
