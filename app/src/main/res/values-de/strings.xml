@@ -41,8 +41,8 @@
     <string name="dir_delete_message">Das Verzeichnis muss leer sein. Wenn es nicht leer ist, wird nichts passieren.</string>
     <string name="upload_completed">Upload abgeschlossen</string>
     <string name="upload_failed">Upload fehlgeschlagen</string>
-    <string name="download_completed">Download abgeschlossen</string>
-    <string name="download_failed">Download fehlgeschlagen</string>
+    <string name="download_completed">Herunterladen abgeschlossen</string>
+    <string name="download_failed">Herunterladen fehlgeschlagen</string>
     <string name="directory_is_empty">Verzeichnis ist leer</string>
     <string name="delete_completed">Löschen abgeschlossen</string>
     <string name="deletion_failed">Löschen fehlgeschlagen</string>
