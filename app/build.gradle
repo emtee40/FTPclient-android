@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.devtools.ksp'
 }
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdk 33
@@ -50,7 +50,7 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
     implementation 'androidx.room:room-ktx:2.5.2'
-    kapt 'androidx.room:room-compiler:2.5.2'
+    ksp 'androidx.room:room-compiler:2.5.2'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }
