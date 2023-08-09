@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: androidsdk/android-30
+    image: alvrme/alpine-android:android-33-jdk17
     commands:
       - ./gradlew :app:assembleDebug
   publish:
