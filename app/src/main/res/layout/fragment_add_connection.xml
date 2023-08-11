@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="72dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="72dp">
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/type_group"
@@ -194,8 +194,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:visibility="gone"
-                    android:text="@string/select_key_file"/>
+                    android:text="@string/select_key_file"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
