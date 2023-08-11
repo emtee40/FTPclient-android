@@ -146,7 +146,10 @@ class AddConnectionFragment : Fragment() {
             result.launch(Intent.createChooser(requestFileIntent, getString(R.string.select_file)))
         }
 
-        binding.publicKey.setOnCheckedChangeListener { _, _ -> checkInputs() }
+        binding.publicKey.setOnCheckedChangeListener { _, checked ->
+            binding.selectKeyFile.isVisible = checked
+            checkInputs()
+        }
 
         binding.addConnection.setOnClickListener {
             storeConnection()
