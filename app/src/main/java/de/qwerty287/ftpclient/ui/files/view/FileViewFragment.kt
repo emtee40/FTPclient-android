@@ -1,6 +1,5 @@
 package de.qwerty287.ftpclient.ui.files.view
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -47,7 +46,6 @@ class FileViewFragment : Fragment() {
         return binding.root
 
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,16 +70,11 @@ class FileViewFragment : Fragment() {
                         binding.loading.isVisible = false
                         if (isImage) {
                             binding.textView.isVisible = false
-                            val byteArray = ByteArray(byteList.size)
-                            for (i in 0 until byteList.size) {
-                                byteArray[i] = byteList[i].toByte()
-                            }
-                            val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteList.size)
-                            if (bmp == null) {
+                            try {
+                                BitmapLoader.load(byteList, binding.imageView)
+                            } catch (e: BitmapLoader.LoadException) {
                                 Toast.makeText(requireContext(), R.string.bad_file, Toast.LENGTH_LONG).show()
                                 findNavController().navigateUp()
-                            } else {
-                                binding.imageView.setImageBitmap(bmp)
                             }
                         } else {
                             binding.imageView.isVisible = false
