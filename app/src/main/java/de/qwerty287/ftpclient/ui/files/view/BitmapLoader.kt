@@ -5,9 +5,7 @@ import android.graphics.BitmapFactory
 import android.widget.ImageView
 
 internal object BitmapLoader {
-    class LoadException : Exception() {
-
-    }
+    class LoadException : Exception()
 
     fun load(byteList: ArrayList<Int>, iv: ImageView) {
         val byteArray = ByteArray(byteList.size)
