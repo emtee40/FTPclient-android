@@ -74,7 +74,7 @@ class AddConnectionFragment : Fragment() {
         binding.addConnection.isClickable = (!(binding.title.text.isNullOrBlank() ||
                 binding.server.text.isNullOrBlank() ||
                 binding.port.text.isNullOrBlank())) &&
-                (!(binding.publicKey.isChecked && binding.typeGroup.checkedButtonId == R.id.type_sftp) || tempKeyFile != null)
+                (!(binding.privateKey.isChecked && binding.typeGroup.checkedButtonId == R.id.type_sftp) || tempKeyFile != null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,7 +106,7 @@ class AddConnectionFragment : Fragment() {
             binding.privateData.isVisible = false
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
-            binding.publicKeyLayout.isVisible = false
+            binding.privateKeyLayout.isVisible = false
             if (!portChanged) {
                 binding.port.setText(FTPClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -119,7 +119,7 @@ class AddConnectionFragment : Fragment() {
             binding.privateData.isVisible = true
             binding.utf8.isVisible = true
             binding.passive.isVisible = true
-            binding.publicKeyLayout.isVisible = false
+            binding.privateKeyLayout.isVisible = false
             if (!portChanged) {
                 binding.port.setText(FTPSClient.DEFAULT_FTPS_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -132,7 +132,7 @@ class AddConnectionFragment : Fragment() {
             binding.privateData.isVisible = false
             binding.utf8.isVisible = false
             binding.passive.isVisible = false
-            binding.publicKeyLayout.isVisible = true
+            binding.privateKeyLayout.isVisible = true
             if (!portChanged) {
                 binding.port.setText(SSHClient.DEFAULT_PORT.toString())
                 // undo because doOnTextChanged is called
@@ -146,7 +146,7 @@ class AddConnectionFragment : Fragment() {
             result.launch(Intent.createChooser(requestFileIntent, getString(R.string.select_file)))
         }
 
-        binding.publicKey.setOnCheckedChangeListener { _, checked ->
+        binding.privateKey.setOnCheckedChangeListener { _, checked ->
             binding.selectKeyFile.isVisible = checked
             checkInputs()
         }
@@ -170,8 +170,8 @@ class AddConnectionFragment : Fragment() {
                 binding.server.setText(c.server)
                 binding.port.setText(c.port.toString())
                 binding.user.setText(c.username)
-                binding.publicKeyLayout.isVisible = c.type == Provider.SFTP
-                binding.publicKey.isChecked = c.publicKey
+                binding.privateKeyLayout.isVisible = c.type == Provider.SFTP
+                binding.privateKey.isChecked = c.privateKey
                 binding.password.setText(c.password)
                 binding.startDirectory.setText(c.startDirectory)
                 binding.typeGroup.check(
@@ -191,7 +191,7 @@ class AddConnectionFragment : Fragment() {
                 binding.passive.isVisible = c.type != Provider.SFTP
                 binding.safIntegration.isChecked = c.safIntegration
 
-                if (c.publicKey) {
+                if (c.privateKey) {
                     tempKeyFile = store.kfm.finalToTemp(c.id)
                 }
             }
@@ -207,7 +207,7 @@ class AddConnectionFragment : Fragment() {
                 R.id.type_sftp -> Provider.SFTP
                 else -> Provider.FTP
             }
-            val pubKey = binding.publicKey.isChecked && prov == Provider.SFTP
+            val pubKey = binding.privateKey.isChecked && prov == Provider.SFTP
             if (connectionId == null) {
                 val connection = Connection(
                     binding.title.text.toString(),

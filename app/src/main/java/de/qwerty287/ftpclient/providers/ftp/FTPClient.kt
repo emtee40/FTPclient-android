@@ -39,8 +39,8 @@ class FTPClient : Client {
         supportsMlsCommands = client.hasFeature(FTPCmd.MLST)
     }
 
-    override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
-        throw NotImplementedError("FTP does not support public keys")
+    override fun loginPrivKey(user: String, key: java.io.File, passphrase: String) {
+        throw NotImplementedError("FTP does not support private keys")
     }
 
     override val isConnected: Boolean

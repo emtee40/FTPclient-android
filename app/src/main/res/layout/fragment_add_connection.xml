@@ -173,7 +173,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
-                android:id="@+id/public_key_layout"
+                android:id="@+id/private_key_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -181,13 +181,13 @@
                 tools:visibility="visible">
 
                 <CheckBox
-                    android:id="@+id/public_key"
+                    android:id="@+id/private_key"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/public_key"/>
+                    android:text="@string/private_key"/>
 
                 <Button
                     android:id="@+id/select_key_file"

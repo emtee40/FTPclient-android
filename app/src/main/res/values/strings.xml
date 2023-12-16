@@ -73,7 +73,7 @@
     <string name="implicit">Implicit connection</string>
     <string name="utf8">Use UTF-8</string>
     <string name="passive">Use passive mode</string>
-    <string name="public_key">Use public key</string>
+    <string name="private_key">Use private key</string>
     <string name="select_key_file">Select key</string>
     <string name="key_error">Couldn\'t parse key</string>
     <string name="upload_file">Upload file</string>

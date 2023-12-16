@@ -63,7 +63,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                         db.bookmarkDao().getAllByConnection(connection.id.toLong()).forEach {
                             db.bookmarkDao().delete(it)
                         }
-                        if (connection.publicKey) {
+                        if (connection.privateKey) {
                             store.kfm.delete(connection.id)
                         }
                         db.connectionDao().delete(connection)
@@ -87,7 +87,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.server,
                 connection.port,
                 connection.username,
-                connection.publicKey,
+                connection.privateKey,
                 connection.password,
                 connection.type,
                 connection.implicit,
@@ -99,7 +99,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
             )
             lifecycleScope.launch {
                 val newId = db.connectionDao().insert(newConn)
-                if (connection.publicKey) {
+                if (connection.privateKey) {
                     store.kfm.copy(connection.id, newId.toInt())
                 }
             }

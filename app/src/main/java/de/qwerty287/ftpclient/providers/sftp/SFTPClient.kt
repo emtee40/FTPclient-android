@@ -29,7 +29,7 @@ class SFTPClient(private val context: Context) : Client {
         client.authPassword(user, password)
     }
 
-    override fun loginPubKey(user: String, key: java.io.File, passphrase: String) {
+    override fun loginPrivKey(user: String, key: java.io.File, passphrase: String) {
         val format = KeyProviderUtil.detectKeyFileFormat(key)
         val fkp = Factory.Named.Util.create(
             client.transport.config.fileKeyProviderFactories,

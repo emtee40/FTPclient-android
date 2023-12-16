@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Connection::class, Bookmark::class], version = 12, exportSchema = false)
+@Database(entities = [Connection::class, Bookmark::class], version = 13, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun connectionDao(): ConnectionDao
     abstract fun bookmarkDao(): BookmarkDao
@@ -87,6 +87,11 @@ abstract class AppDatabase : RoomDatabase() {
                                 database.execSQL("ALTER TABLE 'connections' ADD COLUMN 'saf_integration' INTEGER NOT NULL DEFAULT 0")
                             }
                         },
+                        object : Migration(12, 13) {
+                            override fun migrate(database: SupportSQLiteDatabase) {
+                                database.execSQL("ALTER TABLE 'connections' RENAME COLUMN 'public_key' TO 'private_key';")
+                            }
+                        }
                     )
                     .build().also { instance = it }
             }

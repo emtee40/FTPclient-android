@@ -69,7 +69,7 @@
     <string name="connection_type_sftp">SFTP</string>
     <string name="implicit">Implizite Verbindung</string>
     <string name="utf8">UTF-8 verwenden</string>
-    <string name="public_key">Öffentlichen Schlüssel verwenden</string>
+    <string name="private_key">Privaten Schlüssel verwenden</string>
     <string name="select_key_file">Schlüssel auswählen</string>
     <string name="key_error">Schlüssel konnte nicht gelesen werden</string>
     <string name="passive">Passiven Modus verwenden</string>

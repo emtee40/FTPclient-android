@@ -14,7 +14,7 @@ data class Connection(
     @ColumnInfo(name = "server") val server: String,
     @ColumnInfo(name = "port") val port: Int,
     @ColumnInfo(name = "username") val username: String,
-    @ColumnInfo(name = "public_key") val publicKey: Boolean,
+    @ColumnInfo(name = "private_key") val privateKey: Boolean,
     @ColumnInfo(name = "password") val password: String,
     @ColumnInfo(name = "type") val type: Provider,
     @ColumnInfo(name = "implicit") val implicit: Boolean,
@@ -32,8 +32,8 @@ data class Connection(
         client.utf8 = utf8
         client.connect(server, port)
         client.passive = passive
-        if (publicKey) {
-            client.loginPubKey(username, KeyFileManager.fromContext(context).file(id), password)
+        if (privateKey) {
+            client.loginPrivKey(username, KeyFileManager.fromContext(context).file(id), password)
         } else {
             client.login(username, password) // connect to server and login with login credentials
         }

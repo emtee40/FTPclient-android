@@ -45,12 +45,12 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.5'
 
-    implementation 'commons-net:commons-net:3.8.0'
+    implementation 'commons-net:commons-net:3.9.0'
     implementation 'com.hierynomus:sshj:0.33.0'
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
-    implementation 'androidx.room:room-ktx:2.5.2'
-    ksp 'androidx.room:room-compiler:2.5.2'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    ksp 'androidx.room:room-compiler:2.6.1'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 }
