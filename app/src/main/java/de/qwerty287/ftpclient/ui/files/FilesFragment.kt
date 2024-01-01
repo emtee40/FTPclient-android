@@ -50,6 +50,7 @@ class FilesFragment : Fragment() {
     private val sortingFilter = SortingFilter()
     private lateinit var files: List<File>
     private val downloadMultipleDialog = DownloadMultipleDialog(this)
+    private lateinit var downloadMultipleMenuItem: MenuItem
 
     private val result: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -148,6 +149,7 @@ class FilesFragment : Fragment() {
                     }
                 )?.isChecked = true
                 menu.findItem(R.id.sort_descending)?.isChecked = sortingFilter.descending
+                downloadMultipleMenuItem = menu.findItem(R.id.download_multiple)!!
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -289,11 +291,11 @@ class FilesFragment : Fragment() {
      * Update the UI. This:
      * * connects to the server and logins with the login credentials
      * * retrieves the file list from the FTP server
-     * * and setups the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
+     * * and sets up the [RecyclerView][androidx.recyclerview.widget.RecyclerView] or shows a [TextView][android.widget.TextView] if the directory contains nothing
      */
     private fun updateUi() {
         if (_binding == null) {
-            // seems that this isn't ready yet
+            // it seems that this isn't ready yet
             return
         }
 
@@ -325,6 +327,7 @@ class FilesFragment : Fragment() {
                     )
 
                     withContext(Dispatchers.Main) {
+                        downloadMultipleMenuItem.isVisible = DownloadMultipleDialog.available(files)
                         if (files.isEmpty()) { // set up RecyclerView or TextView
                             binding.textviewEmptyDir.isVisible = true
                             binding.recyclerviewFiles.isVisible = false

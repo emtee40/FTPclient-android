@@ -112,4 +112,5 @@
     <string name="download_summary">Herunterladen abgeschlossen: %d erfolgreich, %d fehlgeschlagen</string>
     <string name="downloading_multi">Herunterladen: %%s (Datei %d/%d)</string>
     <string name="saf_integration">SAF-Integration aktivieren (Erfordert Neustart. Nicht von allen Servern unterstützt.)</string>
+    <string name="download_all">Alle herunterladen</string>
 </resources>

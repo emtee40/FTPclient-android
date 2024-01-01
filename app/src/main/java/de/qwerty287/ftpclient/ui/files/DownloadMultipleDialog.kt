@@ -97,6 +97,10 @@ class DownloadMultipleDialog(fragment: FilesFragment) {
                 }
             }
             .setNegativeButton(R.string.cancel) { _, _ -> reset() }
+            .setNeutralButton(R.string.download_all) { _, _ ->
+                selected = ArrayList(onlyFiles)
+                result.launch(Intent(Intent.ACTION_OPEN_DOCUMENT_TREE))
+            }
             .setPositiveButton(R.string.download_file) { _, _ ->
                 if (selected.size < 1) {
                     reset()
@@ -108,5 +112,11 @@ class DownloadMultipleDialog(fragment: FilesFragment) {
                 reset()
             }
             .show()
+    }
+
+    companion object {
+        fun available(files: List<File>): Boolean {
+            return files.any { it.isFile }
+        }
     }
 }
