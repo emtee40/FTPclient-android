@@ -14,4 +14,4 @@ steps:
       - GITEA_RELEASE_ATTACHER_PATH=app/build/outputs/apk/debug/app-debug.apk
     secrets: [ GITEA_RELEASE_ATTACHER_TOKEN ]
     when:
-      event: [ push, tag, deployment ]
+      event: [ push, tag ]
