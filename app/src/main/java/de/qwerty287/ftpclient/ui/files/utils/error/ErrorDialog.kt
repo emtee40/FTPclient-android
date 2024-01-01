@@ -16,6 +16,7 @@ class ErrorDialog(
     retry: (() -> Unit)? = null,
 ) {
     init {
+        e.printStackTrace()
         val dialog = MaterialAlertDialogBuilder(fragment.requireContext()) // show error dialog
             .setTitle(R.string.error_occurred)
             .setMessage(R.string.error_descriptions)

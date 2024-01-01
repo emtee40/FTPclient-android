@@ -30,14 +30,8 @@ class SFTPClient(private val context: Context) : Client {
     }
 
     override fun loginPrivKey(user: String, key: java.io.File, passphrase: String) {
-        val format = KeyProviderUtil.detectKeyFileFormat(key)
-        val fkp = Factory.Named.Util.create(
-            client.transport.config.fileKeyProviderFactories,
-            format.toString()
-        )
-            ?: throw SSHException("No provider available for $format key file")
-        fkp.init(key, PasswordUtils.createOneOff(passphrase.toCharArray()))
-        client.authPublickey(user, fkp)
+        val kp = client.loadKeys(key.path, passphrase)
+        client.authPublickey(user, kp)
     }
 
     override val isConnected: Boolean
