@@ -1,0 +1,2 @@
+- fix private/public key wording
+- various UI fixes and improvements
