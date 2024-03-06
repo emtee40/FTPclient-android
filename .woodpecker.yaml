@@ -1,17 +1,12 @@
 steps:
-  build:
+  - name: build
     image: alvrme/alpine-android:android-34-jdk17
     commands:
       - ./gradlew :app:assembleDebug
-  publish:
-    image: qwerty287/gitea-release-attacher:v1.1.0
-    environment:
-      - GITEA_RELEASE_ATTACHER_INSTANCE=https://codeberg.org
-      - GITEA_RELEASE_ATTACHER_USER=qwerty287
-      - GITEA_RELEASE_ATTACHER_REPO=ftpclient
-      - GITEA_RELEASE_ATTACHER_REMOVE_OTHERS=1
-      - GITEA_RELEASE_ATTACHER_FILENAME=debug.apk
-      - GITEA_RELEASE_ATTACHER_PATH=app/build/outputs/apk/debug/app-debug.apk
-    secrets: [ GITEA_RELEASE_ATTACHER_TOKEN ]
+    event: [pull_request, push, tag]
+  - name: publish
+    image: curlimages/curl
+    commands: 'curl --user qwerty287:$CODEBERG_TOKEN --upload-file app/build/outputs/apk/debug/app-debug.apk "https://codeberg.org/api/packages/qwerty287/generic/ftpclient_debug/$CI_COMMIT_SHA/debug.apk"'
+    secrets: [ CODEBERG_TOKEN ]
     when:
-      event: [ push, tag ]
+      event: push
