@@ -4,17 +4,10 @@ import android.content.Context
 import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
-import net.schmizz.sshj.common.Factory
 import net.schmizz.sshj.common.LoggerFactory
-import net.schmizz.sshj.common.SSHException
 import net.schmizz.sshj.common.StreamCopier
 import net.schmizz.sshj.sftp.FileMode
-import net.schmizz.sshj.sftp.OpenMode
-import net.schmizz.sshj.sftp.RemoteFile.RemoteFileInputStream
 import net.schmizz.sshj.sftp.SFTPClient
-import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
-import net.schmizz.sshj.userauth.password.PasswordUtils
-import net.schmizz.sshj.xfer.InMemoryDestFile
 import net.schmizz.sshj.xfer.InMemorySourceFile
 import java.io.InputStream
 import java.io.OutputStream

@@ -14,7 +14,8 @@ internal object BitmapLoader {
         }
 
 
-        val bmp = decodeSampledBitmapFromResource(byteArray, byteList.size, iv.width, iv.height) ?: throw LoadException()
+        val bmp =
+            decodeSampledBitmapFromResource(byteArray, byteList.size, iv.width, iv.height) ?: throw LoadException()
         iv.setImageBitmap(bmp)
     }
 
