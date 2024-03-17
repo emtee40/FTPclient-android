@@ -5,8 +5,12 @@ import de.qwerty287.ftpclient.providers.Client
 import de.qwerty287.ftpclient.providers.File
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.common.Factory
+import net.schmizz.sshj.common.LoggerFactory
 import net.schmizz.sshj.common.SSHException
+import net.schmizz.sshj.common.StreamCopier
 import net.schmizz.sshj.sftp.FileMode
+import net.schmizz.sshj.sftp.OpenMode
+import net.schmizz.sshj.sftp.RemoteFile.RemoteFileInputStream
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.userauth.keyprovider.KeyProviderUtil
 import net.schmizz.sshj.userauth.password.PasswordUtils
@@ -89,11 +93,7 @@ class SFTPClient(private val context: Context) : Client {
     }
 
     override fun download(name: String, stream: OutputStream): Boolean {
-        sftp.fileTransfer.download(name, object : InMemoryDestFile() {
-            override fun getOutputStream(): OutputStream {
-                return stream
-            }
-        })
+        StreamCopier(sftp.open(name).RemoteFileInputStream(), stream, LoggerFactory.DEFAULT).copy()
         return true
     }
 
