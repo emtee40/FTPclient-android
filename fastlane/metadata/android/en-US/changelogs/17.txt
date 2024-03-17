@@ -1,0 +1,4 @@
+- Add "Download all" button
+- Fix downloading
+- Fix deleting
+- Update dependencies, including two security fixes
