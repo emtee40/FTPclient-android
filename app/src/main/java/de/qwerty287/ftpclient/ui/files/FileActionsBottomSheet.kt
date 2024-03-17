@@ -155,14 +155,15 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
                     setMessage(R.string.dir_delete_message)
                 }
                 setNegativeButton(R.string.cancel, null)
+                val client = store.getClient()
                 setPositiveButton(R.string.ok) { _: DialogInterface, _: Int ->
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
                                 if (file.isFile) {
-                                    store.getClient().rm(getAbsoluteFilePath())
+                                    client.rm(getAbsoluteFilePath())
                                 } else {
-                                    store.getClient().rmDir(getAbsoluteFilePath())
+                                    client.rmDir(getAbsoluteFilePath())
                                 }
                             } catch (e: Exception) {
                                 e.printStackTrace()
