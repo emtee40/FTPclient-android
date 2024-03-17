@@ -39,8 +39,8 @@
     <string name="enter_dir_name">Verzeichnisname eingeben</string>
     <string name="delete_dir_confirmation">Möchten Sie dieses Verzeichnis wirklich löschen?</string>
     <string name="dir_delete_message">Das Verzeichnis muss leer sein. Wenn es nicht leer ist, wird nichts passieren.</string>
-    <string name="upload_completed">Upload abgeschlossen</string>
-    <string name="upload_failed">Upload fehlgeschlagen</string>
+    <string name="upload_completed">Hochladen abgeschlossen</string>
+    <string name="upload_failed">Hochladen fehlgeschlagen</string>
     <string name="download_completed">Herunterladen abgeschlossen</string>
     <string name="download_failed">Herunterladen fehlgeschlagen</string>
     <string name="directory_is_empty">Verzeichnis ist leer</string>
@@ -63,7 +63,7 @@
     <string name="delete_bookmark_confirmation">Möchten Sie dieses Lesezeichen wirklich löschen?</string>
     <string name="delete_connection_message">Das wird alle Lesezeichen dieser Verbindung löschen.</string>
     <string name="add_directory">Verzechnis hinzufügen</string>
-    <string name="upload_summary">Upload beendet: %d erfolgreich, %d fehlgeschlagen</string>
+    <string name="upload_summary">Hochladen beendet: %d erfolgreich, %d fehlgeschlagen</string>
     <string name="connection_type_ftp">FTP</string>
     <string name="connection_type_ftps">FTPS</string>
     <string name="connection_type_sftp">SFTP</string>
