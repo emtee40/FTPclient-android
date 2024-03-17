@@ -121,7 +121,11 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
                     if (client != null && client!!.isConnected) {
-                        client!!.exit()
+                        try {
+                            client!!.exit()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
                     }
                 }
             }
