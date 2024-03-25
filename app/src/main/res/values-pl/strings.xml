@@ -1,2 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="file_content">Zawartość pliku</string>
+    <string name="app_name">FTPClient</string>
+    <string name="connections_fragment_label">Połączenia</string>
+    <string name="files_fragment_label">Pliki</string>
+    <string name="download_file">Pobierz</string>
+    <string name="add_connection">Dodaj połączenie</string>
+    <string name="edit_connection">Edytuj połączenie</string>
+    <string name="title">Tytuł</string>
+    <string name="password">Hasło</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="server">Serwer</string>
+    <string name="error_occurred">Wystąpił błąd</string>
+    <string name="file_properties">Właściwości</string>
+    <string name="filename">Nazwa pliku</string>
+    <string name="size">Rozmiar</string>
+    <string name="owner">Właściciel</string>
+    <string name="bytes">%d bajtów</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="delete">Usuń</string>
+    <string name="delete_confirmation">Czy na pewno chcesz usunąć ten plik?</string>
+    <string name="cancel">Anuluj</string>
+    <string name="ok">Ok</string>
+    <string name="retry">Ponów</string>
+    <string name="copy">Kopiuj</string>
+    <string name="no_connections">Brak połączeń</string>
+    <string name="add_file">Dodaj plik</string>
+    <string name="select_file">Wybierz plik</string>
+    <string name="delete_connection_confirmation">Czy na pewno chcesz usunąć to połączenie?</string>
+    <string name="edit">Edytuj</string>
+    <string name="rename">Zmień nazwę</string>
+    <string name="new_filename">Nowa nazwa pliku</string>
+    <string name="enter_new_filename">Wprowadź nową nazwę pliku</string>
+    <string name="group">Grupa</string>
+    <string name="dir_name">Nazwa katalogu</string>
+    <string name="enter_dir_name">Wprowadź nazwę katalogu</string>
+    <string name="directory_is_empty">Katalog jest pusty</string>
+    <string name="key_error">Nie można uzyskać klucza</string>
+    <string name="upload_completed">Zakończono wysyłanie</string>
+    <string name="upload_failed">Wysyłanie nie powiodło się</string>
+    <string name="download_completed">Pobieranie zakończone</string>
+    <string name="download_failed">Pobieranie nie powiodło się</string>
+    <string name="delete_completed">Zakończono usuwanie</string>
+    <string name="deletion_failed">Usuwanie nie powiodło się</string>
+    <string name="renaming_completed">Zmieniono nazwę</string>
+    <string name="renaming_failed">Zmiana nazwy nie powiodła się</string>
+    <string name="dir_creation_completed">Utworzono katalog</string>
+    <string name="timestamp">Znacznik czasowy</string>
+    <string name="port">Port</string>
+    <string name="go_to">Przejdź do</string>
+    <string name="update">Aktualizuj</string>
+    <string name="add_bookmark">Dodaj zakładkę</string>
+    <string name="edit_bookmark">Edytuj zakładkę</string>
+    <string name="bookmarks">Zakładki</string>
+    <string name="no_bookmarks">Brak zakładek</string>
+    <string name="delete_connection_message">Spowoduje to usunięcie wszystkich zakładek w tym połączeniu.</string>
+    <string name="add_directory">Dodaj katalog</string>
+    <string name="upload_summary">Zakończono wysyłanie: %d udanych, %d nie powiodło się</string>
+    <string name="connection_type_ftp">FTP</string>
+    <string name="connection_type_ftps">FTPS</string>
+    <string name="connection_type_sftp">SFTP</string>
+    <string name="utf8">Użyj UTF-8</string>
+    <string name="passive">Użyj trybu pasywnego</string>
+    <string name="private_key">Użyj klucza prywatnego</string>
+    <string name="select_key_file">Wybierz klucz</string>
+    <string name="upload_file">Prześlij plik</string>
+    <string name="bad_file">Zła zawartość pliku</string>
+    <string name="preview">Podgląd</string>
+    <string name="uploading">Wysyłanie: %s</string>
+    <string name="uploading_multi">Wysyłanie: %%s (plik %d/%d)</string>
+    <string name="downloading">Pobieranie: %s</string>
+    <string name="not_started">nie uruchomiono jeszcze</string>
+    <string name="percent">%d%%</string>
+    <string name="save">Zapisz</string>
+    <string name="mtm_accept_cert">Zaakceptować nieznany certyfikat?</string>
+    <string name="mtm_cert_expired">Certyfikat serwera wygasł
+\n
+\n%s.</string>
+    <string name="mtm_unknown_err">%s
+\n
+\n%s</string>
+    <string name="delete_dir_confirmation">Czy na pewno chcesz usunąć ten katalog?</string>
+    <string name="dir_creation_failed">Tworzenie katalogu nie powiodło się</string>
+    <string name="delete_bookmark_confirmation">Czy na pewno chcesz usunąć tę zakładkę?</string>
+    <string name="mtm_accept_server_name">Czy zaakceptować niepasującą nazwę serwera?</string>
+    <string name="mtm_cert_details">Szczegóły certyfikatu:
+\n%s</string>
+    <string name="mtm_decision_always">Zaufaj</string>
+    <string name="mtm_decision_abort">Odrzuć</string>
+    <string name="mtm_cert_details_properties">%s
+\nWażny od %s do %s
+\nSHA-1: %s
+\nSHA-256: %s
+\nPodpisany przez: %s</string>
+    <string name="name">Nazwa</string>
+    <string name="sorting">Sortowanie</string>
+    <string name="descending">Malejąco</string>
+    <string name="security_menu">Opcje zabezpieczeń</string>
+    <string name="del_cert">Usuń zaufane certyfikaty</string>
+    <string name="del_ssh_auth">Usuń zaufane uwierzytelnienia SSH</string>
+    <string name="host_key_changed">UWAGA: Klucz hosta uległ zmianie</string>
+    <string name="as_server">Jako serwer</string>
+    <string name="show_hidden">Pokaż ukryte pliki</string>
+    <string name="download_summary">Zakończono pobieranie: %d udanych, %d nie powiodło się</string>
+    <string name="downloading_multi">Pobieranie: %%s (plik %d/%d)</string>
+    <string name="saf_integration">Włącz integrację SAF (Wymaga ponownego uruchomienia. Nie jest wspierane przez wszystkie serwery)</string>
+    <string name="download_all">Pobierz wszystko</string>
+    <string name="mtm_trust_anchor">Certyfikat serwera nie jest podpisany przez znany Urząd Certyfikacji.
+\n
+\n%s</string>
+    <string name="mtm_parsing_err">Błąd pobierania: %s</string>
+</resources>
