@@ -8,7 +8,9 @@ import net.schmizz.sshj.common.LoggerFactory
 import net.schmizz.sshj.common.StreamCopier
 import net.schmizz.sshj.sftp.FileMode
 import net.schmizz.sshj.sftp.SFTPClient
+import net.schmizz.sshj.xfer.InMemoryDestFile
 import net.schmizz.sshj.xfer.InMemorySourceFile
+import net.schmizz.sshj.xfer.LocalDestFile
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.*
@@ -86,7 +88,20 @@ class SFTPClient(private val context: Context) : Client {
     }
 
     override fun download(name: String, stream: OutputStream): Boolean {
-        StreamCopier(sftp.open(name).RemoteFileInputStream(), stream, LoggerFactory.DEFAULT).copy()
+        sftp.fileTransfer.download(name, object : InMemoryDestFile() {
+            override fun getLength(): Long {
+                throw NotImplementedError()
+            }
+
+            override fun getOutputStream(): OutputStream {
+                return stream
+            }
+
+            override fun getOutputStream(append: Boolean): OutputStream {
+                if (!append) return outputStream
+                throw IllegalArgumentException("appending not supported")
+            }
+        })
         return true
     }
 
