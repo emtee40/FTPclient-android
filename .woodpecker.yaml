@@ -10,4 +10,4 @@ steps:
     commands: 'curl --user qwerty287:$CODEBERG_TOKEN --upload-file app/build/outputs/apk/debug/app-debug.apk "https://codeberg.org/api/packages/qwerty287/generic/ftpclient_debug/debug/debug.apk"'
     secrets: [ CODEBERG_TOKEN ]
     when:
-      event: push
+      event: [push, tag]
