@@ -1,1 +1,2 @@
 - Fix SFTP downloading
+- Add Polish translation (90%)
