@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="files_fragment_label">Filer</string>
+    <string name="download_file">Hämta</string>
+    <string name="add_connection">Lägg till anslutning</string>
+    <string name="edit_connection">Redigera anslutning</string>
+    <string name="title">Titel</string>
+    <string name="password">Lösenord</string>
+    <string name="server">Server</string>
+    <string name="error_occurred">Ett fel inträffade</string>
+    <string name="file_properties">Egenskaper</string>
+    <string name="filename">Filnamn</string>
+    <string name="size">Storlek</string>
+    <string name="owner">Ägare</string>
+    <string name="bytes">%d Byte</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="delete">Ta bort</string>
+    <string name="delete_confirmation">Vill du verkligen ta bort den här filen?</string>
+    <string name="cancel">Avbryt</string>
+    <string name="ok">OK</string>
+    <string name="retry">Försök igen</string>
+    <string name="copy">Kopiera</string>
+    <string name="no_connections">Inga anslutningar</string>
+    <string name="select_file">Välj fil</string>
+    <string name="delete_connection_confirmation">Vill du verkligen ta bort den här anslutningen?</string>
+    <string name="edit">Redigera</string>
+    <string name="rename">Byt namn</string>
+    <string name="new_filename">Nytt filnamn</string>
+    <string name="enter_new_filename">Ange nytt filnamn</string>
+    <string name="group">Gruppera</string>
+    <string name="connections_fragment_label">Anslutningar</string>
+    <string name="username">Användarnamn</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="add_file">Lägg till fil</string>
+</resources>
