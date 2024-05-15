@@ -1,5 +1,8 @@
 # FTPClient - Simple FTP, FTPS and SFTP client for Android
 
+[![CI status](https://ci.codeberg.org/api/badges/7694/status.svg)](https://ci.codeberg.org/repos/7694)
+[![Translation status](https://translate.codeberg.org/widget/ftpclient/svg-badge.svg)](https://translate.codeberg.org/engage/ftpclient/)
+
 FTPClient is a very simple FTP, FPTS and SFTP client for Android 5.0+,
 using [Apache Commons Net](https://commons.apache.org/proper/commons-net/) for FTP and FTPS
 and [SSHJ](https://github.com/hierynomus/sshj/) for SFTP.
