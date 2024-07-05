@@ -7,7 +7,7 @@
     <string name="download_file">Pobierz</string>
     <string name="add_connection">Dodaj połączenie</string>
     <string name="edit_connection">Edytuj połączenie</string>
-    <string name="title">Tytuł</string>
+    <string name="title">Nazwa</string>
     <string name="password">Hasło</string>
     <string name="username">Nazwa użytkownika</string>
     <string name="server">Serwer</string>
@@ -16,7 +16,7 @@
     <string name="filename">Nazwa pliku</string>
     <string name="size">Rozmiar</string>
     <string name="owner">Właściciel</string>
-    <string name="bytes">%d bajtów</string>
+    <string name="bytes">%d B</string>
     <string name="kilobytes">%.3f KiB</string>
     <string name="megabytes">%.3f MiB</string>
     <string name="gigabytes">%.2f GiB</string>
@@ -24,7 +24,7 @@
     <string name="delete">Usuń</string>
     <string name="delete_confirmation">Czy na pewno chcesz usunąć ten plik?</string>
     <string name="cancel">Anuluj</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="retry">Ponów</string>
     <string name="copy">Kopiuj</string>
     <string name="no_connections">Brak połączeń</string>
@@ -107,10 +107,25 @@
     <string name="show_hidden">Pokaż ukryte pliki</string>
     <string name="download_summary">Zakończono pobieranie: %d udanych, %d nie powiodło się</string>
     <string name="downloading_multi">Pobieranie: %%s (plik %d/%d)</string>
-    <string name="saf_integration">Włącz integrację SAF (Wymaga ponownego uruchomienia. Nie jest wspierane przez wszystkie serwery)</string>
+    <string name="saf_integration">Włącz integrację SAF (wymaga ponownego uruchomienia, brak obsługi wszystkich serwerów).</string>
     <string name="download_all">Pobierz wszystko</string>
-    <string name="mtm_trust_anchor">Certyfikat serwera nie jest podpisany przez znany Urząd Certyfikacji.
+    <string name="mtm_trust_anchor">Certyfikat serwera nie jest podpisany przez znany organ certyfikacji.
 \n
 \n%s</string>
     <string name="mtm_parsing_err">Błąd pobierania: %s</string>
+    <string name="error_descriptions">Prawdopodobnie nie masz połączenia internetowego, serwer nie jest obecnie dostępny lub poświadczenia logowania są nieprawidłowe. Jeśli jednak myślisz, że jest to problem z aplikacją, możesz skopiować szczegóły błędu.</string>
+    <string name="directory">Katalog – pozostaw pusty dla katalogu głównego</string>
+    <string name="dir_delete_message">Katalog musi być pusty. Jeśli nie jest pusty, nic się nie stanie.</string>
+    <string name="implicit">Połączenie niejawne</string>
+    <string name="start_directory">Katalog początkowy – pozostaw pusty dla katalogu głównego</string>
+    <string name="points_to">Wskazuje na</string>
+    <string name="host_key_changed_msg">Klucz hosta %1$s zmienił się. Ktoś może Cię teraz podsłuchiwać (atak typu „Man-in-the-the-Middle”)!
+\n
+\nMożliwe również, że klucz hosta został właśnie zmieniony.
+\nOdcisk palca klucza %2$s wysłany przez zdalnego hosta to %3$s.</string>
+    <string name="private_data">Użyj prywatnego połączenia danych</string>
+    <string name="download_multiple">Pobierz wiele</string>
+    <string name="host_key_unknown">Nie można ustalić uwierzytelnień</string>
+    <string name="host_key_unknown_msg">Nie można ustalić uwierzytelnienia %1$s.
+\nOdcisk palca klucza %2$s to %3$s.</string>
 </resources>
