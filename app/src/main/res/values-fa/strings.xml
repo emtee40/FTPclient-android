@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connections_fragment_label">پیوند‌ها</string>
+    <string name="files_fragment_label">پرونده‌ها</string>
+    <string name="download_file">بارگیری</string>
+    <string name="add_connection">افزودن پیوند</string>
+    <string name="edit_connection">ویرایش پیوند</string>
+    <string name="title">سرنام</string>
+    <string name="username">نام کاربری</string>
+    <string name="server">سِرور</string>
+    <string name="error_occurred">ایرَنگی رخ داد</string>
+    <string name="file_properties">ویژگان</string>
+    <string name="size">اندازه</string>
+    <string name="owner">خاوند</string>
+    <string name="bytes">%d بایت</string>
+    <string name="megabytes">%.3f م.ب</string>
+    <string name="gigabytes">%.2f گ.ب</string>
+    <string name="terabytes">%.2f ت.ب</string>
+    <string name="delete">پاک‌کردن</string>
+    <string name="cancel">وازدن</string>
+    <string name="ok">بله</string>
+    <string name="retry">تلاش دوباره</string>
+    <string name="filename">نام پرونده</string>
+    <string name="copy">رونوشت</string>
+    <string name="no_connections">هیچ پیوندی نیست</string>
+    <string name="add_file">افزودن پرونده</string>
+    <string name="select_file">گزیدن پرونده</string>
+    <string name="delete_connection_confirmation">آیا به راستی می‌خواهید این پیوند را پاک کنید؟</string>
+    <string name="edit">ویرایش</string>
+    <string name="rename">بازنامیدن</string>
+    <string name="new_filename">نام نو پرونده</string>
+    <string name="enter_new_filename">نام نو پرونده را اندرون نشانید</string>
+    <string name="group">گروه</string>
+    <string name="enter_dir_name">نام نو پوشه را اندرون نشانید</string>
+    <string name="dir_name">نام پوشه</string>
+    <string name="download_completed">بارگیری به پایان رسید</string>
+    <string name="download_failed">بارگیری ناکام بود</string>
+    <string name="directory_is_empty">پوشه تهی است</string>
+    <string name="delete_completed">پاک‌کردن به پایان رسید</string>
+    <string name="deletion_failed">پاک‌کردن ناکام بود</string>
+    <string name="renaming_completed">بازنامیدن به پایان رسید</string>
+    <string name="upload_completed">بارگذاری به پایان رسید</string>
+    <string name="upload_failed">بارگذاری ناکام بود</string>
+    <string name="dir_creation_completed">ساخت پوشه به پایان رسید</string>
+    <string name="dir_creation_failed">ساخت پوشه ناکام بود</string>
+    <string name="timestamp">نگارش زمانی</string>
+    <string name="port">پورت</string>
+    <string name="go_to">برو به</string>
+    <string name="update">به‌روزرسانی</string>
+    <string name="add_bookmark">نشان‌دار کردن</string>
+    <string name="edit_bookmark">ویرایش نشانگ</string>
+    <string name="bookmarks">نشانگ‌ها</string>
+    <string name="no_bookmarks">بی نشانگ</string>
+    <string name="delete_bookmark_confirmation">آیا به راستی می‌خواهید این نشانگ را پاک کنید؟</string>
+    <string name="add_directory">افزودن پوشه</string>
+    <string name="upload_summary">بارگذاری به پایان رسید: %d پیروزمند بود، %d ناکام بود</string>
+    <string name="connection_type_ftp">FTP</string>
+    <string name="connection_type_ftps">FTPS</string>
+    <string name="connection_type_sftp">SFTP</string>
+    <string name="utf8">بکارگیری UTF-8</string>
+    <string name="passive">بکارگیری سان ایستا</string>
+    <string name="private_key">بکارگیری کلید رازآگین</string>
+    <string name="select_key_file">گزیدن کلید</string>
+    <string name="upload_file">بارگذاری پرونده</string>
+    <string name="bad_file">درونمایه‌ی بد پرونده</string>
+    <string name="preview">پیش پرده</string>
+    <string name="uploading">بارگذاری: %s</string>
+    <string name="downloading">بارگیری: %s</string>
+    <string name="not_started">هنوز آغاز نشده است</string>
+    <string name="percent">%d%%</string>
+    <string name="file_content">درونمایه‌ی پرونده</string>
+    <string name="save">ذخیره</string>
+    <string name="mtm_accept_cert">پذیرش گواهی نامه‌ی ناشناس؟</string>
+    <string name="mtm_trust_anchor">گواهی سرور به دست سرپرست گواهی شناخته شده‌ای مُهر نشده است.
+\n
+\n%s</string>
+    <string name="mtm_cert_expired">گواهی سرور به‌سرآمده است
+\n
+\n%s.</string>
+    <string name="password">گذرواژه</string>
+    <string name="delete_confirmation">آیا به راستی می‌خواهید این پرونده را پاک کنید؟</string>
+    <string name="delete_connection_message">این همه‌ی نشانگ‌ها از این پیوند را پاک خواهد کرد.</string>
+    <string name="mtm_unknown_err">%s
+\n
+\n%s</string>
+    <string name="mtm_parsing_err">ایرنگ هنگام خواندن:%s</string>
+    <string name="mtm_accept_server_name">نام ناهماهنگ سِرور را می‌پذیرید؟</string>
+    <string name="mtm_cert_details">ریزگان گواهی‌نامه:
+\n%s</string>
+    <string name="mtm_decision_always">پذیرش</string>
+    <string name="mtm_decision_abort">پس‌زدن</string>
+    <string name="mtm_cert_details_properties">%s
+\nسهیگ از %s تا %s
+\nSHA-1: %s
+\nSHA-256: %s
+\nمهر شده به دست: %s</string>
+    <string name="name">نام</string>
+    <string name="sorting">چینش</string>
+    <string name="descending">فرودی</string>
+    <string name="security_menu">گزینه‌های هیمنایی</string>
+    <string name="del_cert">پاک‌کردن گواهی های پذیرفته شده</string>
+    <string name="del_ssh_auth">پاک‌کردن بونیشتیْه‌های SSH پذیرفته شده</string>
+    <string name="host_key_unknown">نمی‌توان بونیشتیْه‌ را پذیرش کرد</string>
+    <string name="host_key_changed">هشدار: کلید میزبان دگرش یافته است</string>
+    <string name="as_server">مانند سِرور</string>
+    <string name="show_hidden">نمایش پرونده‌های نهفته</string>
+    <string name="download_multiple">بارگیری چندگانه</string>
+    <string name="download_summary">بارگیری به پایان رسید: %d پیروزمند بود، %d ناکام بود</string>
+    <string name="downloading_multi">بارگیری: %%s (پرونده %d/%d)</string>
+    <string name="download_all">بارگیری همه</string>
+    <string name="app_name">کارآور FTP</string>
+    <string name="error_descriptions">گاس، شما هیتَن اینترنتی ندارید، سِرور در دسترس نیست یا اینکه داده‌های اندرونی شما اشتباه هستند. اگر گمان می‌کنید اشکال از برنامه است، می‌توانید از ریزگان ایرنگ رونوشت بگیرید.</string>
+    <string name="delete_dir_confirmation">آیا به راستی می‌خواهید این پوشه را پاک کنید؟</string>
+    <string name="renaming_failed">بازنامیدن به ناکام بود</string>
+    <string name="kilobytes">%.3f ک.ب</string>
+    <string name="dir_delete_message">این پوشه باید تهی باشد. اگر تهی نباشد، چیزی پیش نخواهد آمد.</string>
+    <string name="points_to">نمارش می‌کند به</string>
+    <string name="directory">پوشه - برای پوشه‌ی بنیادین تهی بگذارید</string>
+    <string name="uploading_multi">بارگذاری: %%s (پرونده %d/%d)</string>
+    <string name="key_error">کلید خوانده نشد</string>
+    <string name="start_directory">پوشه‌ی آغازگر - برای پوشه‌ی بنیادین تهی بگذارید</string>
+</resources>
