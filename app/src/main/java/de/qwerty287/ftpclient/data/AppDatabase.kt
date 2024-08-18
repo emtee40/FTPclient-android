@@ -97,7 +97,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("ALTER TABLE 'connections' ADD COLUMN 'ask_password' INTEGER NOT NULL DEFAULT 0")
                             }
                         },
-                        )
+                    )
                     .build().also { instance = it }
             }
         }

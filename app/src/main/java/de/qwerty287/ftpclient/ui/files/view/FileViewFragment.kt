@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import de.qwerty287.ftpclient.R
-import de.qwerty287.ftpclient.data.AppDatabase
-import de.qwerty287.ftpclient.data.Connection
 import de.qwerty287.ftpclient.databinding.FragmentFileViewBinding
 import de.qwerty287.ftpclient.ui.FragmentUtils.store
 import de.qwerty287.ftpclient.ui.files.FileExtensions
