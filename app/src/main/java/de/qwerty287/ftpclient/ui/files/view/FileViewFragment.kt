@@ -28,13 +28,6 @@ class FileViewFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var file: String
 
-    private var _connection: Connection? = null
-    private var connection: Connection
-        get() = _connection!!
-        set(value) {
-            _connection = value
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,14 +46,8 @@ class FileViewFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    if (_connection == null) {
-                        // get connection from connection id, which is stored in the arguments
-                        connection = AppDatabase.getInstance(requireContext()).connectionDao()
-                            .get(requireArguments().getInt("connection").toLong())!!
-                    }
-
                     val byteList = ArrayList<Int>()
-                    store.getClient(connection).download(file, object : OutputStream() {
+                    store.getClient().download(file, object : OutputStream() {
                         override fun write(b: Int) {
                             byteList.add(b)
                         }
@@ -141,7 +128,7 @@ class FileViewFragment : Fragment() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    store.getClient(connection).upload(file, object : InputStream() {
+                    store.getClient().upload(file, object : InputStream() {
                         private var index = 0
 
                         override fun read(): Int {

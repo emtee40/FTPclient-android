@@ -121,7 +121,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment() {
 
         binding.previewFile.setOnClickListener {
             val options = Bundle()
-            options.putInt("connection", requireArguments().getInt("connection"))
             options.putString("file", getAbsoluteFilePath())
             findNavController().navigate(R.id.action_FilesFragment_to_FileViewFragment, options)
             dismiss()
