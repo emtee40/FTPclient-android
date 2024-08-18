@@ -352,11 +352,11 @@ class FilesFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                withContext(Dispatchers.Main) {
-                    binding.swipeRefresh.isRefreshing = true
-                }
-                try {
+            withContext(Dispatchers.Main) {
+                binding.swipeRefresh.isRefreshing = true
+            }
+            try {
+                withContext(Dispatchers.IO) {
                     files = sortingFilter.sortFilter(
                         if (directory == "") { // get files
                             store.getClient(connection, connectionPassword).list()
@@ -364,43 +364,43 @@ class FilesFragment : Fragment() {
                             store.getClient(connection, connectionPassword).list(directory)
                         }
                     )
+                }
 
-                    withContext(Dispatchers.Main) {
-                        downloadMultipleMenuItem.isVisible = DownloadMultipleDialog.available(files)
-                        if (files.isEmpty()) { // set up RecyclerView or TextView
-                            binding.textviewEmptyDir.isVisible = true
-                            binding.recyclerviewFiles.isVisible = false
-                        } else {
-                            binding.textviewEmptyDir.isVisible = false
-                            binding.recyclerviewFiles.isVisible = true
-                            binding.recyclerviewFiles.adapter =
-                                FilesAdapter(files, { // how to handle single clicks on items
-                                    if (it.isDirectory || (it.isSymbolicLink && it.link != null)) {
-                                        val options = Bundle()
-                                        options.putString(
-                                            "directory",
-                                            subDirectory(it)
-                                        )
-                                        options.putInt("connection", connection.id)
-                                        findNavController().navigate(
-                                            R.id.action_FilesFragment_to_FilesFragment,
-                                            options
-                                        )
-                                    } else if (!it.isUnknown) {
-                                        newFileBottomSheet(it)
-                                    }
-                                }) { // how to handle long clicks on items
-                                    if (!it.isUnknown) {
-                                        newFileBottomSheet(it)
-                                    }
+                withContext(Dispatchers.Main) {
+                    downloadMultipleMenuItem.isVisible = DownloadMultipleDialog.available(files)
+                    if (files.isEmpty()) { // set up RecyclerView or TextView
+                        binding.textviewEmptyDir.isVisible = true
+                        binding.recyclerviewFiles.isVisible = false
+                    } else {
+                        binding.textviewEmptyDir.isVisible = false
+                        binding.recyclerviewFiles.isVisible = true
+                        binding.recyclerviewFiles.adapter =
+                            FilesAdapter(files, { // how to handle single clicks on items
+                                if (it.isDirectory || (it.isSymbolicLink && it.link != null)) {
+                                    val options = Bundle()
+                                    options.putString(
+                                        "directory",
+                                        subDirectory(it)
+                                    )
+                                    options.putInt("connection", connection.id)
+                                    findNavController().navigate(
+                                        R.id.action_FilesFragment_to_FilesFragment,
+                                        options
+                                    )
+                                } else if (!it.isUnknown) {
+                                    newFileBottomSheet(it)
                                 }
-                        }
-                        binding.swipeRefresh.isRefreshing = false
+                            }) { // how to handle long clicks on items
+                                if (!it.isUnknown) {
+                                    newFileBottomSheet(it)
+                                }
+                            }
                     }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        showErrorDialog(e)
-                    }
+                    binding.swipeRefresh.isRefreshing = false
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    showErrorDialog(e)
                 }
             }
 

@@ -42,71 +42,73 @@ class FileViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
-                    val byteList = ArrayList<Int>()
+            try {
+                val byteList = ArrayList<Int>()
+                val isImage: Boolean
+                withContext(Dispatchers.IO) {
                     store.getClient().download(file, object : OutputStream() {
                         override fun write(b: Int) {
                             byteList.add(b)
                         }
                     })
 
-                    val isImage = FileExtensions.isImage(file)
-                    withContext(Dispatchers.Main) {
-                        binding.loading.isVisible = false
-                        if (isImage) {
-                            binding.textView.isVisible = false
-                            try {
-                                BitmapLoader.load(byteList, binding.imageView)
-                            } catch (e: BitmapLoader.LoadException) {
-                                Toast.makeText(requireContext(), R.string.bad_file, Toast.LENGTH_LONG).show()
-                                findNavController().navigateUp()
-                            }
-                        } else {
-                            binding.imageView.isVisible = false
-                            var fileStr = ""
-                            for (b in byteList) {
-                                fileStr += b.toChar().toString()
-                            }
-                            binding.textView.text = fileStr
-                            binding.fileContent.setText(fileStr)
+                    isImage = FileExtensions.isImage(file)
+                }
 
-                            requireActivity().addMenuProvider(object : MenuProvider {
-                                private lateinit var menu: Menu
-
-                                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                                    this.menu = menu
-                                    menuInflater.inflate(R.menu.view_menu, menu)
-                                }
-
-                                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                                    return when (menuItem.itemId) {
-                                        R.id.edit_menu -> {
-                                            binding.textView.isVisible = false
-                                            binding.fileContentLayout.isVisible = true
-                                            menuItem.isVisible = false
-                                            menu.getItem(1).isVisible = true
-                                            true
-                                        }
-
-                                        R.id.save_menu -> {
-                                            saveFile {
-                                                menuItem.isVisible = false
-                                                menu.getItem(0).isVisible = true
-                                            }
-                                            true
-                                        }
-
-                                        else -> false
-                                    }
-                                }
-                            }, viewLifecycleOwner)
+                withContext(Dispatchers.Main) {
+                    binding.loading.isVisible = false
+                    if (isImage) {
+                        binding.textView.isVisible = false
+                        try {
+                            BitmapLoader.load(byteList, binding.imageView)
+                        } catch (e: BitmapLoader.LoadException) {
+                            Toast.makeText(requireContext(), R.string.bad_file, Toast.LENGTH_LONG).show()
+                            findNavController().navigateUp()
                         }
+                    } else {
+                        binding.imageView.isVisible = false
+                        var fileStr = ""
+                        for (b in byteList) {
+                            fileStr += b.toChar().toString()
+                        }
+                        binding.textView.text = fileStr
+                        binding.fileContent.setText(fileStr)
+
+                        requireActivity().addMenuProvider(object : MenuProvider {
+                            private lateinit var menu: Menu
+
+                            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                                this.menu = menu
+                                menuInflater.inflate(R.menu.view_menu, menu)
+                            }
+
+                            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                                return when (menuItem.itemId) {
+                                    R.id.edit_menu -> {
+                                        binding.textView.isVisible = false
+                                        binding.fileContentLayout.isVisible = true
+                                        menuItem.isVisible = false
+                                        menu.getItem(1).isVisible = true
+                                        true
+                                    }
+
+                                    R.id.save_menu -> {
+                                        saveFile {
+                                            menuItem.isVisible = false
+                                            menu.getItem(0).isVisible = true
+                                        }
+                                        true
+                                    }
+
+                                    else -> false
+                                }
+                            }
+                        }, viewLifecycleOwner)
                     }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        ErrorDialog(this@FileViewFragment, e)
-                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    ErrorDialog(this@FileViewFragment, e)
                 }
             }
 
@@ -124,8 +126,8 @@ class FileViewFragment : Fragment() {
         val content = binding.fileContent.text.toString()
 
         lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
+            try {
+                withContext(Dispatchers.IO) {
                     store.getClient().upload(file, object : InputStream() {
                         private var index = 0
 
@@ -138,21 +140,22 @@ class FileViewFragment : Fragment() {
                             return b.code
                         }
                     })
+                }
 
-                    withContext(Dispatchers.Main) {
-                        binding.textView.text = content
-                        binding.textView.isVisible = true
-                        binding.fileContentLayout.isVisible = false
-                        updateMenu()
-                    }
-                } catch (e: Exception) {
-                    withContext(Dispatchers.Main) {
-                        ErrorDialog(this@FileViewFragment, e)
-                    }
-                }
                 withContext(Dispatchers.Main) {
-                    binding.fileContent.isEnabled = true
+                    binding.textView.text = content
+                    binding.textView.isVisible = true
+                    binding.fileContentLayout.isVisible = false
+                    updateMenu()
                 }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    ErrorDialog(this@FileViewFragment, e)
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                binding.fileContent.isEnabled = true
             }
         }
     }
