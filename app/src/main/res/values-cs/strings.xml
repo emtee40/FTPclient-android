@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="uploading">Nahrávání: %s</string>
+    <string name="download_failed">Stahování se nezdařilo</string>
+    <string name="start_directory">Počáteční adresář - pro kořenový adresář ponechte prázdné</string>
+    <string name="mtm_accept_server_name">Přijmout neodpovídající název serveru?</string>
+    <string name="files_fragment_label">Soubory</string>
+    <string name="download_file">Stáhnout</string>
+    <string name="add_connection">Přidat připojení</string>
+    <string name="edit_connection">Upravit připojení</string>
+    <string name="title">Název</string>
+    <string name="password">Heslo</string>
+    <string name="username">Uživatelské jméno</string>
+    <string name="server">Server</string>
+    <string name="error_occurred">Došlo k chybě</string>
+    <string name="file_properties">Vlastnosti</string>
+    <string name="filename">Název souboru</string>
+    <string name="owner">Vlastník</string>
+    <string name="bytes">%d Byte</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="delete">Smazat</string>
+    <string name="cancel">Zrušit</string>
+    <string name="ok">OK</string>
+    <string name="retry">Opakovat</string>
+    <string name="copy">Kopírovat</string>
+    <string name="no_connections">Žádné spojení</string>
+    <string name="add_file">Přidat soubor</string>
+    <string name="select_file">Vybrat soubor</string>
+    <string name="delete_connection_confirmation">Opravdu chcete toto připojení smazat?</string>
+    <string name="edit">Upravit</string>
+    <string name="rename">Přejmenovat</string>
+    <string name="new_filename">Nový název souboru</string>
+    <string name="enter_new_filename">Zadejte nový název souboru</string>
+    <string name="group">Skupina</string>
+    <string name="dir_name">Název adresáře</string>
+    <string name="enter_dir_name">Zadejte název adresáře</string>
+    <string name="delete_dir_confirmation">Opravdu chcete smazat tento adresář?</string>
+    <string name="dir_delete_message">Adresář musí být prázdný. Pokud nebude prázdný, nic se nestane.</string>
+    <string name="upload_completed">Nahrávání dokončeno</string>
+    <string name="upload_failed">Nahrávání se nezdařilo</string>
+    <string name="download_completed">Stahování dokončeno</string>
+    <string name="directory_is_empty">Adresář je prázdný</string>
+    <string name="delete_completed">Smazání dokončeno</string>
+    <string name="deletion_failed">Smazání se nezdařilo</string>
+    <string name="renaming_completed">Přejmenování dokončeno</string>
+    <string name="renaming_failed">Přejmenování se nezdařilo</string>
+    <string name="dir_creation_failed">Vytvoření adresáře se nezdařilo</string>
+    <string name="timestamp">Časové razítko</string>
+    <string name="points_to">Ukazuje na</string>
+    <string name="port">Port</string>
+    <string name="go_to">Přejít na</string>
+    <string name="update">Aktualizovat</string>
+    <string name="add_bookmark">Přidat záložku</string>
+    <string name="edit_bookmark">Upravit záložku</string>
+    <string name="bookmarks">Záložky</string>
+    <string name="no_bookmarks">Žádné záložky</string>
+    <string name="delete_bookmark_confirmation">Opravdu chcete smazat tuto záložku?</string>
+    <string name="delete_connection_message">Tímto odstraníte všechny záložky z tohoto připojení.</string>
+    <string name="add_directory">Přidat adresář</string>
+    <string name="connection_type_ftp">FTP</string>
+    <string name="connection_type_ftps">FTPS</string>
+    <string name="connection_type_sftp">SFTP</string>
+    <string name="implicit">Implicitní spojení</string>
+    <string name="utf8">Použít UTF-8</string>
+    <string name="passive">Použít pasivní režim</string>
+    <string name="private_key">Použít privátní klíč</string>
+    <string name="select_key_file">Vybrat klíč</string>
+    <string name="key_error">Klíč se nepodařilo analyzovat</string>
+    <string name="upload_file">Nahrát soubor</string>
+    <string name="bad_file">Špatný obsah souboru</string>
+    <string name="preview">Náhled</string>
+    <string name="uploading_multi">Nahrávání: %%s (soubor %d/%d)</string>
+    <string name="downloading">Stahování: %s</string>
+    <string name="not_started">ještě nezahájeno</string>
+    <string name="percent">%d%%</string>
+    <string name="file_content">Obsah souboru</string>
+    <string name="save">Uložit</string>
+    <string name="mtm_accept_cert">Přijmout neznámý certifikát?</string>
+    <string name="mtm_trust_anchor">Certifikát serveru není podepsán známou certifikační autoritou.
+\n
+\n%s</string>
+    <string name="mtm_cert_expired">Platnost certifikátu serveru vypršela
+\n
+\n%s.</string>
+    <string name="mtm_unknown_err">%s
+\n
+\n%s</string>
+    <string name="mtm_parsing_err">Chyba analýzy: %s</string>
+    <string name="mtm_cert_details">Podrobnosti certifikátu:
+\n%s</string>
+    <string name="mtm_decision_always">Důvěřovat</string>
+    <string name="mtm_decision_abort">Přerušit</string>
+    <string name="app_name">FTPClient</string>
+    <string name="connections_fragment_label">Připojení</string>
+    <string name="size">Velikost</string>
+    <string name="delete_confirmation">Opravdu chcete tento soubor smazat?</string>
+    <string name="dir_creation_completed">Vytvoření adresáře dokončeno</string>
+    <string name="mtm_cert_details_properties">%s
+\nPlatné od %s do %s
+\nSHA-1: %s
+\nSHA-256: %s
+\nPodepsáno: %s</string>
+    <string name="name">Jméno</string>
+    <string name="sorting">Řazení</string>
+    <string name="descending">Sestupně</string>
+    <string name="security_menu">Možnosti zabezpečení</string>
+    <string name="del_cert">Smazat důvěryhodné certifikáty</string>
+    <string name="del_ssh_auth">Smazat důvěryhodné autenticity SSH</string>
+    <string name="host_key_unknown">Nelze ověřit autenticitu</string>
+    <string name="host_key_unknown_msg">Autenticitu hostitele %1$s nelze zjistit.
+\nOtisk klíče %2$s je %3$s.</string>
+    <string name="host_key_changed">UPOZORNĚNÍ: Klíč hostitele se změnil</string>
+    <string name="host_key_changed_msg">Klíč hostitele %1$s se změnil. Někdo by vás mohl právě teď odposlouchávat (útok man-in-the-middle)!
+\n
+\nJe také možné, že byl právě změněn hostitelský klíč.
+\nOtisk klíče %2$s odeslaný vzdáleným hostitelem je %3$s.</string>
+    <string name="as_server">Jako server</string>
+    <string name="private_data">Použít soukromé datové připojení</string>
+    <string name="show_hidden">Zobrazit skryté soubory</string>
+    <string name="download_multiple">Stáhnout několik</string>
+    <string name="download_summary">Stahování dokončeno: %d úspěšné, %d se nezdařilo</string>
+    <string name="downloading_multi">Stahování: %%s (soubor %d/%d)</string>
+    <string name="saf_integration">Povolit integraci SAF (Vyžaduje restartování. Není podporováno všemi servery.)</string>
+    <string name="download_all">Stáhnout vše</string>
+    <string name="error_descriptions">Pravděpodobně jen nemáte připojení k internetu, server je momentálně nedostupný nebo vaše přihlašovací údaje nejsou správné. Pokud si myslíte, že se jedná o problém s aplikací, můžete zkopírovat podrobnosti o chybě.</string>
+    <string name="directory">Adresář - pro kořenový adresář ponechte prázdné</string>
+    <string name="upload_summary">Nahrávání dokončeno: %d úspěšné, %d se nezdařilo</string>
+</resources>

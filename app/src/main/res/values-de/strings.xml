@@ -111,6 +111,8 @@
     <string name="download_multiple">Mehrere herunterladen</string>
     <string name="download_summary">Herunterladen abgeschlossen: %d erfolgreich, %d fehlgeschlagen</string>
     <string name="downloading_multi">Herunterladen: %%s (Datei %d/%d)</string>
-    <string name="saf_integration">SAF-Integration aktivieren (Erfordert Neustart. Nicht von allen Servern unterstützt.)</string>
+    <string name="saf_integration">SAF-Integration aktivieren (Erfordert Neustart. Nicht von allen Servern unterstützt und kann nicht benutzt werden, wenn das Passwort beim Verbinden erfragt wird.)</string>
     <string name="download_all">Alle herunterladen</string>
+    <string name="ask_password">Beim Verbinden nach Passwort fragen</string>
+    <string name="enter_password">Passwort eingeben</string>
 </resources>
