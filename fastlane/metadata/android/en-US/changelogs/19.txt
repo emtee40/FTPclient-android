@@ -1,0 +1,2 @@
+- Allow to ask for password
+- Add Czech translation
