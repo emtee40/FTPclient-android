@@ -100,18 +100,18 @@ class MainActivity : AppCompatActivity() {
         lateinit var kfm: KeyFileManager
         lateinit var kv: KeyVerifier
 
-        fun setClient(connection: Connection) {
+        private fun setClient(connection: Connection, userPassword: String?) {
             exitClient()
-            client = connection.client(this@MainActivity)
+            client = connection.client(this@MainActivity, userPassword)
             clientConnId = connection.id
         }
 
         /**
          * If [connection] is null, callers must make sure that it's impossible that an old client is used.
          */
-        fun getClient(connection: Connection? = null): Client {
+        fun getClient(connection: Connection? = null, userPassword: String? = null): Client {
             if (connection != null && !connected(connection.id)) {
-                setClient(connection)
+                setClient(connection, userPassword)
             }
 
             return client!!

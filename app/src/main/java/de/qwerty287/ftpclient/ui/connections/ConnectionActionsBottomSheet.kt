@@ -96,6 +96,7 @@ class ConnectionActionsBottomSheet : BottomSheetDialogFragment() {
                 connection.privateData,
                 connection.startDirectory,
                 connection.safIntegration,
+                connection.askPassword,
             )
             lifecycleScope.launch {
                 val newId = db.connectionDao().insert(newConn)

@@ -222,7 +222,8 @@ class Provider : DocumentsProvider() {
     private fun getClient(conn: Connection): Client {
         // TODO close clients?
         if (!clientsCache.containsKey(conn.id)) {
-            clientsCache[conn.id] = conn.client(context!!)
+            // we don't have to set for the password, it's not allowed to enable password storing and SAF
+            clientsCache[conn.id] = conn.client(context!!, null)
         }
         return clientsCache[conn.id]!!
     }

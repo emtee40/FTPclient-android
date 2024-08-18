@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.text.InputType
 import android.view.*
 import android.widget.EditText
 import androidx.activity.result.ActivityResultLauncher
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayInputStream
 
+
 class FilesFragment : Fragment() {
 
     private var _binding: FragmentFilesBinding? = null
@@ -47,6 +49,7 @@ class FilesFragment : Fragment() {
         set(value) {
             _connection = value
         }
+    private var connectionPassword: String? = null
     private val sortingFilter = SortingFilter()
     private lateinit var files: List<File>
     private val downloadMultipleDialog = DownloadMultipleDialog(this)
@@ -103,7 +106,7 @@ class FilesFragment : Fragment() {
             }
         }
         val success: Boolean = try {
-            store.getClient(connection).upload(
+            store.getClient(connection, connectionPassword).upload(
                 getAbsoluteFilePath(getFilenameFromUri(uri)),
                 inputStream!!
             )
@@ -122,7 +125,6 @@ class FilesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         if (_connection == null) {
             // not initialized yet, so store the directory
             directory = requireArguments().getString("directory", "")
@@ -157,7 +159,7 @@ class FilesFragment : Fragment() {
             }
         }, viewLifecycleOwner)
 
-        updateUi()
+        initConnection()
 
         binding.fabAddDir.setOnClickListener {
             val view2 = layoutInflater.inflate(R.layout.dialog_entry, null)
@@ -172,7 +174,7 @@ class FilesFragment : Fragment() {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
                             val success = try {
-                                store.getClient(connection).mkdir(getAbsoluteFilePath(dirName))
+                                store.getClient(connection, connectionPassword).mkdir(getAbsoluteFilePath(dirName))
                             } catch (e: Exception) {
                                 e.printStackTrace()
                                 false
@@ -287,6 +289,56 @@ class FilesFragment : Fragment() {
         }
     }
 
+    private fun initConnection() {
+        lifecycleScope.launch {
+            if (_connection == null) {
+                // get connection from connection id, which is stored in the arguments
+                connection = AppDatabase.getInstance(requireContext()).connectionDao()
+                    .get(requireArguments().getInt("connection").toLong())!!
+
+                if (directory == "") {
+                    directory = connection.startDirectory
+                }
+
+                if (connection.askPassword) {
+                    // open dialog
+                    val view = layoutInflater.inflate(R.layout.dialog_entry, null)
+                    val editText: EditText = view.findViewById(R.id.edittext_dialog)
+                    editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    editText.setHint(R.string.password)
+
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.enter_password)
+                        .setView(view)
+                        .setPositiveButton(R.string.ok) { _, _ ->
+                            connectionPassword = editText.text.toString()
+                            initUi()
+                        }
+                        .setNegativeButton(R.string.cancel) { d, _ ->
+                            d.dismiss()
+                            findNavController().navigateUp()
+                        }
+                        .setOnCancelListener { d ->
+                            d.dismiss()
+                            findNavController().navigateUp()
+                        }
+                        .show()
+                } else {
+                    initUi()
+                }
+
+            } else {
+                updateUi()
+            }
+        }
+    }
+
+    private fun initUi() {
+        checkForUploadUri()
+        checkForUploadUrisMulti()
+        updateUi()
+    }
+
     /**
      * Update the UI. This:
      * * connects to the server and logins with the login credentials
@@ -305,24 +357,11 @@ class FilesFragment : Fragment() {
                     binding.swipeRefresh.isRefreshing = true
                 }
                 try {
-                    if (_connection == null) {
-                        // get connection from connection id, which is stored in the arguments
-                        connection = AppDatabase.getInstance(requireContext()).connectionDao()
-                            .get(requireArguments().getInt("connection").toLong())!!
-
-                        if (directory == "") {
-                            directory = connection.startDirectory
-                        }
-
-                        checkForUploadUri()
-                        checkForUploadUrisMulti()
-                    }
-
                     files = sortingFilter.sortFilter(
                         if (directory == "") { // get files
-                            store.getClient(connection).list()
+                            store.getClient(connection, connectionPassword).list()
                         } else {
-                            store.getClient(connection).list(directory)
+                            store.getClient(connection, connectionPassword).list(directory)
                         }
                     )
 
@@ -487,7 +526,7 @@ class FilesFragment : Fragment() {
                     }
                 }
                 val success: Boolean = try {
-                    store.getClient(connection).upload(
+                    store.getClient(connection, connectionPassword).upload(
                         getAbsoluteFilePath(
                             if (isText) {
                                 text!!.split(" ", limit = 2)[0]

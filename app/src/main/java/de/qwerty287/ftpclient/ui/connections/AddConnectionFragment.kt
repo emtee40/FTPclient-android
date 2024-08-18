@@ -151,6 +151,11 @@ class AddConnectionFragment : Fragment() {
             checkInputs()
         }
 
+        binding.askPassword.setOnCheckedChangeListener { _, checked ->
+            binding.passwordLayout.isVisible = !checked
+            binding.safIntegration.isVisible = !checked
+        }
+
         binding.addConnection.setOnClickListener {
             storeConnection()
             findNavController().navigateUp()
@@ -190,6 +195,7 @@ class AddConnectionFragment : Fragment() {
                 binding.passive.isChecked = c.passive
                 binding.passive.isVisible = c.type != Provider.SFTP
                 binding.safIntegration.isChecked = c.safIntegration
+                binding.askPassword.isChecked = c.askPassword
 
                 if (c.privateKey) {
                     tempKeyFile = store.kfm.finalToTemp(c.id)
@@ -208,6 +214,7 @@ class AddConnectionFragment : Fragment() {
                 else -> Provider.FTP
             }
             val pubKey = binding.privateKey.isChecked && prov == Provider.SFTP
+            val askPassword = binding.askPassword.isChecked
             if (connectionId == null) {
                 val connection = Connection(
                     binding.title.text.toString(),
@@ -215,14 +222,15 @@ class AddConnectionFragment : Fragment() {
                     binding.port.text.toString().toInt(),
                     binding.user.text.toString(),
                     pubKey,
-                    binding.password.text.toString(),
+                    if (askPassword) "" else binding.password.text.toString(),
                     prov,
                     binding.implicit.isChecked,
                     binding.utf8.isChecked,
                     binding.passive.isChecked,
                     binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
-                    binding.safIntegration.isChecked
+                    !askPassword && binding.safIntegration.isChecked,
+                    askPassword,
                 )
                 connectionId = db.insert(connection).toInt()
             } else {
@@ -232,14 +240,15 @@ class AddConnectionFragment : Fragment() {
                     binding.port.text.toString().toInt(),
                     binding.user.text.toString(),
                     pubKey,
-                    binding.password.text.toString(),
+                    if (askPassword) "" else binding.password.text.toString(),
                     prov,
                     binding.implicit.isChecked,
                     binding.utf8.isChecked,
                     binding.passive.isChecked,
                     binding.privateData.isChecked,
                     binding.startDirectory.text.toString(),
-                    binding.safIntegration.isChecked,
+                    !askPassword && binding.safIntegration.isChecked,
+                    askPassword,
                     connectionId!!
                 )
                 db.update(connection)

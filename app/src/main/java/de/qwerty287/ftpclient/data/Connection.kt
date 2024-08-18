@@ -23,19 +23,25 @@ data class Connection(
     @ColumnInfo(name = "private_data") val privateData: Boolean,
     @ColumnInfo(name = "start_directory") val startDirectory: String,
     @ColumnInfo(name = "saf_integration") val safIntegration: Boolean,
+    @ColumnInfo(name = "ask_password") val askPassword: Boolean,
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int = 0
 ) {
-    fun client(context: Context): Client {
+    fun client(context: Context, userPassword: String?): Client {
         val client = type.get(context)
 
         client.implicit = implicit
         client.utf8 = utf8
         client.connect(server, port)
         client.passive = passive
-        if (privateKey) {
-            client.loginPrivKey(username, KeyFileManager.fromContext(context).file(id), password)
+        val pw = if (askPassword) {
+            userPassword!!
         } else {
-            client.login(username, password) // connect to server and login with login credentials
+            password
+        }
+        if (privateKey) {
+            client.loginPrivKey(username, KeyFileManager.fromContext(context).file(id), pw)
+        } else {
+            client.login(username, pw) // connect to server and login with login credentials
         }
         client.privateData = privateData
 
