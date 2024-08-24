@@ -123,9 +123,11 @@
     <string name="download_multiple">Stáhnout několik</string>
     <string name="download_summary">Stahování dokončeno: %d úspěšné, %d se nezdařilo</string>
     <string name="downloading_multi">Stahování: %%s (soubor %d/%d)</string>
-    <string name="saf_integration">Povolit integraci SAF (Vyžaduje restartování. Není podporováno všemi servery.)</string>
+    <string name="saf_integration">Povolit integraci SAF (Vyžaduje restart. Není podporováno všemi servery a nelze jej použít s dotazem na heslo při připojení.)</string>
     <string name="download_all">Stáhnout vše</string>
     <string name="error_descriptions">Pravděpodobně jen nemáte připojení k internetu, server je momentálně nedostupný nebo vaše přihlašovací údaje nejsou správné. Pokud si myslíte, že se jedná o problém s aplikací, můžete zkopírovat podrobnosti o chybě.</string>
     <string name="directory">Adresář - pro kořenový adresář ponechte prázdné</string>
     <string name="upload_summary">Nahrávání dokončeno: %d úspěšné, %d se nezdařilo</string>
+    <string name="enter_password">Zadejte heslo</string>
+    <string name="ask_password">Při připojování požádat o heslo</string>
 </resources>
