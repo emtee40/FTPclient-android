@@ -107,7 +107,7 @@
     <string name="show_hidden">Pokaż ukryte pliki</string>
     <string name="download_summary">Zakończono pobieranie: %d udanych, %d nie powiodło się</string>
     <string name="downloading_multi">Pobieranie: %%s (plik %d/%d)</string>
-    <string name="saf_integration">Włącz integrację SAF (wymaga ponownego uruchomienia, brak obsługi wszystkich serwerów).</string>
+    <string name="saf_integration">Włącz integrację SAF (wymaga ponownego uruchomienia; nie obsługuje wszystkich serwerów i nie można jej używać z pytaniem o hasło przy łączeniu).</string>
     <string name="download_all">Pobierz wszystko</string>
     <string name="mtm_trust_anchor">Certyfikat serwera nie jest podpisany przez znany organ certyfikacji.
 \n
@@ -128,4 +128,6 @@
     <string name="host_key_unknown">Nie można ustalić uwierzytelnień</string>
     <string name="host_key_unknown_msg">Nie można ustalić uwierzytelnienia %1$s.
 \nOdcisk palca klucza %2$s to %3$s.</string>
+    <string name="ask_password">Zapytaj o hasło podczas łączenia</string>
+    <string name="enter_password">Wpisz hasło</string>
 </resources>
