@@ -1,2 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="add_bookmark">添加书签</string>
+    <string name="delete_bookmark_confirmation">是否确定要删除此书签？</string>
+    <string name="mtm_accept_server_name">是否接受不匹配的服务器名称？</string>
+    <string name="select_file">选择文件</string>
+    <string name="delete_connection_confirmation">是否确定要删除此连接？</string>
+    <string name="edit">编辑</string>
+    <string name="rename">重命名</string>
+    <string name="new_filename">新文件名</string>
+    <string name="group">组</string>
+    <string name="dir_name">目录名</string>
+    <string name="enter_dir_name">输入目录名</string>
+    <string name="delete_dir_confirmation">是否确定要删除此目录？</string>
+    <string name="upload_completed">上传已完成</string>
+    <string name="upload_failed">上传失败</string>
+    <string name="download_completed">下载完成</string>
+    <string name="download_failed">下载失败</string>
+    <string name="directory_is_empty">目录为空</string>
+    <string name="delete_completed">删除已完成</string>
+    <string name="deletion_failed">删除失败</string>
+    <string name="renaming_completed">重命名已完成</string>
+    <string name="renaming_failed">重命名失败</string>
+    <string name="dir_creation_completed">目录创建已完成</string>
+    <string name="timestamp">时间戳</string>
+    <string name="points_to">指向</string>
+    <string name="port">端口</string>
+    <string name="go_to">转到</string>
+    <string name="update">更新</string>
+    <string name="edit_bookmark">编辑书签</string>
+    <string name="directory">目录 — 将根目录留空</string>
+    <string name="bookmarks">书签</string>
+    <string name="no_bookmarks">没有书签</string>
+    <string name="add_directory">添加目录</string>
+    <string name="upload_summary">上传完成：%d 成功，%d 失败</string>
+    <string name="connection_type_ftp">FTP</string>
+    <string name="connection_type_ftps">FTPS</string>
+    <string name="connection_type_sftp">SFTP</string>
+    <string name="implicit">隐式连接</string>
+    <string name="add_file">添加文件</string>
+    <string name="dir_delete_message">目录必须为空。如果它不是空的，什么都不会发生。</string>
+    <string name="delete_connection_message">这将从此连接中删除所有书签。</string>
+    <string name="utf8">使用 UTF-8</string>
+    <string name="passive">使用被动模式</string>
+    <string name="private_key">使用私钥</string>
+    <string name="select_key_file">选择密钥</string>
+    <string name="key_error">无法解析密钥</string>
+    <string name="ask_password">连接时询问密码</string>
+    <string name="upload_file">上传文件</string>
+    <string name="bad_file">文件内容错误</string>
+    <string name="preview">预览</string>
+    <string name="uploading">正在上传：%s</string>
+    <string name="uploading_multi">正在上传：%%s（文件 %d/%d）</string>
+    <string name="downloading">正在下载：%s</string>
+    <string name="not_started">尚未开始</string>
+    <string name="percent">%d%%</string>
+    <string name="file_content">文件内容</string>
+    <string name="save">保存</string>
+    <string name="start_directory">起始目录 — 将根目录留空</string>
+    <string name="mtm_accept_cert">接受未知证书？</string>
+    <string name="mtm_trust_anchor">服务器证书不是由已知的证书颁发机构签名的。
+\n
+\n%s</string>
+    <string name="mtm_cert_expired">服务器证书已过期
+\n
+\n%s.</string>
+    <string name="mtm_unknown_err">%s
+\n
+\n%s</string>
+    <string name="mtm_parsing_err">解析错误：%s</string>
+    <string name="mtm_cert_details">证书详细信息：
+\n%s</string>
+    <string name="mtm_decision_always">信任</string>
+    <string name="mtm_decision_abort">放弃</string>
+    <string name="mtm_cert_details_properties">%s
+\n有效期从 %s 到 %s
+\nSHA-1: %s
+\nSHA-256: %s
+\n签名者：%s</string>
+    <string name="name">名称</string>
+    <string name="sorting">排序</string>
+    <string name="descending">降序</string>
+    <string name="security_menu">安全选项</string>
+    <string name="del_cert">删除受信任的证书</string>
+    <string name="del_ssh_auth">删除受信任的 SSH 验证</string>
+    <string name="host_key_unknown_msg">无法确认主机 %1$s 的真实性。
+\n%2$s 的密钥指纹为 %3$s。</string>
+    <string name="host_key_changed">警告：主机密钥已更改</string>
+    <string name="app_name">FTP 客户端</string>
+    <string name="connections_fragment_label">连接</string>
+    <string name="files_fragment_label">文件</string>
+    <string name="download_file">下载</string>
+    <string name="add_connection">添加连接</string>
+    <string name="edit_connection">编辑连接</string>
+    <string name="title">标题</string>
+    <string name="password">密码</string>
+    <string name="username">用户名</string>
+    <string name="server">服务器</string>
+    <string name="error_occurred">发生错误</string>
+    <string name="file_properties">属性</string>
+    <string name="filename">文件名</string>
+    <string name="size">大小</string>
+    <string name="owner">所有者</string>
+    <string name="bytes">%d Byte</string>
+    <string name="kilobytes">%.3f KiB</string>
+    <string name="megabytes">%.3f MiB</string>
+    <string name="gigabytes">%.2f GiB</string>
+    <string name="terabytes">%.2f TiB</string>
+    <string name="delete">删除</string>
+    <string name="delete_confirmation">是否确定要删除此文件？</string>
+    <string name="cancel">取消</string>
+    <string name="ok">确定</string>
+    <string name="retry">重试</string>
+    <string name="error_descriptions">可能，您只是没有互联网连接，服务器当前无法访问，或者您的登录凭据不正确。如果您认为这是应用程序的问题，可以复制错误详细信息。</string>
+    <string name="copy">复制</string>
+    <string name="no_connections">无连接</string>
+    <string name="host_key_unknown">无法确认真实性</string>
+    <string name="as_server">作为服务器</string>
+    <string name="private_data">使用专用数据连接</string>
+    <string name="show_hidden">显示隐藏文件</string>
+    <string name="download_multiple">下载多个</string>
+    <string name="download_summary">下载完成：%d 成功，%d 失败</string>
+    <string name="downloading_multi">正在下载：%%s（文件 %d/%d）</string>
+    <string name="saf_integration">启用 SAF 集成（需要重启。并非所有服务器都支持，并且不能在连接时询问密码。）</string>
+    <string name="download_all">全部下载</string>
+    <string name="enter_password">输入密码</string>
+    <string name="enter_new_filename">输入新文件名</string>
+    <string name="dir_creation_failed">目录创建失败</string>
+    <string name="host_key_changed_msg">%1$s 的主机密钥已更改。现在可能有人在窃听您（中间人攻击）！
+\n
+\n主机密钥也可能刚刚更改。
+\n远程主机发送的 %2$s 密钥的指纹为 %3$s。</string>
+</resources>
